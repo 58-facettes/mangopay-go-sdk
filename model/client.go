@@ -62,17 +62,17 @@ type ClientUpdate struct {
 
 type Address struct {
 	// AddressLine1 is the first line of the address.
-	AddressLine1 string `json:""` // REQUIRED
+	AddressLine1 *string `json:""` // REQUIRED
 	// AddressLine2 is the second line of the address.
-	AddressLine2 string `json:"AddressLine2"` // OPTIONAL
+	AddressLine2 *string `json:"AddressLine2"` // OPTIONAL
 	// City is the city of the address.
-	City string `json:"City"` // REQUIRED
+	City *string `json:"City"` // REQUIRED
 	// Region is the region of the address - this is optional except if the Country is US, CA or MX.
-	Region string `json:"Region"` // REQUIRED
+	Region *string `json:"Region"` // REQUIRED
 	// PostalCode is the postal code of the address - can be alphanumeric, dashes or spaces.
-	PostalCode string `json:"PostalCode"` // REQUIRED
+	PostalCode *string `json:"PostalCode"` // REQUIRED
 	// Country is the Country of the Address.
-	Country string `json:"Countrys"` // REQUIRED
+	Country *string `json:"Countrys"` // REQUIRED
 }
 
 type BusinessType string
