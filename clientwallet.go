@@ -11,7 +11,7 @@ type clientWalletService struct{}
 
 // ListAllClientWallets is listing all the ClientWallet with it's associated Currency and Fundtype.
 func (cws *clientWalletService) ListAllClientWallets() ([]model.ClientWallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"clients/wallets/", nil)
+	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -20,7 +20,7 @@ func (cws *clientWalletService) ListAllClientWallets() ([]model.ClientWallet, er
 
 // ViewAClientWallet is retriving the ClientWallet from the given fundType and currency.
 func (cws *clientWalletService) ViewAClientWallet(fundType model.FundsType, currency model.Currency) (*model.ClientWallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"clients/wallets/"+string(fundType)+"/"+string(currency)+"/", nil)
+	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/"+string(currency)+"/", nil)
 	if err != nil {
 		return nil, err
 	}
