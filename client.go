@@ -19,7 +19,7 @@ func (cs *userService) Update(clientID string, param *model.ClientUpdate) (*mode
 }
 
 // UploadLogo is updating the logo from a given cliendID.
-func (cs *userService) UploadLogo(clientID string, pram *model.ClientLogo) (*model.Client, error) {
+func (cs *userService) UploadLogo(clientID string, param *model.ClientLogo) (*model.Client, error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+clientID+"/clients/logo/", param)
 	if err != nil {
 		return nil, err
