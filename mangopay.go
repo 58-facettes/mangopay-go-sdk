@@ -9,6 +9,7 @@ type Mangopay struct {
 	clientID    string
 	apiKey      string
 	Client      clientService
+	User        userService
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.

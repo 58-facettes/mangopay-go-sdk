@@ -39,7 +39,7 @@ func TestNewWithBasicAuth(t *testing.T) {
 		//Email:              mangopay.String("henri@lepic.com"),
 		Email: nil,
 	}
-	u, err := service.Client.CreateNaturalUser(param)
+	u, err := service.User.CreateNaturalUser(param)
 	t.Log("ner user is created", spew.Sdump(u))
 	t.Log("error is", err)
 }

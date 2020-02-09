@@ -7,9 +7,9 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type clientService struct{}
+type userService struct{}
 
-func (cs *clientService) CreateNaturalUser(param *model.NaturalUserCreate) (*model.NaturalUser, error) {
+func (cs *userService) CreateNaturalUser(param *model.NaturalUserCreate) (*model.NaturalUser, error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, baseURL+"users/natural/", param)
 	if err != nil {
 		return nil, err
