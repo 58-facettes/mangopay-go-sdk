@@ -107,7 +107,50 @@ func (lpt LegalPersonType) String() string {
 	return string(lpt)
 }
 
+type LegalUser struct {
+	User
+	// HeadquartersAddress is the address of the company’s headquarters. This field is mandatory to accept payout (More info here).
+	HeadquartersAddress Address `json:"HeadquartersAddress"`
+	// LegalPersonType is the type of legal user.
+	LegalPersonType LegalPersonType `json:"LegalPersonType"`
+	// Name is the name of the legal user.
+	Name string `json:"Name"`
+	// LegalRepresentativeAddress is the address of the company’s Legal representative person.
+	LegalRepresentativeAddress Address `json:"LegalRepresentativeAddress"`
+	// LegalRepresentativeBirthday is the date of birth of the company’s Legal representative person.
+	//     - be careful to set the right timezone (should be UTC) to avoid 00h becoming 23h (and hence interpreted as the day before).
+	LegalRepresentativeBirthday int64 `json:"LegalRepresentativeBirthday"`
+	// LegalRepresentativeCountryOfResidence is the country of residence of the company’s Legal representative person.
+	LegalRepresentativeCountryOfResidence string `json:"LegalRepresentativeCountryOfResidence"`
+	// LegalRepresentativeNationality is the nationality of the company’s Legal representative person.
+	LegalRepresentativeNationality string `json:"LegalRepresentativeNationality"`
+	// LegalRepresentativeEmail is the email of the company’s Legal representative person - must be a valid.
+	LegalRepresentativeEmail *string `json:"LegalRepresentativeEmail"`
+	// LegalRepresentativeFirstName is the firstname of the company’s Legal representative person.
+	LegalRepresentativeFirstName string `json:"LegalRepresentativeFirstName"`
+	// LegalRepresentativeLastName is the lastname of the company’s Legal representative person.
+	LegalRepresentativeLastName string `json:"LegalRepresentativeLastName"`
+	// CompanyNumber is the official registered number of the business.
+	// This field is mandatory to accept payout (More info here).
+	// You can find the patterns and names in your local country here.
+	CompanyNumber *string `json:"CompanyNumber"`
+	// ShareholderDeclaration is the shareholder declaration of the company.
+	ShareholderDeclaration *string `json:"ShareholderDeclaration"`
+	// ProofOfRegistration is a Mangopay reference to the validated document of the proof of registration of the company.
+	ProofOfRegistration *string `json:"ProofOfRegistration"`
+	// LegalRepresentativeProofOfIdentity
+	LegalRepresentativeProofOfIdentity *string `json:"LegalRepresentativeProofOfIdentity"`
+	// Statute is the business statute of the company.
+	Statute *string `json:"Statute"`
+}
+
 type LegalUserCreate struct {
+	LegalUserUpdate
+	// Email is the person's email address (not more than 12 consecutive numbers) - must be a valid email.
+	Email *string `json:"Email,omitempty"`
+}
+
+type LegalUserUpdate struct {
 	// HeadquartersAddress is the address of the company’s headquarters. This field is mandatory to accept payout (More info here).
 	HeadquartersAddress *Address `json:"HeadquartersAddress,omitempty"`
 	// LegalPersonType is the type of legal user.
@@ -129,14 +172,8 @@ type LegalUserCreate struct {
 	LegalRepresentativeFirstName *string `json:"LegalRepresentativeFirstName,omitempty"`
 	// LegalRepresentativeLastName is the lastname of the company’s Legal representative person
 	LegalRepresentativeLastName *string `json:"LegalRepresentativeLastName,omitempty"`
-	// Email is the person's email address (not more than 12 consecutive numbers) - must be a valid email.
-	Email *string `json:"Email,omitempty"`
 	// CompanyNumber is the official registered number of the business.
 	// This field is mandatory to accept payout (More info here).
 	// You can find the patterns and names in your local country here.
 	CompanyNumber *string `json:"CompanyNumber,omitempty"`
-}
-
-type LegalUserUpdate struct {
-	LegalUserCreate
 }
