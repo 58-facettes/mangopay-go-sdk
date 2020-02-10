@@ -9,8 +9,8 @@ import (
 
 type clientWalletService struct{}
 
-// ListAllClientWallets is listing all the ClientWallet with it's associated Currency and Fundtype.
-func (cws *clientWalletService) ListAllClientWallets() ([]model.ClientWallet, error) {
+// ListAll is listing all the ClientWallet with it's associated Currency and Fundtype.
+func (cws *clientWalletService) ListAll() ([]model.ClientWallet, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/", nil)
 	if err != nil {
 		return nil, err
@@ -18,8 +18,8 @@ func (cws *clientWalletService) ListAllClientWallets() ([]model.ClientWallet, er
 	return parseClientWalletCollection(data)
 }
 
-// ViewAClientWallet is retriving the ClientWallet from the given fundType and currency.
-func (cws *clientWalletService) ViewAClientWallet(fundType model.FundsType, currency model.Currency) (*model.ClientWallet, error) {
+// View is retriving the ClientWallet from the given fundType and currency.
+func (cws *clientWalletService) View(fundType model.FundsType, currency model.Currency) (*model.ClientWallet, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/"+string(currency)+"/", nil)
 	if err != nil {
 		return nil, err
@@ -27,8 +27,8 @@ func (cws *clientWalletService) ViewAClientWallet(fundType model.FundsType, curr
 	return parseClientWallet(data)
 }
 
-// ListClientWalletsByFundsType is retriving all the ClientWallet from the given FundType.
-func (cws *clientWalletService) ListClientWalletsByFundsType(fundType model.FundsType) ([]model.ClientWallet, error) {
+// ListByFundsType is retriving all the ClientWallet from the given FundType.
+func (cws *clientWalletService) ListByFundsType(fundType model.FundsType) ([]model.ClientWallet, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/", nil)
 	if err != nil {
 		return nil, err

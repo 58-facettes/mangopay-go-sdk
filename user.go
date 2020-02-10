@@ -65,7 +65,7 @@ func parseLegalUser(data []byte) (*model.LegalUser, error) {
 
 // ViewUser retreve the User fron the given userID.
 func (cs *userService) ViewUser(userID string) (*model.User, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"users/"+userID+"/", nil)
+	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"users/"+userID+"/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (cs *userService) ViewUser(userID string) (*model.User, error) {
 
 // ListAllUsers retreve all Users from the cliendID.
 func (cs *userService) ListAllUsers() ([]model.User, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"users/", nil)
+	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"users/", nil)
 	if err != nil {
 		return nil, err
 	}

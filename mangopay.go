@@ -5,12 +5,13 @@ import (
 )
 
 type Mangopay struct {
-	isBasicAuth bool
-	clientID    string
-	apiKey      string
-	Clients     clientService
-	Users       userService
-	UserEmoney  userEmoneyService
+	isBasicAuth   bool
+	clientID      string
+	apiKey        string
+	Clients       clientService
+	ClientWallets clientWalletService
+	Users         userService
+	UserEmoney    userEmoneyService
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
