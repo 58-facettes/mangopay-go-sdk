@@ -12,6 +12,7 @@ type API struct {
 	ClientWallets  clientWalletService
 	Users          userService
 	UserEmoney     userEmoneyService
+	Wallets        walletService
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
