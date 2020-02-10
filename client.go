@@ -10,7 +10,7 @@ import (
 type clientService struct{}
 
 // Update is updating the Client from the given ClientUpdate param.
-func (cs *userService) Update(param *model.ClientUpdate) (*model.Client, error) {
+func (userService) Update(param *model.ClientUpdate) (*model.Client, error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"clients/", param)
 	if err != nil {
 		return nil, err
@@ -19,7 +19,7 @@ func (cs *userService) Update(param *model.ClientUpdate) (*model.Client, error) 
 }
 
 // UploadLogo is updating the logo from a given param.
-func (cs *userService) UploadLogo(param *model.ClientLogo) (*model.Client, error) {
+func (userService) UploadLogo(param *model.ClientLogo) (*model.Client, error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"clients/logo/", param)
 	if err != nil {
 		return nil, err
@@ -28,7 +28,7 @@ func (cs *userService) UploadLogo(param *model.ClientLogo) (*model.Client, error
 }
 
 // View is retriving a the Client.
-func (cs *userService) View() (*model.Client, error) {
+func (userService) View() (*model.Client, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/", nil)
 	if err != nil {
 		return nil, err
@@ -38,9 +38,5 @@ func (cs *userService) View() (*model.Client, error) {
 
 func parseClient(data []byte) (*model.Client, error) {
 	var client model.Client
-	err := json.Unmarshal(data, &client)
-	if err != nil {
-		return nil, err
-	}
-	return &client, nil
+	return &client, json.Unmarshal(data, &client)
 }

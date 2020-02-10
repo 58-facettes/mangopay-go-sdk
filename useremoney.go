@@ -13,7 +13,7 @@ type userEmoneyService struct{}
 
 // View retreve the given User's Emoney from the params UserEmoneyParam the UserID is mandatory.
 // If you add a month without the Year this will pick the current year.
-func (ues *userEmoneyService) View(userID string, param *model.UserEmoneyParam) ([]model.UserEmoney, error) {
+func (userEmoneyService) View(userID string, param *model.UserEmoneyParam) ([]model.UserEmoney, error) {
 	url := baseURL + userID + "/emoney/"
 	if param != nil {
 		if param.Year != nil {
@@ -38,9 +38,5 @@ func (ues *userEmoneyService) View(userID string, param *model.UserEmoneyParam) 
 
 func parseUserEmoneyCollection(data []byte) ([]model.UserEmoney, error) {
 	var res []model.UserEmoney
-	err := json.Unmarshal(data, &res)
-	if err != nil {
-		return nil, err
-	}
-	return res, nil
+	return res, json.Unmarshal(data, &res)
 }

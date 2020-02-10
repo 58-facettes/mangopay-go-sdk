@@ -10,7 +10,7 @@ import (
 type clientWalletService struct{}
 
 // ListAll is listing all the ClientWallet with it's associated Currency and Fundtype.
-func (cws *clientWalletService) ListAll() ([]model.ClientWallet, error) {
+func (clientWalletService) ListAll() ([]model.ClientWallet, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/", nil)
 	if err != nil {
 		return nil, err
@@ -19,7 +19,7 @@ func (cws *clientWalletService) ListAll() ([]model.ClientWallet, error) {
 }
 
 // View is retriving the ClientWallet from the given fundType and currency.
-func (cws *clientWalletService) View(fundType model.FundsType, currency model.CurrencyISO3) (*model.ClientWallet, error) {
+func (clientWalletService) View(fundType model.FundsType, currency model.CurrencyISO3) (*model.ClientWallet, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/"+string(currency)+"/", nil)
 	if err != nil {
 		return nil, err
@@ -28,7 +28,7 @@ func (cws *clientWalletService) View(fundType model.FundsType, currency model.Cu
 }
 
 // ListByFundsType is retriving all the ClientWallet from the given FundType.
-func (cws *clientWalletService) ListByFundsType(fundType model.FundsType) ([]model.ClientWallet, error) {
+func (clientWalletService) ListByFundsType(fundType model.FundsType) ([]model.ClientWallet, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/", nil)
 	if err != nil {
 		return nil, err
@@ -38,18 +38,10 @@ func (cws *clientWalletService) ListByFundsType(fundType model.FundsType) ([]mod
 
 func parseClientWallet(data []byte) (*model.ClientWallet, error) {
 	var clientWallet model.ClientWallet
-	err := json.Unmarshal(data, &clientWallet)
-	if err != nil {
-		return nil, err
-	}
-	return &clientWallet, nil
+	return &clientWallet, json.Unmarshal(data, &clientWallet)
 }
 
 func parseClientWalletCollection(data []byte) ([]model.ClientWallet, error) {
 	var clientWalletList []model.ClientWallet
-	err := json.Unmarshal(data, &clientWalletList)
-	if err != nil {
-		return nil, err
-	}
-	return clientWalletList, nil
+	return clientWalletList, json.Unmarshal(data, &clientWalletList)
 }

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	"github.com/58-facettes/mangopay-go-sdk/model"
@@ -45,7 +44,6 @@ func newRequestAndExecute(method, url string, param interface{}) (int, []byte, e
 }
 
 func parseErrorResponse(data []byte) error {
-	log.Printf("error found %v", string(data))
 	var errResp model.Error
 	err := json.Unmarshal(data, &errResp)
 	if err != nil {
