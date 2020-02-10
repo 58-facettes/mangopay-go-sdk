@@ -2,6 +2,10 @@ package model
 
 type CountryISO2 string
 
+func (c CountryISO2) String() string {
+	return string(c)
+}
+
 const (
 	AD CountryISO2 = "AD"
 	AE CountryISO2 = "AE"
