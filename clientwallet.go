@@ -19,7 +19,7 @@ func (cws *clientWalletService) ListAll() ([]model.ClientWallet, error) {
 }
 
 // View is retriving the ClientWallet from the given fundType and currency.
-func (cws *clientWalletService) View(fundType model.FundsType, currency model.Currency) (*model.ClientWallet, error) {
+func (cws *clientWalletService) View(fundType model.FundsType, currency model.CurrencyISO3) (*model.ClientWallet, error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/"+string(currency)+"/", nil)
 	if err != nil {
 		return nil, err
