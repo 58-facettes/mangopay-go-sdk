@@ -1,5 +1,7 @@
 package model
 
+import "github.com/58-facettes/mangopay-go-sdk/model/currency"
+
 type ClientWallet struct {
 	//Balance is the current balance of the wallet
 	Balance Money `json:"Balance"`
@@ -8,9 +10,10 @@ type ClientWallet struct {
 }
 
 type Money struct {
-	// CurrencyIso is the currency - should be ISO_4217 format
-	CurrencyIso string `json:"CurrencyIso"`
-	// Amount of money in the smallest sub-division of the currency, e.g. 12.60 EUR would be represented as 1260 whereas 12 JPY would be represented as just 12)
+	// Currency is the currency - should be ISO_4217 format.
+	Currency currency.ISO3 `json:"CurrencyIso"`
+	// Amount of money in the smallest sub-division of the currency,
+	// e.g. 12.60 EUR would be represented as 1260 whereas 12 JPY would be represented as just 12)
 	Amount int `json:"Amount"`
 }
 

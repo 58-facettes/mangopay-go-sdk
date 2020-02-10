@@ -1,6 +1,6 @@
 package model
 
-import "github.com/58-facettes/mangopay-go-sdk/currency"
+import "github.com/58-facettes/mangopay-go-sdk/model/currency"
 
 // Wallet is an object in which PayIns and Transfers from users are stored in order to collect money.
 // You can pay into a Wallet, withdraw funds from a wallet or transfer funds from a Wallet to another Wallet.

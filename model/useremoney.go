@@ -14,6 +14,6 @@ type UserEmoneyParam struct {
 	Year *int
 	// Month is the month in number (optional).
 	Month *int
-	// Currency in ISO2 displayed (optional).
+	// Currency in ISO3 displayed (optional).
 	Currency *string
 }
