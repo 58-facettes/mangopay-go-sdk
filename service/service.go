@@ -1,4 +1,4 @@
-package mangopay
+package service
 
 import (
 	"bytes"
@@ -9,20 +9,25 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
+var (
+	BaseURL   string
+	BasicAuth string
+)
+
 // DefaultClient is the default Client and is used by Get, Head, and Post.
 var DefaultClient = &http.Client{}
 
-func newRequestAndExecute(method, url string, param interface{}) (int, []byte, error) {
+func newRequestAndExecute(method, uri string, param interface{}) (int, []byte, error) {
 	body, err := json.Marshal(param)
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}
-	r, err := http.NewRequest(method, url, bytes.NewBuffer(body))
+	r, err := http.NewRequest(method, BaseURL+uri, bytes.NewBuffer(body))
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}
 
-	r.Header.Set("Authorization", basicAuth)
+	r.Header.Set("Authorization", BasicAuth)
 	r.Header.Set("Content-Type", "application/json")
 
 	client := DefaultClient

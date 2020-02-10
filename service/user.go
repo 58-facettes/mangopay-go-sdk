@@ -1,4 +1,4 @@
-package mangopay
+package service
 
 import (
 	"encoding/json"
@@ -7,11 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type userService struct{}
+type ServiceUser struct{}
 
 // CreateNaturalUser creates a NaturalUser.
-func (userService) CreateNaturalUser(param *model.NaturalUserCreate) (*model.NaturalUser, error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, baseURL+"users/natural/", param)
+func (ServiceUser) CreateNaturalUser(param *model.NaturalUserCreate) (*model.NaturalUser, error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "users/natural/", param)
 	if err != nil {
 		return nil, err
 	}
@@ -19,8 +19,8 @@ func (userService) CreateNaturalUser(param *model.NaturalUserCreate) (*model.Nat
 }
 
 // UpdateNaturalUser is updating an exinsting NaturalUser.
-func (userService) UpdateNaturalUser(userID string, param *model.NaturalUserUpdate) (*model.NaturalUser, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"users/natural/"+userID+"/", param)
+func (ServiceUser) UpdateNaturalUser(userID string, param *model.NaturalUserUpdate) (*model.NaturalUser, error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "users/natural/"+userID+"/", param)
 	if err != nil {
 		return nil, err
 	}
@@ -37,8 +37,8 @@ func parseNaturalUser(data []byte) (*model.NaturalUser, error) {
 }
 
 // CreateLegalUser is creating a LegalUser.
-func (userService) CreateLegalUser(param *model.LegalUserCreate) (*model.LegalUser, error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, baseURL+"users/legal/", param)
+func (ServiceUser) CreateLegalUser(param *model.LegalUserCreate) (*model.LegalUser, error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "users/legal/", param)
 	if err != nil {
 		return nil, err
 	}
@@ -46,8 +46,8 @@ func (userService) CreateLegalUser(param *model.LegalUserCreate) (*model.LegalUs
 }
 
 // UpdateLegalUser is updating a LegalUser.
-func (userService) UpdateLegalUser(userID string, param *model.LegalUserUpdate) (*model.LegalUser, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"users/legal/"+userID+"/", param)
+func (ServiceUser) UpdateLegalUser(userID string, param *model.LegalUserUpdate) (*model.LegalUser, error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "users/legal/"+userID+"/", param)
 	if err != nil {
 		return nil, err
 	}
@@ -64,8 +64,8 @@ func parseLegalUser(data []byte) (*model.LegalUser, error) {
 }
 
 // ViewUser retreve the User fron the given userID.
-func (userService) ViewUser(userID string) (*model.User, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"users/"+userID+"/", nil)
+func (ServiceUser) ViewUser(userID string) (*model.User, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -73,8 +73,8 @@ func (userService) ViewUser(userID string) (*model.User, error) {
 }
 
 // ListAllUsers retreve all Users from the cliendID.
-func (userService) ListAllUsers() ([]model.User, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"users/", nil)
+func (ServiceUser) ListAllUsers() ([]model.User, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "users/", nil)
 	if err != nil {
 		return nil, err
 	}

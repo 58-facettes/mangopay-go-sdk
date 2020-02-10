@@ -1,17 +1,18 @@
-package mangopay
+package service
 
 import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/58-facettes/mangopay-go-sdk/currency"
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type clientWalletService struct{}
+type ServiceClientWallet struct{}
 
 // ListAll is listing all the ClientWallet with it's associated Currency and Fundtype.
-func (clientWalletService) ListAll() ([]model.ClientWallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/", nil)
+func (ServiceClientWallet) ListAll() ([]model.ClientWallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "clients/wallets/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -19,8 +20,8 @@ func (clientWalletService) ListAll() ([]model.ClientWallet, error) {
 }
 
 // View is retriving the ClientWallet from the given fundType and currency.
-func (clientWalletService) View(fundType model.FundsType, currency model.CurrencyISO3) (*model.ClientWallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/"+string(currency)+"/", nil)
+func (ServiceClientWallet) View(fundType model.Funds, currency currency.ISO3) (*model.ClientWallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "clients/wallets/"+string(fundType)+"/"+string(currency)+"/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -28,8 +29,8 @@ func (clientWalletService) View(fundType model.FundsType, currency model.Currenc
 }
 
 // ListByFundsType is retriving all the ClientWallet from the given FundType.
-func (clientWalletService) ListByFundsType(fundType model.FundsType) ([]model.ClientWallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/wallets/"+string(fundType)+"/", nil)
+func (ServiceClientWallet) ListByFundsType(fundType model.Funds) ([]model.ClientWallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "clients/wallets/"+string(fundType)+"/", nil)
 	if err != nil {
 		return nil, err
 	}

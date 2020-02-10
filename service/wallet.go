@@ -1,4 +1,4 @@
-package mangopay
+package service
 
 import (
 	"encoding/json"
@@ -7,11 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type walletService struct{}
+type ServiceWallet struct{}
 
 // Create is creating a new Wallet.
-func (walletService) Create(param *model.WalletCreate) (*model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, baseURL+"wallets/", param)
+func (ServiceWallet) Create(param *model.WalletCreate) (*model.Wallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "wallets/", param)
 	if err != nil {
 		return nil, err
 	}
@@ -20,8 +20,8 @@ func (walletService) Create(param *model.WalletCreate) (*model.Wallet, error) {
 
 // Update is updating the description of an existing Wallet with the given params.
 // This method allow to have a nil description into it.
-func (walletService) Update(walletID string, param *model.WalletUpdate) (*model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"wallets/"+walletID, param)
+func (ServiceWallet) Update(walletID string, param *model.WalletUpdate) (*model.Wallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "wallets/"+walletID, param)
 	if err != nil {
 		return nil, err
 	}
@@ -29,9 +29,9 @@ func (walletService) Update(walletID string, param *model.WalletUpdate) (*model.
 }
 
 // UpdateDes is a helper that simplify the way to update the description of an existing Wallet with the given params.
-func (walletService) UpdateDesc(walletID, desc string) (*model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"wallets/"+walletID, &model.WalletUpdate{
-		Description: String(desc),
+func (ServiceWallet) UpdateDesc(walletID, desc string) (*model.Wallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "wallets/"+walletID, &model.WalletUpdate{
+		Description: model.String(desc),
 	})
 	if err != nil {
 		return nil, err
@@ -40,8 +40,8 @@ func (walletService) UpdateDesc(walletID, desc string) (*model.Wallet, error) {
 }
 
 // View retrieve the Wallet front the given walletID.
-func (walletService) View(walletID string) (*model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"wallets/"+walletID, nil)
+func (ServiceWallet) View(walletID string) (*model.Wallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "wallets/"+walletID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -49,8 +49,8 @@ func (walletService) View(walletID string) (*model.Wallet, error) {
 }
 
 // View retrieve all the Wallets front a given userID.
-func (walletService) ListFromUser(userID string) ([]model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"users/"+userID+"/wallets/", nil)
+func (ServiceWallet) ListFromUser(userID string) ([]model.Wallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/wallets/", nil)
 	if err != nil {
 		return nil, err
 	}

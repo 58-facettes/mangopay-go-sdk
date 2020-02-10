@@ -1,4 +1,4 @@
-package mangopay
+package service
 
 import (
 	"encoding/json"
@@ -7,11 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type clientService struct{}
+type ServiceClient struct{}
 
 // Update is updating the Client from the given ClientUpdate param.
-func (userService) Update(param *model.ClientUpdate) (*model.Client, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"clients/", param)
+func (ServiceClient) Update(param *model.ClientUpdate) (*model.Client, error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "clients/", param)
 	if err != nil {
 		return nil, err
 	}
@@ -19,8 +19,8 @@ func (userService) Update(param *model.ClientUpdate) (*model.Client, error) {
 }
 
 // UploadLogo is updating the logo from a given param.
-func (userService) UploadLogo(param *model.ClientLogo) (*model.Client, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, baseURL+"clients/logo/", param)
+func (ServiceClient) UploadLogo(param *model.ClientLogo) (*model.Client, error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "clients/logo/", param)
 	if err != nil {
 		return nil, err
 	}
@@ -28,8 +28,8 @@ func (userService) UploadLogo(param *model.ClientLogo) (*model.Client, error) {
 }
 
 // View is retriving a the Client.
-func (userService) View() (*model.Client, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, baseURL+"clients/", nil)
+func (ServiceClient) View() (*model.Client, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "clients/", nil)
 	if err != nil {
 		return nil, err
 	}

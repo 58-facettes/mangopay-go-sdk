@@ -1,4 +1,4 @@
-package mangopay_test
+package service_test
 
 import (
 	"os"
@@ -28,12 +28,12 @@ func init() {
 func TestNewWithBasicAuth(t *testing.T) {
 	api := mangopay.NewWithBasicAuth(clientID, tokenAPI)
 	param := &model.NaturalUserCreate{
-		FirstName:          mangopay.String("Martin"),
-		LastName:           mangopay.String("Gallager"),
+		FirstName:          model.String("Martin"),
+		LastName:           model.String("Gallager"),
 		Address:            nil,
-		Birthday:           mangopay.Time(time.Now()),
-		Nationality:        mangopay.String("FR"),
-		CountryOfResidence: mangopay.String("FR"),
+		Birthday:           model.Time(time.Now()),
+		Nationality:        model.String("FR"),
+		CountryOfResidence: model.String("FR"),
 		Occupation:         nil,
 		IncomeRange:        nil,
 		//Email:              mangopay.String("henri@lepic.com"),

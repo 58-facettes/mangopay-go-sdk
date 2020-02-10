@@ -4,7 +4,7 @@ type ClientWallet struct {
 	//Balance is the current balance of the wallet
 	Balance Money `json:"Balance"`
 	// FundsType is the type of funds in the wallet
-	FundsType FundsType `json:"FundsType"`
+	FundsType Funds `json:"FundsType"`
 }
 
 type Money struct {
@@ -14,10 +14,10 @@ type Money struct {
 	Amount int `json:"Amount"`
 }
 
-type FundsType string
+type Funds string
 
 const (
-	FundsDefault FundsType = "DEFAULT"
-	FundsFees    FundsType = "FEES"
-	FundsCredit  FundsType = "CREDIT"
+	FundsDefault Funds = "DEFAULT"
+	FundsFees    Funds = "FEES"
+	FundsCredit  Funds = "CREDIT"
 )

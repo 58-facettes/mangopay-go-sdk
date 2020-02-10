@@ -1,4 +1,4 @@
-package mangopay
+package service
 
 import (
 	"encoding/json"
@@ -9,12 +9,12 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type userEmoneyService struct{}
+type ServiceUserEmoney struct{}
 
 // View retreve the given User's Emoney from the params UserEmoneyParam the UserID is mandatory.
 // If you add a month without the Year this will pick the current year.
-func (userEmoneyService) View(userID string, param *model.UserEmoneyParam) ([]model.UserEmoney, error) {
-	url := baseURL + userID + "/emoney/"
+func (ServiceUserEmoney) View(userID string, param *model.UserEmoneyParam) ([]model.UserEmoney, error) {
+	url := userID + "/emoney/"
 	if param != nil {
 		if param.Year != nil {
 			url += fmt.Sprint(*param.Year) + "/"

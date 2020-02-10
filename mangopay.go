@@ -1,18 +1,21 @@
 package mangopay
 
 import (
-	"time"
+	"encoding/base64"
+
+	"github.com/58-facettes/mangopay-go-sdk/service"
 )
 
 type API struct {
 	isBasicAuth    bool
 	clientID       string
 	clientPassword string
-	Clients        clientService
-	ClientWallets  clientWalletService
-	Users          userService
-	UserEmoney     userEmoneyService
-	Wallets        walletService
+	// List of all avalable services.
+	Clients       *service.ServiceClient
+	ClientWallets *service.ServiceClientWallet
+	Users         *service.ServiceUser
+	UserEmoney    *service.ServiceUserEmoney
+	Wallets       *service.ServiceWallet
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
@@ -33,15 +36,34 @@ func (api *API) init() {
 	initBaseURL(api.clientID)
 }
 
-func String(str string) *string {
-	return &str
+var basicAuth string
+
+// initBasicAuth set the basicAuth variable that will be used with "Authorization" in the header.
+func initBasicAuth(user, password string) {
+	basicAuth = "Basic " + base64.StdEncoding.EncodeToString([]byte(user+":"+password))
 }
 
-func Time(t time.Time) *int64 {
-	res := t.UTC().Unix()
-	return &res
-}
+const (
+	APIVersion = "v2.01"
+)
 
-func Int(i int) *int {
-	return &i
+const (
+	// ModeTest is for using the API sandbox for testing purposes.
+	ModeTest = "test"
+	// ModeProduction is of the API production usage.
+	ModeProduction = "production"
+)
+
+// Mode is the mode of the SDK calls by defaults this is set to test mode.
+var Mode = ModeTest
+
+var baseURL string
+
+func initBaseURL(ClientID string) {
+	switch Mode {
+	case ModeProduction:
+		baseURL = "https://api.mangopay.com/" + APIVersion + "/" + ClientID + "/"
+	default:
+		baseURL = "https://api.sandbox.mangopay.com/" + APIVersion + "/" + ClientID + "/"
+	}
 }

@@ -89,40 +89,40 @@ type Address struct {
 	Country *string `json:"Countrys"`
 }
 
-type BusinessType string
+type Business string
 
 const (
-	BusinessMarketplace  BusinessType = "MARKETPLACE"
-	BusinessCrowdfunding BusinessType = "CROWDFUNDING"
-	BusinessFranchise    BusinessType = "FRANCHISE"
-	BusinessOther        BusinessType = "OTHER"
+	BusinessMarketplace  Business = "MARKETPLACE"
+	BusinessCrowdfunding Business = "CROWDFUNDING"
+	BusinessFranchise    Business = "FRANCHISE"
+	BusinessOther        Business = "OTHER"
 )
 
 type PlatformCategorization struct {
 	// BusinessType is the business type of your Platform.
-	BusinessType BusinessType // OPTIONAL
+	BusinessType Business // OPTIONAL
 	// Sector is the sector of your platform activity.
-	Sector SectorType // OPTIONAL
+	Sector Sector // OPTIONAL
 }
 
-type SectorType string
+type Sector string
 
 const (
-	SectorRentals                        SectorType = "RENTALS"
-	SectorStoreFashionAccessoriesObjects SectorType = "STORES_FASHION_ACCESSORIES_OBJECTS"
-	SectorBeautyCosmeticsHealth          SectorType = "BEAUTY_COSMETICS_HEALTH"
-	SectorFoodWineRestaurants            SectorType = "FOOD_WINE_RESTAURANTS"
-	SectorHospitalityTravelCording       SectorType = "HOSPITALITY_TRAVEL_CORIDING"
-	SectorArtMusicEntretainement         SectorType = "ART_MUSIC_ENTERTAINMENT"
-	SectorFurnitureGarden                SectorType = "FURNITURE_GARDEN"
-	SectorServicesJobbingEducation       SectorType = "SERVICES_JOBBING_EDUCATION"
-	SectorSportRecreationActivities      SectorType = "SPORT_RECREATION_ACTIVITIES"
-	SectorTicketing                      SectorType = "TICKETING"
-	SectorLoan                           SectorType = "LOAN"
-	SectorEquity                         SectorType = "EQUITY"
-	SectorPropertyEquity                 SectorType = "PROPERTY_EQUITY"
-	SectorRewardsCharity                 SectorType = "REWARDS_CHARITY"
-	SectorPoolGroupPayment               SectorType = "POOL_GROUP_PAYMENT"
-	SectorFranchise                      SectorType = "FRANCHISE"
-	SectorOther                          SectorType = "OTHER"
+	SectorRentals                        Sector = "RENTALS"
+	SectorStoreFashionAccessoriesObjects Sector = "STORES_FASHION_ACCESSORIES_OBJECTS"
+	SectorBeautyCosmeticsHealth          Sector = "BEAUTY_COSMETICS_HEALTH"
+	SectorFoodWineRestaurants            Sector = "FOOD_WINE_RESTAURANTS"
+	SectorHospitalityTravelCording       Sector = "HOSPITALITY_TRAVEL_CORIDING"
+	SectorArtMusicEntretainement         Sector = "ART_MUSIC_ENTERTAINMENT"
+	SectorFurnitureGarden                Sector = "FURNITURE_GARDEN"
+	SectorServicesJobbingEducation       Sector = "SERVICES_JOBBING_EDUCATION"
+	SectorSportRecreationActivities      Sector = "SPORT_RECREATION_ACTIVITIES"
+	SectorTicketing                      Sector = "TICKETING"
+	SectorLoan                           Sector = "LOAN"
+	SectorEquity                         Sector = "EQUITY"
+	SectorPropertyEquity                 Sector = "PROPERTY_EQUITY"
+	SectorRewardsCharity                 Sector = "REWARDS_CHARITY"
+	SectorPoolGroupPayment               Sector = "POOL_GROUP_PAYMENT"
+	SectorFranchise                      Sector = "FRANCHISE"
+	SectorOther                          Sector = "OTHER"
 )

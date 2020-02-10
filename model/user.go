@@ -4,32 +4,32 @@ type User struct {
 	// ID is the user's unique identification.
 	ID string `json:"id"`
 	// PersonType is the type of user.
-	PersonType PersonType `json:"PersonType"`
+	PersonType Person `json:"PersonType"`
 	// Email is the person's email address (not more than 12 consecutive numbers) - must be a valid email.
 	Email string `json:"Email"`
 	// KYCLevel More info here.
-	KYCLevel KYCLevelType `json:"KYCLevel"`
+	KYCLevel KYCLevel `json:"KYCLevel"`
 	// Tag is a custom data that you can add to this item.
 	Tag *string `json:"Tag"`
 	// CreationDate is when the item was created.
 	CreationDate int64 `json:"CreationDate"`
 }
 
-type PersonType string
+type Person string
 
 const (
-	PersonNatural PersonType = "NATURAL"
-	PersonLegal   PersonType = "LEGAL"
+	PersonNatural Person = "NATURAL"
+	PersonLegal   Person = "LEGAL"
 )
 
-// KYCLevelType there are two levels of user verification, also called API levels: Light (default) and Regular.
+// KYCLevel there are two levels of user verification, also called API levels: Light (default) and Regular.
 // Light (default) verification requires basic information provided during the user creation process.
 // Regular verification requires identity proof which allows users to handle unlimited funds freely.
-type KYCLevelType string
+type KYCLevel string
 
 const (
-	KYCLevelLight   KYCLevelType = "LIGHT"
-	KYCLevelRegular KYCLevelType = "REGULAR"
+	KYCLevelLight   KYCLevel = "LIGHT"
+	KYCLevelRegular KYCLevel = "REGULAR"
 )
 
 type NaturalUser struct {
@@ -95,15 +95,15 @@ type NaturalUserUpdate struct {
 	NaturalUserCreate
 }
 
-type LegalPersonType string
+type LegalPerson string
 
 const (
-	LegalPersonBusiness     LegalPersonType = "BUSINESS"
-	LegalPersonOrganization LegalPersonType = "ORGANIZATION"
-	LegalPersonSoletrader   LegalPersonType = "SOLETRADER"
+	LegalPersonBusiness     LegalPerson = "BUSINESS"
+	LegalPersonOrganization LegalPerson = "ORGANIZATION"
+	LegalPersonSoletrader   LegalPerson = "SOLETRADER"
 )
 
-func (lpt LegalPersonType) String() string {
+func (lpt LegalPerson) String() string {
 	return string(lpt)
 }
 
@@ -112,7 +112,7 @@ type LegalUser struct {
 	// HeadquartersAddress is the address of the company’s headquarters. This field is mandatory to accept payout (More info here).
 	HeadquartersAddress Address `json:"HeadquartersAddress"`
 	// LegalPersonType is the type of legal user.
-	LegalPersonType LegalPersonType `json:"LegalPersonType"`
+	LegalPersonType LegalPerson `json:"LegalPersonType"`
 	// Name is the name of the legal user.
 	Name string `json:"Name"`
 	// LegalRepresentativeAddress is the address of the company’s Legal representative person.
@@ -154,7 +154,7 @@ type LegalUserUpdate struct {
 	// HeadquartersAddress is the address of the company’s headquarters. This field is mandatory to accept payout (More info here).
 	HeadquartersAddress *Address `json:"HeadquartersAddress,omitempty"`
 	// LegalPersonType is the type of legal user.
-	LegalPersonType LegalPersonType `json:"LegalPersonType,omitempty"`
+	LegalPersonType LegalPerson `json:"LegalPersonType,omitempty"`
 	// Name is the name of the legal user.
 	Name *string `json:"Name,omitempty"`
 	// LegalRepresentativeAddress is the address of the company’s Legal representative person.
