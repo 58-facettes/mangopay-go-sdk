@@ -4,26 +4,32 @@ import (
 	"time"
 )
 
-type Mangopay struct {
-	isBasicAuth   bool
-	clientID      string
-	apiKey        string
-	Clients       clientService
-	ClientWallets clientWalletService
-	Users         userService
-	UserEmoney    userEmoneyService
+type API struct {
+	isBasicAuth    bool
+	clientID       string
+	clientPassword string
+	Clients        clientService
+	ClientWallets  clientWalletService
+	Users          userService
+	UserEmoney     userEmoneyService
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
-func NewWithBasicAuth(CliendID, APIkey string) *Mangopay {
-	m := Mangopay{
-		isBasicAuth: true,
-		clientID:    CliendID,
-		apiKey:      APIkey,
+func NewWithBasicAuth(cliendID, clientPassword string) *API {
+	api := API{
+		isBasicAuth:    true,
+		clientID:       cliendID,
+		clientPassword: clientPassword,
 	}
-	initBasicAuth(CliendID, APIkey)
-	initBaseURL(CliendID)
-	return &m
+	api.init()
+	return &api
+}
+
+func (api *API) init() {
+	if api.isBasicAuth {
+		initBasicAuth(api.clientID, api.clientPassword)
+	}
+	initBaseURL(api.clientID)
 }
 
 func String(str string) *string {

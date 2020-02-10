@@ -26,7 +26,7 @@ func init() {
 	}
 }
 func TestNewWithBasicAuth(t *testing.T) {
-	service := mangopay.NewWithBasicAuth(clientID, tokenAPI)
+	api := mangopay.NewWithBasicAuth(clientID, tokenAPI)
 	param := &model.NaturalUserCreate{
 		FirstName:          mangopay.String("Martin"),
 		LastName:           mangopay.String("Gallager"),
@@ -39,7 +39,7 @@ func TestNewWithBasicAuth(t *testing.T) {
 		//Email:              mangopay.String("henri@lepic.com"),
 		Email: nil,
 	}
-	u, err := service.Users.CreateNaturalUser(param)
+	u, err := api.Users.CreateNaturalUser(param)
 	t.Log("ner user is created", spew.Sdump(u))
 	t.Log("error is", err)
 }
