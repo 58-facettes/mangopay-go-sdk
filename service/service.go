@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
@@ -62,4 +63,46 @@ func addQuery(uri string, query ...model.Query) string {
 		return query[0].URI(uri)
 	}
 	return uri
+}
+
+type RateLimit struct {
+	//
+	Limit int // X-RateLimit
+	// RateLimit int // X-RateLimit
+	// RateLimit int // X-RateLimit
+	// RateLimit int // X-RateLimit
+	LimitRemaining int // X-RateLimit-Remaining
+	// LimitRemaining int // X-RateLimit-Remaining
+	// LimitRemaining int // X-RateLimit-Remaining
+	// LimitRemaining int // X-RateLimit-Remaining
+	LimitReset int // X-RateLimit-Reset
+	// LimitReset int // X-RateLimit-Reset
+	// LimitReset int // X-RateLimit-Reset
+	// LimitReset int // X-RateLimit-Reset
+}
+
+func GetRateLimit() (*RateLimit, error) {
+	r, err := http.NewRequest(http.MethodGet, BaseURL+"clients/", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	r.Header.Set("Authorization", BasicAuth)
+	r.Header.Set("Content-Type", "application/json")
+
+	client := DefaultClient
+	resp, err := client.Do(r)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	limit, _ := strconv.Atoi(resp.Header.Get("X-RateLimit"))
+	remaining, _ := strconv.Atoi(resp.Header.Get("X-RateLimit-Remaining"))
+	reset, _ := strconv.Atoi(resp.Header.Get("X-RateLimit-Reset"))
+	return &RateLimit{
+		Limit:          limit,
+		LimitRemaining: remaining,
+		LimitReset:     reset,
+	}, nil
 }

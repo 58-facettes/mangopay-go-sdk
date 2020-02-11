@@ -73,8 +73,8 @@ func (ServiceUser) ViewUser(userID string) (*model.User, error) {
 }
 
 // ListAllUsers retreve all Users from the cliendID.
-func (ServiceUser) ListAllUsers() ([]model.User, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/", nil)
+func (ServiceUser) ListAllUsers(query ...model.Query) ([]model.User, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("users/", query...), nil)
 	if err != nil {
 		return nil, err
 	}
