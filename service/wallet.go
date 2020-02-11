@@ -49,8 +49,8 @@ func (ServiceWallet) View(walletID string) (*model.Wallet, error) {
 }
 
 // View retrieve all the Wallets front a given userID.
-func (ServiceWallet) ListFromUser(userID string) ([]model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/wallets/", nil)
+func (ServiceWallet) ListFromUser(userID string, query ...model.Query) ([]model.Wallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("users/"+userID+"/wallets/", query...), nil)
 	if err != nil {
 		return nil, err
 	}

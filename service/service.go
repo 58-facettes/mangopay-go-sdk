@@ -56,3 +56,10 @@ func parseErrorResponse(data []byte) error {
 	}
 	return errResp
 }
+
+func addQuery(uri string, query ...model.Query) string {
+	if query != nil && len(query) > 0 {
+		return query[0].URI(uri)
+	}
+	return uri
+}

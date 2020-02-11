@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/58-facettes/mangopay-go-sdk/currency"
 	"github.com/58-facettes/mangopay-go-sdk/model"
+	"github.com/58-facettes/mangopay-go-sdk/model/currency"
 )
 
 type ServiceClientWallet struct{}
 
 // ListAll is listing all the ClientWallet with it's associated Currency and Fundtype.
-func (ServiceClientWallet) ListAll() ([]model.ClientWallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "clients/wallets/", nil)
+func (ServiceClientWallet) ListAll(query ...model.Query) ([]model.ClientWallet, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("clients/wallets/", query...), nil)
 	if err != nil {
 		return nil, err
 	}

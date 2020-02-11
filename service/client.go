@@ -28,8 +28,8 @@ func (ServiceClient) UploadLogo(param *model.ClientLogo) (*model.Client, error) 
 }
 
 // View is retriving a the Client.
-func (ServiceClient) View() (*model.Client, error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "clients/", nil)
+func (ServiceClient) View(query ...model.Query) (*model.Client, error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("clients/", query...), nil)
 	if err != nil {
 		return nil, err
 	}
