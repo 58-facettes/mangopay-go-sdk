@@ -16,6 +16,7 @@ type API struct {
 	Users         *service.ServiceUser
 	UserEmoney    *service.ServiceUserEmoney
 	Wallets       *service.ServiceWallet
+	Cards         *service.ServiceCard
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
@@ -44,6 +45,7 @@ func initBasicAuth(user, password string) {
 }
 
 const (
+	// APIVersion is the current API version that is used in the URI.
 	APIVersion = "v2.01"
 )
 
