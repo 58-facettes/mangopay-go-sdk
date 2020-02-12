@@ -76,17 +76,17 @@ func NewClientLogo(data []byte) *ClientLogo {
 
 type Address struct {
 	// AddressLine1 is the first line of the address.
-	AddressLine1 *string `json:""`
+	AddressLine1 string `json:""`
 	// AddressLine2 is the second line of the address.
-	AddressLine2 *string `json:"AddressLine2"`
+	AddressLine2 string `json:"AddressLine2,omitempty"`
 	// City is the city of the address.
-	City *string `json:"City"`
+	City string `json:"City"`
 	// Region is the region of the address - this is optional except if the Country is US, CA or MX.
-	Region *string `json:"Region"`
+	Region string `json:"Region"`
 	// PostalCode is the postal code of the address - can be alphanumeric, dashes or spaces.
-	PostalCode *string `json:"PostalCode"`
+	PostalCode string `json:"PostalCode"`
 	// Country is the Country of the Address.
-	Country *string `json:"Countrys"`
+	Country string `json:"Countrys"`
 }
 
 type Business string
