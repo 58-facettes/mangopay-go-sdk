@@ -10,59 +10,49 @@ import (
 type ServiceWallet struct{}
 
 // Create is creating a new Wallet.
-func (ServiceWallet) Create(param *model.WalletCreate) (*model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "wallets/", param)
+func (ServiceWallet) Create(payload *model.WalletCreate) (res *model.Wallet, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "wallets/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
-	return parseWallet(data)
+	return res, json.Unmarshal(data, res)
 }
 
-// Update is updating the description of an existing Wallet with the given params.
+// Update is updating the description of an existing Wallet with the given payloads.
 // This method allow to have a nil description into it.
-func (ServiceWallet) Update(walletID string, param *model.WalletUpdate) (*model.Wallet, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, "wallets/"+walletID, param)
+func (ServiceWallet) Update(walletID string, payload *model.WalletUpdate) (res *model.Wallet, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "wallets/"+walletID, payload)
 	if err != nil {
-		return nil, err
+		return
 	}
-	return parseWallet(data)
+	return res, json.Unmarshal(data, res)
 }
 
-// UpdateDes is a helper that simplify the way to update the description of an existing Wallet with the given params.
-func (ServiceWallet) UpdateDesc(walletID, desc string) (*model.Wallet, error) {
+// UpdateDes is a helper that simplify the way to update the description of an existing Wallet with the given payloads.
+func (ServiceWallet) UpdateDesc(walletID, desc string) (res *model.Wallet, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, "wallets/"+walletID, &model.WalletUpdate{
 		Description: model.String(desc),
 	})
 	if err != nil {
-		return nil, err
+		return
 	}
-	return parseWallet(data)
+	return res, json.Unmarshal(data, res)
 }
 
 // View retrieve the Wallet front the given walletID.
-func (ServiceWallet) View(walletID string) (*model.Wallet, error) {
+func (ServiceWallet) View(walletID string) (res *model.Wallet, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "wallets/"+walletID, nil)
 	if err != nil {
-		return nil, err
+		return
 	}
-	return parseWallet(data)
+	return res, json.Unmarshal(data, res)
 }
 
 // View retrieve all the Wallets front a given userID.
-func (ServiceWallet) ListFromUser(userID string, query ...model.Query) ([]model.Wallet, error) {
+func (ServiceWallet) ListFromUser(userID string, query ...model.Query) (res []model.Wallet, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("users/"+userID+"/wallets/", query...), nil)
 	if err != nil {
-		return nil, err
+		return
 	}
-	return parseWalletCollection(data)
-}
-
-func parseWallet(data []byte) (*model.Wallet, error) {
-	var res model.Wallet
-	return &res, json.Unmarshal(data, &res)
-}
-
-func parseWalletCollection(data []byte) ([]model.Wallet, error) {
-	var res []model.Wallet
-	return res, json.Unmarshal(data, &res)
+	return res, json.Unmarshal(data, res)
 }

@@ -28,8 +28,8 @@ func (ServiceBankAccount) ViewFromUser(userID string) (res []model.BankAccount, 
 }
 
 // CreateIBAN is creating a new IBAN for a given userID.
-func (ServiceBankAccount) CreateIBAN(userID string, param *model.BankAccountIBANCreate) (res model.BankAccountIBAN, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/iban/", param)
+func (ServiceBankAccount) CreateIBAN(userID string, payload *model.BankAccountIBANCreate) (res model.BankAccountIBAN, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/iban/", payload)
 	if err != nil {
 		return
 	}
@@ -38,8 +38,8 @@ func (ServiceBankAccount) CreateIBAN(userID string, param *model.BankAccountIBAN
 
 // CreateUS is creating a new BankAccount in US for the given userID.
 // ?? not 100% positive on the return result in the documentation there is no BankAccountUS describe ??
-func (ServiceBankAccount) CreateUS(userID string, param *model.BankAccountUSCreate) (res model.BankAccount, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/us/", param)
+func (ServiceBankAccount) CreateUS(userID string, payload *model.BankAccountUSCreate) (res model.BankAccount, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/us/", payload)
 	if err != nil {
 		return
 	}
@@ -47,8 +47,8 @@ func (ServiceBankAccount) CreateUS(userID string, param *model.BankAccountUSCrea
 }
 
 // CreateCA is creating a new BankAccount in CA for the given userID.
-func (ServiceBankAccount) CreateCA(userID string, param *model.BankAccountCACreate) (res model.BankAccountCA, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/ca/", param)
+func (ServiceBankAccount) CreateCA(userID string, payload *model.BankAccountCACreate) (res model.BankAccountCA, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/ca/", payload)
 	if err != nil {
 		return
 	}
@@ -56,8 +56,8 @@ func (ServiceBankAccount) CreateCA(userID string, param *model.BankAccountCACrea
 }
 
 // CreateGB is creating a new BankAccount in GB for the given userID.
-func (ServiceBankAccount) CreateGB(userID string, param *model.BankAccountGBCreate) (res model.BankAccountGB, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/gb/", param)
+func (ServiceBankAccount) CreateGB(userID string, payload *model.BankAccountGBCreate) (res model.BankAccountGB, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/gb/", payload)
 	if err != nil {
 		return
 	}
@@ -65,8 +65,8 @@ func (ServiceBankAccount) CreateGB(userID string, param *model.BankAccountGBCrea
 }
 
 // CreateOther is creating a new BankAccount in other bank type for the given userID.
-func (ServiceBankAccount) CreateOther(userID string, param *model.BankAccountOtherCreate) (res model.BankAccountOther, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/other/", param)
+func (ServiceBankAccount) CreateOther(userID string, payload *model.BankAccountOtherCreate) (res model.BankAccountOther, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/bankaccounts/other/", payload)
 	if err != nil {
 		return
 	}

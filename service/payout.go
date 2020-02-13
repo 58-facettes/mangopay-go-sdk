@@ -10,10 +10,10 @@ import (
 type ServicePayOut struct{}
 
 // Create is creating a payout form the given PayOutCreate payload.
-func (ServicePayOut) Create(param *model.PayOutCreate) (res *model.PayOut, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "payouts/bankwire/", param)
+func (ServicePayOut) Create(payload *model.PayOutCreate) (res *model.PayOut, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "payouts/bankwire/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -22,7 +22,7 @@ func (ServicePayOut) Create(param *model.PayOutCreate) (res *model.PayOut, err e
 func (ServicePayOut) View(payoutID string) (res *model.PayOut, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "payouts/"+payoutID+"/", nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }

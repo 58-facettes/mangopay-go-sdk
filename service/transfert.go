@@ -10,24 +10,19 @@ import (
 type ServiceTransfert struct{}
 
 // Create is creating a new Tranfert.
-func (ServiceTransfert) Create(param *model.Transfert) (*model.Transfert, error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "transfers/", param)
+func (ServiceTransfert) Create(payload *model.Transfert) (res *model.Transfert, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "transfers/", payload)
 	if err != nil {
 		return nil, err
 	}
-	return parseTransfert(data)
+	return res, json.Unmarshal(data, res)
 }
 
 // View is retriving a Transfert form the given transfertID.
-func (ServiceTransfert) View(transfertID string) (*model.Transfert, error) {
+func (ServiceTransfert) View(transfertID string) (res *model.Transfert, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "transfers/"+transfertID+"/", nil)
 	if err != nil {
 		return nil, err
 	}
-	return parseTransfert(data)
-}
-
-func parseTransfert(data []byte) (*model.Transfert, error) {
-	var res model.Transfert
-	return &res, json.Unmarshal(data, &res)
+	return res, json.Unmarshal(data, res)
 }

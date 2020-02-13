@@ -9,34 +9,29 @@ import (
 
 type ServiceClient struct{}
 
-// Update is updating the Client from the given ClientUpdate param.
-func (ServiceClient) Update(param *model.ClientUpdate) (*model.Client, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, "clients/", param)
+// Update is updating the Client from the given ClientUpdate payload.
+func (ServiceClient) Update(payload *model.ClientUpdate) (res *model.Client, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "clients/", payload)
 	if err != nil {
 		return nil, err
 	}
-	return parseClient(data)
+	return res, json.Unmarshal(data, res)
 }
 
-// UploadLogo is updating the logo from a given param.
-func (ServiceClient) UploadLogo(param *model.ClientLogo) (*model.Client, error) {
-	_, data, err := newRequestAndExecute(http.MethodPut, "clients/logo/", param)
+// UploadLogo is updating the logo from a given payload.
+func (ServiceClient) UploadLogo(payload *model.ClientLogo) (res *model.Client, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPut, "clients/logo/", payload)
 	if err != nil {
 		return nil, err
 	}
-	return parseClient(data)
+	return res, json.Unmarshal(data, res)
 }
 
 // View is retriving a the Client.
-func (ServiceClient) View(query ...model.Query) (*model.Client, error) {
+func (ServiceClient) View(query ...model.Query) (res *model.Client, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("clients/", query...), nil)
 	if err != nil {
 		return nil, err
 	}
-	return parseClient(data)
-}
-
-func parseClient(data []byte) (*model.Client, error) {
-	var client model.Client
-	return &client, json.Unmarshal(data, &client)
+	return res, json.Unmarshal(data, res)
 }

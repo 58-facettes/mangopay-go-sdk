@@ -18,7 +18,7 @@ func (ServiceKYC) DocumentCreate(userID string, docType model.DocumentType) (res
 	}
 	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/kyc/documents/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -27,7 +27,7 @@ func (ServiceKYC) DocumentCreate(userID string, docType model.DocumentType) (res
 func (ServiceKYC) PageCreate(userID, kycDocumentID string, payload *model.KYCPage) (res *model.KYCDocument, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/kyc/documents/"+kycDocumentID+"/pages/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -41,7 +41,7 @@ func (ServiceKYC) Submit(userID, kycDocumentID string) (res *model.KYCDocument, 
 	}
 	_, data, err := newRequestAndExecute(http.MethodPut, "users/"+userID+"/kyc/documents/"+kycDocumentID+"/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -50,7 +50,7 @@ func (ServiceKYC) Submit(userID, kycDocumentID string) (res *model.KYCDocument, 
 func (ServiceKYC) View(kycDocumentID string) (res *model.KYCDocument, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "kyc/documents/"+kycDocumentID+"/", nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -59,7 +59,7 @@ func (ServiceKYC) View(kycDocumentID string) (res *model.KYCDocument, err error)
 func (ServiceKYC) ListByUser(userID string) (res []model.KYCDocument, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/kyc/documents/", nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -84,7 +84,7 @@ func (ServiceKYC) ListByUser(userID string) (res []model.KYCDocument, err error)
 func (ServiceKYC) ListAll(query ...model.Query) (res []model.KYCDocument, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("kyc/documents/", query...), nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }

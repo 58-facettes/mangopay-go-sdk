@@ -9,69 +9,69 @@ import (
 
 type ServicePayin struct{}
 
-func (ServicePayin) CardWebCreate(param *model.CardWebCreate) (res *model.CardWeb, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "payins/card/web/", param)
+func (ServicePayin) CardWebCreate(payload *model.CardWebCreate) (res *model.CardWeb, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "payins/card/web/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
 
-func (ServicePayin) CardDirectCreate(param *model.CardDirectCreate) (res *model.CardDirect, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "payins/card/direct/", param)
+func (ServicePayin) CardDirectCreate(payload *model.CardDirectCreate) (res *model.CardDirect, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "payins/card/direct/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
 
-func (ServicePayin) CardPreAuthorizedCreate(param *model.CardPreAuthorizedCreate) (res *model.CardPreAuthorized, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "payins/preauthorized/direct/", param)
+func (ServicePayin) CardPreAuthorizedCreate(payload *model.CardPreAuthorizedCreate) (res *model.CardPreAuthorized, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "payins/preauthorized/direct/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
 
-func (ServicePayin) BankwireDirect(param *model.BankwireDirectCreate) (res *model.BankwireDirect, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "payins/bankwire/direct/", param)
+func (ServicePayin) BankwireDirect(payload *model.BankwireDirectCreate) (res *model.BankwireDirect, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "payins/bankwire/direct/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
 
 // ?? model.DirectDebitWebCreate don't exists YET ??
-// func (ServicePayin) DirectDebitWeb(param *model.DirectDebitWebCreate) (res *model.DirectDebitWeb, err error) {
-// 	_, data, err := newRequestAndExecute(http.MethodPost, "payins/directdebit/web/", param)
+// func (ServicePayin) DirectDebitWeb(payload *model.DirectDebitWebCreate) (res *model.DirectDebitWeb, err error) {
+// 	_, data, err := newRequestAndExecute(http.MethodPost, "payins/directdebit/web/", payload)
 // 	if err != nil {
-// 		return nil, err
+// 		return
 // 	}
 // 	return res, json.Unmarshal(data, res)
 // }
 
-func (ServicePayin) DirectDebitDirect(param *model.DirectDebitDirectCreate) (res *model.DirectDebitDirect, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "payins/directdebit/direct/", param)
+func (ServicePayin) DirectDebitDirect(payload *model.DirectDebitDirectCreate) (res *model.DirectDebitDirect, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "payins/directdebit/direct/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
 
 // ?? not sure this will retrun a real model.DirectDebitDirect ??
-func (ServicePayin) BankwireToClientCreditWalletCreate(param *model.BankwireToClientCreditWalletCreate) (res *model.DirectDebitDirect, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "clients/payins/bankwire/direct/", param)
+func (ServicePayin) BankwireToClientCreditWalletCreate(payload *model.BankwireToClientCreditWalletCreate) (res *model.DirectDebitDirect, err error) {
+	_, data, err := newRequestAndExecute(http.MethodPost, "clients/payins/bankwire/direct/", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
 
 // ?? this is returning for the moment an interface - what type of data is it returning exactly ??
-func (ServicePayin) PayInWebExtended(param *model.WebExtended) (res interface{}, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "?", param)
+func (ServicePayin) PayInWebExtended(payload *model.WebExtended) (res interface{}, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, "?", payload)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -83,7 +83,7 @@ func (ServicePayin) PayInWebExtended(param *model.WebExtended) (res interface{},
 func (ServicePayin) ViewCardDetails(payInID string) (res interface{}, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "payins/card/web/"+payInID+"/extended/", nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
@@ -91,7 +91,7 @@ func (ServicePayin) ViewCardDetails(payInID string) (res interface{}, err error)
 func (ServicePayin) View(payInID string) (res *model.Payin, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "payins/"+payInID, nil)
 	if err != nil {
-		return nil, err
+		return
 	}
 	return res, json.Unmarshal(data, res)
 }
