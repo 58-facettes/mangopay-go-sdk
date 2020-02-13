@@ -41,13 +41,14 @@ func (ServicePayin) BankwireDirect(param *model.BankwireDirectCreate) (res *mode
 	return res, json.Unmarshal(data, res)
 }
 
-func (ServicePayin) DirectDebitWeb(param *model.DirectDebitWebCreate) (res *model.DirectDebitWeb, err error) {
-	_, data, err := newRequestAndExecute(http.MethodPost, "payins/directdebit/web/", param)
-	if err != nil {
-		return nil, err
-	}
-	return res, json.Unmarshal(data, res)
-}
+// ?? model.DirectDebitWebCreate don't exists YET ??
+// func (ServicePayin) DirectDebitWeb(param *model.DirectDebitWebCreate) (res *model.DirectDebitWeb, err error) {
+// 	_, data, err := newRequestAndExecute(http.MethodPost, "payins/directdebit/web/", param)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return res, json.Unmarshal(data, res)
+// }
 
 func (ServicePayin) DirectDebitDirect(param *model.DirectDebitDirectCreate) (res *model.DirectDebitDirect, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "payins/directdebit/direct/", param)
