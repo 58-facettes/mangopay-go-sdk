@@ -110,7 +110,7 @@ func main() {
 
     // change and update some of his data.
     _, err = api.Users.Update("someID", &model.UserUpdate{
-        LastName: model.String(" - CHANGED"),
+        LastName: " - CHANGED",
     })
     log.Print(err)
 

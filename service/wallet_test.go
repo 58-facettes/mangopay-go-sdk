@@ -15,7 +15,7 @@ func ExampleB_WalletCreate() {
 			Owners:      []string{"my_client_id"},
 			Description: "Description of the Wallet",
 			Currency:    currency.EUR,
-			Tag:         model.String("some tag"),
+			Tag:         "some tag",
 		},
 	)
 	log.Println(wallet)

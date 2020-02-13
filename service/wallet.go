@@ -28,10 +28,10 @@ func (ServiceWallet) Update(walletID string, payload *model.WalletUpdate) (res *
 	return res, json.Unmarshal(data, res)
 }
 
-// UpdateDes is a helper that simplify the way to update the description of an existing Wallet with the given payloads.
+// UpdateDesc is a helper that simplify the way to update the description of an existing Wallet with the given payloads.
 func (ServiceWallet) UpdateDesc(walletID, desc string) (res *model.Wallet, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, "wallets/"+walletID, &model.WalletUpdate{
-		Description: model.String(desc),
+		Description: desc,
 	})
 	if err != nil {
 		return
@@ -48,11 +48,11 @@ func (ServiceWallet) View(walletID string) (res *model.Wallet, err error) {
 	return res, json.Unmarshal(data, res)
 }
 
-// View retrieve all the Wallets front a given userID.
+// ListFromUser retrieve all the Wallets front a given userID.
 func (ServiceWallet) ListFromUser(userID string, query ...model.Query) (res []model.Wallet, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("users/"+userID+"/wallets/", query...), nil)
 	if err != nil {
 		return
 	}
-	return res, json.Unmarshal(data, res)
+	return res, json.Unmarshal(data, &res)
 }

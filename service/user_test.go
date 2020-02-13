@@ -28,16 +28,11 @@ func init() {
 func TestNewWithBasicAuth(t *testing.T) {
 	api := mangopay.NewWithBasicAuth(clientID, tokenAPI)
 	param := &model.NaturalUserCreate{
-		FirstName:          model.String("Martin"),
-		LastName:           model.String("Gallager"),
-		Address:            nil,
+		FirstName:          "Martin",
+		LastName:           "Gallager",
 		Birthday:           model.Time(time.Now()),
-		Nationality:        model.String("FR"),
-		CountryOfResidence: model.String("FR"),
-		Occupation:         nil,
-		IncomeRange:        nil,
-		//Email:              mangopay.String("henri@lepic.com"),
-		Email: nil,
+		Nationality:        "FR",
+		CountryOfResidence: "FR",
 	}
 	u, err := api.Users.CreateNaturalUser(param)
 	t.Log("ner user is created", spew.Sdump(u))

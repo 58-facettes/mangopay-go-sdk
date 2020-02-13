@@ -47,19 +47,19 @@ type ClientUpdate struct {
 	// FraudEmails is a list of email addresses to use when contacting you for fraud/compliance issues/communications.
 	FraudEmails []string `json:"FraudEmails,omitempty"`
 	// HeadquartersAddress is the address of the company’s headquarters. This field is mandatory to accept payout (More info here).
-	HeadquartersAddress *Address `json:"HeadquartersAddress,omitempty"`
+	HeadquartersAddress Address `json:"HeadquartersAddress,omitempty"`
 	// TaxNumber is the tax (or VAT) number for your company.
-	TaxNumber *string `json:"TaxNumber,omitempty"`
+	TaxNumber string `json:"TaxNumber,omitempty"`
 	// PlatformCategorization is the Categorization of your platform, in terms of Business Type and Sector.
-	PlatformCategorization *PlatformCategorization `json:"PlatformCategorization,omitempty"`
+	PlatformCategorization PlatformCategorization `json:"PlatformCategorization,omitempty"`
 	// PlatformDescription is a description of what your platform does.
-	PlatformDescription *string `json:"PlatformDescription,omitempty"`
+	PlatformDescription string `json:"PlatformDescription,omitempty"`
 	// PlatformURL is the URL for your website.
-	PlatformURL *string `json:"PlatformURL,omitempty"`
+	PlatformURL string `json:"PlatformURL,omitempty"`
 	// PrimaryThemeColour is the primary branding colour to use for your merchant.
-	PrimaryThemeColour *string `json:"PrimaryThemeColour,omitempty"`
+	PrimaryThemeColour string `json:"PrimaryThemeColour,omitempty"`
 	// PrimaryButtonColour is the primary branding colour to use for buttons for your merchant.
-	PrimaryButtonColour *string `json:"PrimaryButtonColour,omitempty"`
+	PrimaryButtonColour string `json:"PrimaryButtonColour,omitempty"`
 }
 
 type ClientLogo struct {

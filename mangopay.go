@@ -17,6 +17,7 @@ type API struct {
 	UserEmoney    *service.ServiceUserEmoney
 	Wallets       *service.ServiceWallet
 	Cards         *service.ServiceCard
+	PayIns        *service.ServicePayIn
 	Transferts    *service.ServiceTransfert
 	BankAccounts  *service.ServiceBankAccount
 	PayOuts       *service.ServicePayOut

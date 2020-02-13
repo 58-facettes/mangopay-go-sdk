@@ -16,22 +16,22 @@ type ServiceUserEmoney struct{}
 func (ServiceUserEmoney) View(userID string, param *model.UserEmoneyParam) (res []model.UserEmoney, err error) {
 	url := userID + "/emoney/"
 	if param != nil {
-		if param.Year != nil {
-			url += fmt.Sprint(*param.Year) + "/"
+		if param.Year != 0 {
+			url += fmt.Sprint(param.Year) + "/"
 		}
-		if param.Month != nil {
-			if param.Year == nil {
+		if param.Month != 0 {
+			if param.Year == 0 {
 				url += fmt.Sprint(time.Now().Year()) + "/"
 			}
-			url += fmt.Sprint(*param.Month) + "/"
+			url += fmt.Sprint(param.Month) + "/"
 		}
-		if param.Currency != nil {
-			url += "?currency=" + *param.Currency
+		if len(param.Currency) == 3 {
+			url += "?currency=" + param.Currency
 		}
 	}
 	_, data, err := newRequestAndExecute(http.MethodGet, url, nil)
 	if err != nil {
-		return nil, err
+		return
 	}
-	return res, json.Unmarshal(data, res)
+	return res, json.Unmarshal(data, &res)
 }

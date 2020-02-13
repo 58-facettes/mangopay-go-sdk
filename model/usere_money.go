@@ -11,9 +11,9 @@ type UserEmoney struct {
 
 type UserEmoneyParam struct {
 	// Year is the year of the Emoney (optional).
-	Year *int
+	Year int
 	// Month is the month in number (optional).
-	Month *int
+	Month int
 	// Currency in ISO3 displayed (optional).
-	Currency *string
+	Currency string
 }

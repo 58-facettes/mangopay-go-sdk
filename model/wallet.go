@@ -26,11 +26,11 @@ type WalletCreate struct {
 	// The currency - should be ISO_4217 format (REQUIRED).
 	Currency currency.ISO3 `json:"Currency"`
 	// Custom data that you can add to this item (OPTIONAL).
-	Tag *string `json:"Tag"`
+	Tag string `json:"Tag"`
 }
 
 // WalletUpdate helps to update an existing Wallet.
 type WalletUpdate struct {
 	// A desciption of the wallet (OPTIONAL)
-	Description *string `json:"Description"`
+	Description string `json:"Description"`
 }
