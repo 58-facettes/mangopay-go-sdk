@@ -22,6 +22,7 @@ type API struct {
 	BankAccounts  *service.ServiceBankAccount
 	PayOuts       *service.ServicePayOut
 	KYCs          *service.ServiceKYC
+	Stats         *service.ServiceStat
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
