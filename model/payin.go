@@ -243,10 +243,12 @@ type BankwireDirect struct {
 	// Wire reference
 	WireReference string `json:"WireReference"`
 	// Bank account details
-	BankAccount BankAccount `json:"BankAccount"`
+	BankAccount BankAccountV2 `json:"BankAccount"`
 }
 
-type BankAccount struct {
+// BankAccountV2 describes a bank account access.
+//?? can we name it BankAccount ??
+type BankAccountV2 struct {
 	// The BIC of the bank account
 	BIC string `json:"BIC"`
 	// The IBAN of the bank account
