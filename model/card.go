@@ -15,7 +15,7 @@ import (
 // - Get the CardId ready to use into the Direct PayIn Object (9. in the diagram).
 type CardRegistration struct {
 	// ID of the current card's registration.
-	ID string `json:"Id"` // new
+	ID string `json:"Id"` // ?? new ??
 	// The object owner's UserId.
 	UserID string `json:"UserId"`
 	// The currency - should be ISO_4217 format.
@@ -39,9 +39,9 @@ type CardRegistration struct {
 	// Status of the card registration.
 	Status CardStatus `json:"Status"`
 	// Tag of the card.
-	Tag string `json:"Tag"` // new
+	Tag string `json:"Tag"` // ?? new ??
 	// CreationDate
-	CreationDate int64 `json:"CreationDate"` // new
+	CreationDate int64 `json:"CreationDate"` // ?? new ??
 }
 
 type CardRegistrationCreate struct {
