@@ -17,7 +17,9 @@ type API struct {
 	UserEmoney    *service.ServiceUserEmoney
 	Wallets       *service.ServiceWallet
 	Cards         *service.ServiceCard
-	Transferts    *service.ServiceTansfert
+	Transferts    *service.ServiceTransfert
+	BankAccounts  *service.ServiceBankAccount
+	PayOuts       *service.ServicePayOut
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
