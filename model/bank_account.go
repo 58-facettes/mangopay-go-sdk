@@ -5,7 +5,7 @@ package model
 type BankAccount struct {
 	ID string `json:"Id"`
 	// The object owner's UserId
-	UserId string `json:"UserId"`
+	UserID string `json:"UserId"`
 	// The name of the owner of the bank account
 	OwnerName string `json:"OwnerName"`
 	// The address of the owner of the bank account
@@ -16,6 +16,7 @@ type BankAccount struct {
 	Active bool `json:"Active"`
 }
 
+// BankAccountIBAN is the IBAN informations to create bankwire.
 type BankAccountIBAN struct {
 	ID string `json:"Id"`
 	// The type of bank account
@@ -25,7 +26,7 @@ type BankAccountIBAN struct {
 	// The name of the owner of the bank account
 	OwnerName string `json:"OwnerName"`
 	// The object owner's UserId
-	UserId string `json:"UserId"`
+	UserID string `json:"UserId"`
 	// Whether the bank account is active or not
 	Active bool `json:"Active"`
 	// The IBAN of the bank account
@@ -34,6 +35,7 @@ type BankAccountIBAN struct {
 	BIC string `json:"BIC"`
 }
 
+// BankAccountIBANCreate contain all data in order to save som account IBAN informations.
 type BankAccountIBANCreate struct {
 	// The address of the owner of the bank account REQUIRED.
 	OwnerAddress Address `json:"OwnerAddress"`
@@ -49,6 +51,7 @@ type BankAccountIBANCreate struct {
 // it is not yet in the documentation.
 // ?? end ??
 
+// BankAccountUSCreate is the payload used to create an account in US.
 type BankAccountUSCreate struct {
 	// The address of the owner of the bank account REQUIRED.
 	OwnerAddress Address `json:"OwnerAddress"`
@@ -66,10 +69,13 @@ type BankAccountUSCreate struct {
 type DepositAccount string
 
 const (
+	// DepositAccountChecking is for checking bank account.
 	DepositAccountChecking DepositAccount = "CHECKING"
-	DepositAccountSavings  DepositAccount = "SAVINGS"
+	// DepositAccountSavings is for saving bank account.
+	DepositAccountSavings DepositAccount = "SAVINGS"
 )
 
+// BankAccountCA represents the bank account informations for Canada.
 type BankAccountCA struct {
 	ID string `json:"Id"`
 	// The type of bank account
@@ -79,7 +85,7 @@ type BankAccountCA struct {
 	// The name of the owner of the bank account
 	OwnerName string `json:"OwnerName"`
 	// The object owner's UserId
-	UserId string `json:"UserId"`
+	UserID string `json:"UserId"`
 	// Whether the bank account is active or not
 	Active bool `json:"Active"`
 	// The institution number of the bank account.
@@ -96,6 +102,7 @@ type BankAccountCA struct {
 	BankName string `json:"BankName"`
 }
 
+// BankAccountCACreate is the payload used to create an new bank account in Canada.
 type BankAccountCACreate struct {
 	// The address of the owner of the bank account REQUIRED.
 	OwnerAddress Address `json:"OwnerAddress"`
@@ -115,6 +122,7 @@ type BankAccountCACreate struct {
 	BankName string `json:"BankName"`
 }
 
+// BankAccountGB represents the bank account in Great Britain.
 type BankAccountGB struct {
 	ID string `json:"Id"`
 	// The type of bank account
@@ -124,7 +132,7 @@ type BankAccountGB struct {
 	// The name of the owner of the bank account
 	OwnerName string `json:"OwnerName"`
 	// The object owner's UserId
-	UserId string `json:"UserId"`
+	UserID string `json:"UserId"`
 	// Whether the bank account is active or not
 	Active bool `json:"Active"`
 	// The sort code of the bank account. Must be numbers only, and 6 digits long
@@ -133,6 +141,7 @@ type BankAccountGB struct {
 	AccountNumber string `json:"AccountNumber"`
 }
 
+// BankAccountGBCreate is the payload used to create a new bank account in Great Britain.
 type BankAccountGBCreate struct {
 	// The address of the owner of the bank account REQUIRED.
 	OwnerAddress Address `json:"OwnerAddress"`
@@ -144,6 +153,7 @@ type BankAccountGBCreate struct {
 	AccountNumber string `json:"AccountNumber"`
 }
 
+// BankAccountOther represent a bank account fron another country.
 type BankAccountOther struct {
 	ID string `json:"ID"`
 	// The type of bank account
@@ -153,11 +163,12 @@ type BankAccountOther struct {
 	// The name of the owner of the bank account
 	OwnerName string `json:"OwnerName"`
 	// The object owner's UserId
-	UserId string `json:"UserId"`
+	UserID string `json:"UserId"`
 	// Whether the bank account is active or not
 	Active bool `json:"Active"`
 }
 
+// BankAccountOtherCreate is the payload used to create a new bank account in an other country.
 type BankAccountOtherCreate struct {
 	// The address of the owner of the bank account REQUIRED.
 	OwnerAddress Address `json:"OwnerAddress"`
