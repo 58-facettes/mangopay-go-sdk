@@ -6,31 +6,14 @@ import (
 	"net/http/httputil"
 	"strconv"
 	"strings"
+
+	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
 type ServiceStat struct{}
 
-// RateLimit is in the header response of the Mangopay service ??
-// it uses some duplicated datas fiedds that are in the header
-// so we have to hijac the response before the map[string][]string get the Header values.
-// ?? end ??
-type RateLimit struct {
-	Limit1          int `json:"X-RateLimit-1"`
-	Limit2          int `json:"X-RateLimit-2"`
-	Limit3          int `json:"X-RateLimit-3"`
-	Limit4          int `json:"X-RateLimit-4"`
-	LimitRemaining1 int `json:"X-RateLimit-Remaining-1"`
-	LimitRemaining2 int `json:"X-RateLimit-Remaining-2"`
-	LimitRemaining3 int `json:"X-RateLimit-Remaining-3"`
-	LimitRemaining4 int `json:"X-RateLimit-Remaining-4"`
-	LimitReset1     int `json:"X-RateLimit-Reset-1"`
-	LimitReset2     int `json:"X-RateLimit-Reset-2"`
-	LimitReset3     int `json:"X-RateLimit-Reset-3"`
-	LimitReset4     int `json:"X-RateLimit-Reset-4"`
-}
-
 // GetRateLimit is sending a neutral request that make possible to read the current RateLimit.
-func (ServiceStat) GetRateLimit() (*RateLimit, error) {
+func (ServiceStat) GetRateLimit() (*model.RateLimit, error) {
 
 	r, err := http.NewRequest(http.MethodGet, BaseURL+"clients/", nil)
 	if err != nil {
@@ -51,7 +34,7 @@ func (ServiceStat) GetRateLimit() (*RateLimit, error) {
 	res := fmt.Sprintln(string(dump))
 	lines := strings.Split(res, "\n")
 
-	var rateLimit RateLimit
+	var rateLimit model.RateLimit
 
 	for k := range lines {
 		rateLimitFound, rateLimitRemainingFound, rateLimitResetFound := 0, 0, 0

@@ -2,7 +2,9 @@ package mangopay
 
 import (
 	"encoding/base64"
+	"log"
 
+	"github.com/58-facettes/mangopay-go-sdk/model"
 	"github.com/58-facettes/mangopay-go-sdk/service"
 )
 
@@ -74,4 +76,12 @@ func initBaseURL(ClientID string) {
 	default:
 		baseURL = "https://api.sandbox.mangopay.com/" + APIVersion + "/" + ClientID + "/"
 	}
+}
+
+func (api *API) RateLimits(rate model.Rate) string {
+	rl, err := api.Stats.GetRateLimit()
+	if err != nil {
+		log.Println("mangopay api: ratelimit %v", err.Error())
+	}
+	return rl.GetData(rate)
 }
