@@ -116,7 +116,7 @@ type BankAccountCACreate struct {
 }
 
 type BankAccountGB struct {
-	ID string `json:"ID"`
+	ID string `json:"Id"`
 	// The type of bank account
 	Type BankAccountType `json:"Type"`
 	// The address of the owner of the bank account
