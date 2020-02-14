@@ -85,3 +85,6 @@ func (api *API) RateLimits(rate model.Rate) string {
 	}
 	return rl.GetData(rate)
 }
+
+// TemPath is the temporary path that can be used for files.
+var TemPath string
