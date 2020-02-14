@@ -7,10 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type ServicePayOut struct{}
+// PayOuts is responsible of all services for the Payout.
+type PayOuts struct{}
 
 // Create is creating a payout form the given PayOutCreate payload.
-func (ServicePayOut) Create(payload *model.PayOutCreate) (res *model.PayOut, err error) {
+func (PayOuts) Create(payload *model.PayOutCreate) (res *model.PayOut, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "payouts/bankwire/", payload)
 	if err != nil {
 		return
@@ -19,7 +20,7 @@ func (ServicePayOut) Create(payload *model.PayOutCreate) (res *model.PayOut, err
 }
 
 // View display a payout front the payoutID.
-func (ServicePayOut) View(payoutID string) (res *model.PayOut, err error) {
+func (PayOuts) View(payoutID string) (res *model.PayOut, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "payouts/"+payoutID+"/", nil)
 	if err != nil {
 		return

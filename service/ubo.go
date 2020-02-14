@@ -7,10 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type ServiceUBO struct{}
+// UBOs is responsible of all services for the UBO.
+type UBOs struct{}
 
 // DeclarationCreate creates an UBO Declaration.
-func (ServiceUBO) DeclarationCreate(userID string) (res *model.UBO, err error) {
+func (UBOs) DeclarationCreate(userID string) (res *model.UBO, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/kyc/ubodeclarations/", nil)
 	if err != nil {
 		return
@@ -19,7 +20,7 @@ func (ServiceUBO) DeclarationCreate(userID string) (res *model.UBO, err error) {
 }
 
 // Create creates an UBO.
-func (ServiceUBO) Create(userID, declarationID string, payload *model.UBOCreate) (res *model.UBO, err error) {
+func (UBOs) Create(userID, declarationID string, payload *model.UBOCreate) (res *model.UBO, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/kyc/ubodeclarations/"+declarationID+"/ubos/", payload)
 	if err != nil {
 		return
@@ -28,7 +29,7 @@ func (ServiceUBO) Create(userID, declarationID string, payload *model.UBOCreate)
 }
 
 // Update updates an UBO.
-func (ServiceUBO) Update(userID, declarationID, uboID string, payload *model.UBOUpdate) (res *model.UBO, err error) {
+func (UBOs) Update(userID, declarationID, uboID string, payload *model.UBOUpdate) (res *model.UBO, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, "users/"+userID+"/kyc/ubodeclarations/"+declarationID+"/ubos/"+uboID+"/", payload)
 	if err != nil {
 		return
@@ -41,7 +42,7 @@ func (ServiceUBO) Update(userID, declarationID, uboID string, payload *model.UBO
 // this can send back otherwise an UBODeclaration
 // it is not mentioned in the documentation.
 // ?? end ??
-func (ServiceUBO) DeclarationSubmit(userID, declarationID string) (res *model.UBO, err error) {
+func (UBOs) DeclarationSubmit(userID, declarationID string) (res *model.UBO, err error) {
 	payload := struct {
 		Status model.UBODeclarationStatus `json:"Status"`
 	}{
@@ -59,7 +60,7 @@ func (ServiceUBO) DeclarationSubmit(userID, declarationID string) (res *model.UB
 // this can send back otherwise an UBODeclaration
 // it is not mentioned in the documentation.
 // ?? end ??
-func (ServiceUBO) DeclarationView(declarationID string) (res *model.UBO, err error) {
+func (UBOs) DeclarationView(declarationID string) (res *model.UBO, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "/kyc/ubodeclarations/"+declarationID+"/", nil)
 	if err != nil {
 		return
@@ -68,7 +69,7 @@ func (ServiceUBO) DeclarationView(declarationID string) (res *model.UBO, err err
 }
 
 // View is for retreving the UBO.
-func (ServiceUBO) View(userID, declarationID, uboID string) (res *model.UBO, err error) {
+func (UBOs) View(userID, declarationID, uboID string) (res *model.UBO, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/kyc/ubodeclarations/"+declarationID+"/ubos/"+uboID+"/", nil)
 	if err != nil {
 		return
@@ -79,8 +80,8 @@ func (ServiceUBO) View(userID, declarationID, uboID string) (res *model.UBO, err
 // List is listing all the userID this can be combined with query.
 // The column to sort against with `Sort` key in `model.Query.Filer`
 // this can have ASC, DESC as a value.
-func (ServiceUBO) List(userID string, query ...model.Query) (res *model.UBO, err error) {
-	uri := addQuery("/users/"+userID+"/kyc/ubodeclarations/", query...)
+func (UBOs) List(userID string, query ...model.Query) (res *model.UBO, err error) {
+	uri := queryURI("/users/"+userID+"/kyc/ubodeclarations/", query...)
 	_, data, err := newRequestAndExecute(http.MethodGet, uri, nil)
 	if err != nil {
 		return

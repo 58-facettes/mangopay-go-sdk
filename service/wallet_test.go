@@ -8,11 +8,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model/currency"
 )
 
-func ExampleB_WalletCreate() {
+func ExampleWallets_Create() {
 	api := mangopay.NewWithBasicAuth("{{clientID}}", "{{clientPassword}}")
 	wallet, _ := api.Wallets.Create(
 		&model.WalletCreate{
-			Owners:      []string{"my_client_id"},
+			Owners:      []string{"my-client-id"},
 			Description: "Description of the Wallet",
 			Currency:    currency.EUR,
 			Tag:         "some tag",

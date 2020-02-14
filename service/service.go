@@ -11,9 +11,12 @@ import (
 )
 
 var (
-	BaseURL   string
+	// BaseURL is used to be able to switch between the sandbox and the production mode.
+	BaseURL string
+	// BasicAuth is the base64 hash used in the header.
 	BasicAuth string
-	logr      log.Logger
+	// logr is the logger used in order to logs things into the app.
+	logr log.Logger
 )
 
 // DefaultClient is the default Client and is used by Get, Head, and Post.
@@ -59,7 +62,7 @@ func parseErrorResponse(data []byte) error {
 	return errResp
 }
 
-func addQuery(uri string, query ...model.Query) string {
+func queryURI(uri string, query ...model.Query) string {
 	if query != nil && len(query) > 0 {
 		return query[0].URI(uri)
 	}

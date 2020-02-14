@@ -9,11 +9,12 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type ServiceUserEmoney struct{}
+// UserEmoneys is responsible of all services for the User Emoney.
+type UserEmoneys struct{}
 
 // View retreve the given User's Emoney from the params UserEmoneyParam the UserID is mandatory.
 // If you add a month without the Year this will pick the current year.
-func (ServiceUserEmoney) View(userID string, param *model.UserEmoneyParam) (res []model.UserEmoney, err error) {
+func (UserEmoneys) View(userID string, param *model.UserEmoneyParam) (res []model.UserEmoney, err error) {
 	url := userID + "/emoney/"
 	if param != nil {
 		if param.Year != 0 {

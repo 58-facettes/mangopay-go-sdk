@@ -7,10 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type ServiceTransfert struct{}
+// Transferts is responsible of all services for the Transfert.
+type Transferts struct{}
 
 // Create is creating a new Tranfert.
-func (ServiceTransfert) Create(payload *model.Transfert) (res *model.Transfert, err error) {
+func (Transferts) Create(payload *model.Transfert) (res *model.Transfert, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "transfers/", payload)
 	if err != nil {
 		return nil, err
@@ -19,7 +20,7 @@ func (ServiceTransfert) Create(payload *model.Transfert) (res *model.Transfert, 
 }
 
 // View is retriving a Transfert form the given transfertID.
-func (ServiceTransfert) View(transfertID string) (res *model.Transfert, err error) {
+func (Transferts) View(transfertID string) (res *model.Transfert, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "transfers/"+transfertID+"/", nil)
 	if err != nil {
 		return nil, err

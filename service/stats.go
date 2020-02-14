@@ -10,10 +10,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type ServiceStat struct{}
+// Stats is responsible of all services for the Stat.
+type Stats struct{}
 
 // GetRateLimit is sending a neutral request that make possible to read the current RateLimit.
-func (ServiceStat) GetRateLimit() (*model.RateLimit, error) {
+func (Stats) GetRateLimit() (*model.RateLimit, error) {
 
 	r, err := http.NewRequest(http.MethodGet, BaseURL+"clients/", nil)
 	if err != nil {

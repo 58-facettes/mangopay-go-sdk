@@ -7,10 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type ServiceUser struct{}
+// Users is responsible of all services for the User.
+type Users struct{}
 
 // CreateNaturalUser creates a NaturalUser.
-func (ServiceUser) CreateNaturalUser(payload *model.NaturalUserCreate) (res *model.NaturalUser, err error) {
+func (Users) CreateNaturalUser(payload *model.NaturalUserCreate) (res *model.NaturalUser, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "users/natural/", payload)
 	if err != nil {
 		return
@@ -19,7 +20,7 @@ func (ServiceUser) CreateNaturalUser(payload *model.NaturalUserCreate) (res *mod
 }
 
 // UpdateNaturalUser is updating an exinsting NaturalUser.
-func (ServiceUser) UpdateNaturalUser(userID string, payload *model.NaturalUserUpdate) (res *model.NaturalUser, err error) {
+func (Users) UpdateNaturalUser(userID string, payload *model.NaturalUserUpdate) (res *model.NaturalUser, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, "users/natural/"+userID+"/", payload)
 	if err != nil {
 		return
@@ -28,7 +29,7 @@ func (ServiceUser) UpdateNaturalUser(userID string, payload *model.NaturalUserUp
 }
 
 // CreateLegalUser is creating a LegalUser.
-func (ServiceUser) CreateLegalUser(payload *model.LegalUserCreate) (res *model.LegalUser, err error) {
+func (Users) CreateLegalUser(payload *model.LegalUserCreate) (res *model.LegalUser, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "users/legal/", payload)
 	if err != nil {
 		return
@@ -37,7 +38,7 @@ func (ServiceUser) CreateLegalUser(payload *model.LegalUserCreate) (res *model.L
 }
 
 // UpdateLegalUser is updating a LegalUser.
-func (ServiceUser) UpdateLegalUser(userID string, payload *model.LegalUserUpdate) (res *model.LegalUser, err error) {
+func (Users) UpdateLegalUser(userID string, payload *model.LegalUserUpdate) (res *model.LegalUser, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPut, "users/legal/"+userID+"/", payload)
 	if err != nil {
 		return
@@ -46,7 +47,7 @@ func (ServiceUser) UpdateLegalUser(userID string, payload *model.LegalUserUpdate
 }
 
 // ViewUser retreve the User fron the given userID.
-func (ServiceUser) ViewUser(userID string) (res *model.User, err error) {
+func (Users) ViewUser(userID string) (res *model.User, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/", nil)
 	if err != nil {
 		return
@@ -55,10 +56,10 @@ func (ServiceUser) ViewUser(userID string) (res *model.User, err error) {
 }
 
 // ListAllUsers retreve all Users from the cliendID.
-func (ServiceUser) ListAllUsers(query ...model.Query) (res []model.User, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("users/", query...), nil)
+func (Users) ListAllUsers(query ...model.Query) (res []model.User, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/", query...), nil)
 	if err != nil {
 		return
 	}
-	return res, json.Unmarshal(data, res)
+	return res, json.Unmarshal(data, &res)
 }

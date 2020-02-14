@@ -7,10 +7,11 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
-type ServiceKYC struct{}
+// KYCs is responsible of all services for the KYC.
+type KYCs struct{}
 
 // DocumentCreate is creating a document for the given userID in it given type.
-func (ServiceKYC) DocumentCreate(userID string, docType model.DocumentType) (res *model.KYCDocument, err error) {
+func (KYCs) DocumentCreate(userID string, docType model.DocumentType) (res *model.KYCDocument, err error) {
 	payload := struct {
 		Type model.DocumentType `json:"Type"`
 	}{
@@ -24,7 +25,7 @@ func (ServiceKYC) DocumentCreate(userID string, docType model.DocumentType) (res
 }
 
 // PageCreate is creating a page for the given userID, kycDocumentID (get with the service DocumentCreate) and the given file.
-func (ServiceKYC) PageCreate(userID, kycDocumentID string, payload *model.KYCPage) (res *model.KYCDocument, err error) {
+func (KYCs) PageCreate(userID, kycDocumentID string, payload *model.KYCPage) (res *model.KYCDocument, err error) {
 	_, data, err := newRequestAndExecute(http.MethodPost, "users/"+userID+"/kyc/documents/"+kycDocumentID+"/pages/", payload)
 	if err != nil {
 		return
@@ -33,7 +34,7 @@ func (ServiceKYC) PageCreate(userID, kycDocumentID string, payload *model.KYCPag
 }
 
 // Submit is submitting for validation the document for verification.
-func (ServiceKYC) Submit(userID, kycDocumentID string) (res *model.KYCDocument, err error) {
+func (KYCs) Submit(userID, kycDocumentID string) (res *model.KYCDocument, err error) {
 	payload := struct {
 		Status string `json:"Status"`
 	}{
@@ -47,7 +48,7 @@ func (ServiceKYC) Submit(userID, kycDocumentID string) (res *model.KYCDocument, 
 }
 
 // View is retriving the KYC Document from it's ID.
-func (ServiceKYC) View(kycDocumentID string) (res *model.KYCDocument, err error) {
+func (KYCs) View(kycDocumentID string) (res *model.KYCDocument, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "kyc/documents/"+kycDocumentID+"/", nil)
 	if err != nil {
 		return
@@ -56,12 +57,12 @@ func (ServiceKYC) View(kycDocumentID string) (res *model.KYCDocument, err error)
 }
 
 // ListByUser is retriving all the KYC Document from a userID.
-func (ServiceKYC) ListByUser(userID string) (res []model.KYCDocument, err error) {
+func (KYCs) ListByUser(userID string) (res []model.KYCDocument, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/kyc/documents/", nil)
 	if err != nil {
 		return
 	}
-	return res, json.Unmarshal(data, res)
+	return res, json.Unmarshal(data, &res)
 }
 
 // ListAll is retriving all the KYC Document from the given Query filters params.
@@ -81,10 +82,10 @@ func (ServiceKYC) ListByUser(userID string) (res []model.KYCDocument, err error)
 // ?? the documentation show a body request but with the GET method this is not possible to push a body ??
 // so this may be a service with a POST request of a query one.
 // ?? end ??
-func (ServiceKYC) ListAll(query ...model.Query) (res []model.KYCDocument, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, addQuery("kyc/documents/", query...), nil)
+func (KYCs) ListAll(query ...model.Query) (res []model.KYCDocument, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("kyc/documents/", query...), nil)
 	if err != nil {
 		return
 	}
-	return res, json.Unmarshal(data, res)
+	return res, json.Unmarshal(data, &res)
 }
