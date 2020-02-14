@@ -28,19 +28,24 @@ type API struct {
 	Stats         *service.ServiceStat
 }
 
+// Logger is the default internal logging tool that is used.
+// This can be replaced by another logging tool of your choice like Zap or Logrus.
+var Logger log.Logger = log.DefaultLogger
+
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
 func NewWithBasicAuth(cliendID, clientPassword string) *API {
 	api := API{
 		isBasicAuth:    true,
 		clientID:       cliendID,
 		clientPassword: clientPassword,
-		logr:           log.DefaultLogger,
 	}
 	api.init()
 	return &api
 }
 
 func (api *API) init() {
+	api.logr = Logger
+	service.SetLogger(Logger)
 	if api.isBasicAuth {
 		initBasicAuth(api.clientID, api.clientPassword)
 	}
@@ -86,12 +91,6 @@ func (api *API) RateLimits(rate model.Rate) string {
 		api.logr.Warnf("mangopay: ratelimit %v", err.Error())
 	}
 	return rl.GetData(rate)
-}
-
-// SetLogger allow you to bring you own Logger tool like Zap or Logrus.
-func (api *API) SetLogger(log log.Logger) {
-	api.logr = log
-	service.SetLogger(log)
 }
 
 // TemPath is the temporary path that can be used for files.
