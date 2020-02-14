@@ -2,8 +2,8 @@ package mangopay
 
 import (
 	"encoding/base64"
-	"log"
 
+	"github.com/58-facettes/mangopay-go-sdk/log"
 	"github.com/58-facettes/mangopay-go-sdk/model"
 	"github.com/58-facettes/mangopay-go-sdk/service"
 )
@@ -12,6 +12,7 @@ type API struct {
 	isBasicAuth    bool
 	clientID       string
 	clientPassword string
+	logr           log.Logger
 	// List of all avalable services.
 	Clients       *service.ServiceClient
 	ClientWallets *service.ServiceClientWallet
@@ -33,6 +34,7 @@ func NewWithBasicAuth(cliendID, clientPassword string) *API {
 		isBasicAuth:    true,
 		clientID:       cliendID,
 		clientPassword: clientPassword,
+		logr:           log.DefaultLogger,
 	}
 	api.init()
 	return &api
@@ -81,9 +83,15 @@ func initBaseURL(ClientID string) {
 func (api *API) RateLimits(rate model.Rate) string {
 	rl, err := api.Stats.GetRateLimit()
 	if err != nil {
-		log.Println("mangopay api: ratelimit %v", err.Error())
+		api.logr.Warnf("mangopay: ratelimit %v", err.Error())
 	}
 	return rl.GetData(rate)
+}
+
+// SetLogger allow you to bring you own Logger tool like Zap or Logrus.
+func (api *API) SetLogger(log log.Logger) {
+	api.logr = log
+	service.SetLogger(log)
 }
 
 // TemPath is the temporary path that can be used for files.

@@ -6,12 +6,14 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/58-facettes/mangopay-go-sdk/log"
 	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
 var (
 	BaseURL   string
 	BasicAuth string
+	logr      log.Logger
 )
 
 // DefaultClient is the default Client and is used by Get, Head, and Post.
@@ -62,4 +64,9 @@ func addQuery(uri string, query ...model.Query) string {
 		return query[0].URI(uri)
 	}
 	return uri
+}
+
+// SetLogger allow to change the default logger.
+func SetLogger(l log.Logger) {
+	logr = l
 }
