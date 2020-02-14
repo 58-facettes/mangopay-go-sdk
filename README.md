@@ -183,9 +183,15 @@ Here is a sample showing Monolog integration :
 ```go
 type MyLogger struct{}
 
-func (l Logger)Log(msg ...string){}
+func (ml *MyLogger)Debug(args ...interface{})
+func (ml *MyLogger)Debugf(template string, args ...interface{})
+func (ml *MyLogger)Error(args ...interface{})
+func (ml *MyLogger)Errorf(template string, args ...interface{})
+func (ml *MyLogger)Fatal(args ...interface{})
+func (ml *MyLogger)Fatalf(template string, args ...interface{})
+func (ml *MyLogger)Warnf(template string, args ...interface{})
 
-api.Logger = MyLogger;
+api.Logger = &MyLogger{};
 ```
 
 ## Verifying rate limits status
