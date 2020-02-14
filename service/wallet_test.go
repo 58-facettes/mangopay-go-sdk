@@ -6,6 +6,7 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk"
 	"github.com/58-facettes/mangopay-go-sdk/model"
 	"github.com/58-facettes/mangopay-go-sdk/model/currency"
+	_ "github.com/58-facettes/mangopay-go-sdk/service"
 )
 
 func ExampleWallets_Create() {
