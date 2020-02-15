@@ -2,12 +2,17 @@ package model
 
 import "fmt"
 
+// Rate is the type used for rate limit value.
 type Rate uint8
 
 const (
+	// RateLimit15Minutes stands for 15 minutes.
 	RateLimit15Minutes Rate = iota + 1
+	// RateLimit30Minutes stands for 30 minutes.
 	RateLimit30Minutes
+	// RateLimit60Minutes stands for 60 minutes.
 	RateLimit60Minutes
+	// RateLimit24Mours stands for 24 hours.
 	RateLimit24Mours
 )
 
@@ -34,6 +39,7 @@ const (
 	rateFormatData = "rateLimit: %v rateRemaining: %v rateReset: %v"
 )
 
+// GetData gives the rates limits from the given limit value.
 func (rl *RateLimit) GetData(r Rate) string {
 	switch r {
 	case RateLimit15Minutes:

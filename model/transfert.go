@@ -1,5 +1,6 @@
 package model
 
+// Transfert is the payload for tranferts.
 type Transfert struct {
 	ID           string `json:"Id"`
 	Tag          string `json:"Tag"`
@@ -7,6 +8,7 @@ type Transfert struct {
 	TansfertCreate
 }
 
+// TansfertCreate is used to create a new tranfert.
 type TansfertCreate struct {
 	// A user's ID REQUIRED.
 	AuthorID string `json:"AuthorId"`

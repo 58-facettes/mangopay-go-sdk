@@ -5,8 +5,10 @@ import (
 	"fmt"
 )
 
+// ErrorType is the type of error.
 type ErrorType string
 
+// Error is the payload for an error from Mangopay.
 type Error struct {
 	ID      string    `json:"Id"`
 	Message string    `json:"Message"`
@@ -15,6 +17,7 @@ type Error struct {
 	Err     error     `json:"error"`
 }
 
+// Error implents the Error interface to use Error like an error type.
 func (e Error) Error() string {
 	return fmt.Sprintf("%v %v %v %v %v", e.ID, e.Message, e.Type, e.Date, e.Err)
 }

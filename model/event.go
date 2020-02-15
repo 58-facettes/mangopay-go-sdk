@@ -1,5 +1,6 @@
 package model
 
+// Event is the payload for events.
 type Event struct {
 	// The ID of whatever the event is
 	ResourceID string `json:"ResourceId"`

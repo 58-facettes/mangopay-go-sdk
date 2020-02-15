@@ -1,5 +1,6 @@
 package model
 
+// UserEmoney represent the payload for a User Emoney.
 type UserEmoney struct {
 	// The object owner's UserId
 	UserID string `json:"userId"`
@@ -9,6 +10,7 @@ type UserEmoney struct {
 	DebitedEMoney Money `json:"DebitedEMoney"`
 }
 
+// UserEmoneyParam is the param that can be used to call a User Emoney.
 type UserEmoneyParam struct {
 	// Year is the year of the Emoney (optional).
 	Year int
