@@ -16,13 +16,13 @@ type KYCDocument struct {
 	// ?? end ??
 
 	// The object owner's UserId
-	UserId string `json:"CreationDate"`
+	UserID string `json:"UserId"`
 	// The status of this KYC/Dispute document
-	Status DocumentStatus `json:"CreationDate"`
+	Status DocumentStatus `json:"Status"`
 	// The message accompanying a refusal
-	RefusedReasonMessage string `json:"CreationDate"`
+	RefusedReasonMessage string `json:"RefusedReasonMessage"`
 	// The type of reason for refusal
-	RefusedReason RefusedReason `json:"RefusedReasonType"`
+	RefusedReason RefusedReason `json:"RefusedReason"`
 	// The date when the document was processed by MANGOPAY
 	ProcessedDate int64 `json:"ProcessedDate"`
 }

@@ -55,6 +55,6 @@ func (e *Error) UnmarshalJSON(b []byte) error {
 	e.Message = aux.Message
 	e.Type = aux.Type
 	e.Date = int64(aux.Date)
-	e.Err = e.Err
+	e.Err = aux.Err
 	return nil
 }
