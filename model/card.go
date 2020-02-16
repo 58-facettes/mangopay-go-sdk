@@ -4,7 +4,7 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model/currency"
 )
 
-// CardRegistration, you need to register a card in order to process a Direct PayIn.
+// CardRegistration you need to register a card in order to process a Direct PayIn.
 // Card registration enables you to tokenize a Card.
 // These are the steps to follow:
 // - Create a CardRegistration Object (1. 2. & 3. in the diagram).
@@ -44,42 +44,59 @@ type CardRegistration struct {
 	CreationDate int64 `json:"CreationDate"` // ?? new ??
 }
 
+// CardRegistrationCreate is the payload used for registering a new Card.
 type CardRegistrationCreate struct {
 	// The object owner's UserId (REQUIRED).
-	UserId string `json:"UserId"`
+	UserID string `json:"UserId"`
 	// The currency - should be ISO_4217 format (REQUIRED).
 	Currency currency.ISO3 `json:"Currency"`
 	// The type of card. The card type is optional, but the default parameter is "CB_VISA_MASTERCARD" (OPTIONAL).
 	CardType CardType `json:"CardType,omitempty"`
 }
 
+// CardType is the kind of card.
 type CardType string
 
 const (
+	// CardCBvisaMastercard is used for type CB VISA MASTERCARD
 	CardCBvisaMastercard CardType = "CB_VISA_MASTERCARD"
-	CardDiners           CardType = "DINERS"
-	CardMasterpass       CardType = "MASTERPASS"
-	CardAmex             CardType = "AMEX "
-	CardMaestro          CardType = "MAESTRO"
-	CardP24              CardType = "P24"
-	CardIdeal            CardType = "IDEAL"
-	CardBcmc             CardType = "BCMC"
-	CardPaylib           CardType = "PAYLIB"
+	// CardDiners is used for Diners card.
+	CardDiners CardType = "DINERS"
+	// CardMasterpass is used for Masterpass card.
+	CardMasterpass CardType = "MASTERPASS"
+	// CardAmex is used for Amex card.
+	CardAmex CardType = "AMEX "
+	// CardMaestro is used for Maestro card.
+	CardMaestro CardType = "MAESTRO"
+	// CardP24 is used for P24 card.
+	CardP24 CardType = "P24"
+	// CardIdeal is used for IDEAL card.
+	CardIdeal CardType = "IDEAL"
+	// CardBcmc is used for BCMC card.
+	CardBcmc CardType = "BCMC"
+	// CardPaylib is used for Paylib card.
+	CardPaylib CardType = "PAYLIB"
 )
 
+// CardStatus is the kind of status of a card.
 type CardStatus string
 
 const (
-	CardStatusCreated   CardStatus = "CREATED"
+	// CardStatusCreated is used for a created status.
+	CardStatusCreated CardStatus = "CREATED"
+	// CardStatusValidated is used for a validated status.
 	CardStatusValidated CardStatus = "VALIDATED"
-	CardStatusError     CardStatus = "ERROR"
+	// CardStatusError is used for a error status.
+	CardStatusError CardStatus = "ERROR"
 )
 
+// CardRegistrationUpdate is a payload used for updating a card's registration.
 type CardRegistrationUpdate struct {
 	// Having registered a card, this confirmation hash needs to be updated to the card item (OPTIONAL).
 	RegistrationData string `json:"RegistrationData"`
 }
 
+// Card represents the card.
 type Card struct {
 	// The expiry date of the card - must be in format MMYY
 	ExpirationDate int64 `json:"ExpirationDate"`
@@ -109,8 +126,11 @@ type Card struct {
 type CardValidity string
 
 const (
+	// CardValidityUnknown is used for a validity status unknown.
 	CardValidityUnknown CardValidity = "UNKNOWN"
-	CardValidityValid   CardValidity = "VALID"
+	// CardValidityValid is used for a validity status valid.
+	CardValidityValid CardValidity = "VALID"
+	// CardValidityInvalid is used for a validity status invalid.
 	CardValidityInvalid CardValidity = "INVALID"
 )
 

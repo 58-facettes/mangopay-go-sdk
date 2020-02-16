@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 )
 
+// KYCDocument describe a KYC document.
 type KYCDocument struct {
 	// ?? some fields may missing ??
 	// ID of the current card's registration.
@@ -31,41 +32,65 @@ type KYCDocument struct {
 type DocumentStatus string
 
 const (
-	DocumentStatusCreated         DocumentStatus = "CREATED"
+	// DocumentStatusCreated stands for a status created.
+	DocumentStatusCreated DocumentStatus = "CREATED"
+	// DocumentStatusValidationAsked stands for a status validation asked.
 	DocumentStatusValidationAsked DocumentStatus = "VALIDATION_ASKED"
-	DocumentStatusValidated       DocumentStatus = "VALIDATED"
-	DocumentStatusRefused         DocumentStatus = "REFUSED"
+	// DocumentStatusValidated stands for a status validated.
+	DocumentStatusValidated DocumentStatus = "VALIDATED"
+	// DocumentStatusRefused stands for a status refused.
+	DocumentStatusRefused DocumentStatus = "REFUSED"
 )
 
 // RefusedReason The type of refusal reason.
 type RefusedReason string
 
 const (
-	RefusedReasonDocUnreadable          RefusedReason = "DOCUMENT_UNREADABLE"
-	RefusedReasonDocNotAccepted         RefusedReason = "DOCUMENT_NOT_ACCEPTED"
-	RefusedReasonDocHasExpired          RefusedReason = "DOCUMENT_HAS_EXPIRED"
-	RefusedReasonDocIncomplete          RefusedReason = "DOCUMENT_INCOMPLETE"
-	RefusedReasonDocMissing             RefusedReason = "DOCUMENT_MISSING"
-	RefusedReasonDocNotMatchWithUser    RefusedReason = "DOCUMENT_DO_NOT_MATCH_USER_DATA"
+	// RefusedReasonDocUnreadable stands for a reason document unreadable.
+	RefusedReasonDocUnreadable RefusedReason = "DOCUMENT_UNREADABLE"
+	// RefusedReasonDocNotAccepted stands for a reason document not accepted.
+	RefusedReasonDocNotAccepted RefusedReason = "DOCUMENT_NOT_ACCEPTED"
+	// RefusedReasonDocHasExpired stands for a reason document has exired.
+	RefusedReasonDocHasExpired RefusedReason = "DOCUMENT_HAS_EXPIRED"
+	// RefusedReasonDocIncomplete stands for a reason document incomplete.
+	RefusedReasonDocIncomplete RefusedReason = "DOCUMENT_INCOMPLETE"
+	// RefusedReasonDocMissing stands for a reason document missing.
+	RefusedReasonDocMissing RefusedReason = "DOCUMENT_MISSING"
+	// RefusedReasonDocNotMatchWithUser stands for a reason document not match user data.
+	RefusedReasonDocNotMatchWithUser RefusedReason = "DOCUMENT_DO_NOT_MATCH_USER_DATA"
+	// RefusedReasonDocNotMatchWithAccount stands for a reason document do not match account data.
 	RefusedReasonDocNotMatchWithAccount RefusedReason = "DOCUMENT_DO_NOT_MATCH_ACCOUNT_DATA"
-	RefusedReasonDocFalsified           RefusedReason = "DOCUMENT_FALSIFIED"
-	RefusedReasonSecificCase            RefusedReason = "SPECIFIC_CASE"
-	RefusedReasonUnderAgePerson         RefusedReason = "UNDERAGE_PERSON"
+	// RefusedReasonDocFalsified stands for a reason document falsifed.
+	RefusedReasonDocFalsified RefusedReason = "DOCUMENT_FALSIFIED"
+	// RefusedReasonSecificCase stands for a reason specific case.
+	RefusedReasonSecificCase RefusedReason = "SPECIFIC_CASE"
+	// RefusedReasonUnderAgePerson stands for a reason underage person.
+	RefusedReasonUnderAgePerson RefusedReason = "UNDERAGE_PERSON"
 )
 
+// KYCDocumentCreate is a payload use for creating a new KYCDocument.
 type KYCDocumentCreate struct {
 }
 
+// DocumentType is the type of KYC document.
 type DocumentType string
 
 const (
-	DocumentTypeIdentity             DocumentType = "IDENTITY_PROOF"
-	DocumentTypeRegistration         DocumentType = "REGISTRATION_PROOF"
+	// DocumentTypeIdentity is for a document of iendtity proof.
+	DocumentTypeIdentity DocumentType = "IDENTITY_PROOF"
+	// DocumentTypeRegistration is for a document of registration proff.
+	DocumentTypeRegistration DocumentType = "REGISTRATION_PROOF"
+	// DocumentTypeArticleOfAssociation is for a document of article of association.
 	DocumentTypeArticleOfAssociation DocumentType = "ARTICLES_OF_ASSOCIATION"
-	DocumentTypeShareHolder          DocumentType = "SHAREHOLDER_DECLARATION"
-	DocumentTypeAddress              DocumentType = "ADDRESS_PROOF"
+	// DocumentTypeShareHolder is for a document of shareholder declaration.
+	DocumentTypeShareHolder DocumentType = "SHAREHOLDER_DECLARATION"
+	// DocumentTypeAddress is for a document of address proof.
+	DocumentTypeAddress DocumentType = "ADDRESS_PROOF"
 )
 
+// KYCPage is used as a container to hold the files encoded in base64.
+// if you are creating a new Page please use the function `NewKYCPage`
+// that will help you to read and encode the given file.
 type KYCPage struct {
 	File string `json:"File"`
 }

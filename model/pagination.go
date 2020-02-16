@@ -5,13 +5,14 @@ import (
 	"net/url"
 )
 
+// Query is used to hold query params.
 type Query struct {
 	Page    int
 	PerPage int
 	Filter  map[string]string
 }
 
-// Parameters creates query params in URL
+// NewPagination creates query params in URL
 // page: index of the page (start to 1) Default value: 1
 // perPage: number of items returned. Default value: 10 Max: 100
 // Here is an example:
@@ -25,6 +26,7 @@ func NewPagination(page, perPage int) *Query {
 	}
 }
 
+// NewFilter creates a Query with filters.
 func NewFilter(key, value string) *Query {
 	return &Query{
 		Filter: map[string]string{
@@ -33,6 +35,7 @@ func NewFilter(key, value string) *Query {
 	}
 }
 
+// AddFilter is adding a filter key value pair to an existing Query.
 func (query *Query) AddFilter(key, value string) {
 	if query.Filter == nil {
 		query.Filter = make(map[string]string)
@@ -40,10 +43,13 @@ func (query *Query) AddFilter(key, value string) {
 	query.Filter[key] = value
 }
 
+// AddPagination is creating a pagination from an existing Query.
+// if this Query has allready a pagination, this will overwrite on it.
 func (query *Query) AddPagination(page, perPage int) {
 	query.Page, query.PerPage = defaultValuesForPagnination(page, perPage)
 }
 
+// URI retive all filters and pagination data to use it with the URI.
 func (query *Query) URI(uri string) string {
 	u, _ := url.Parse(uri)
 	q := u.Query()

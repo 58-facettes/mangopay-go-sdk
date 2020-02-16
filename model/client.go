@@ -2,13 +2,14 @@ package model
 
 import "encoding/base64"
 
+// Client represents a client.
 type Client struct {
 	// Name it the pretty name for the client.
 	Name string `json:"name"`
 	// RegisteredName it the registered name of your company.
 	RegisteredName string `json:"RegisteredName"`
-	// ClientId is an ID for the client (i.e. url friendly, lowercase etc - sort of namespace identifier).
-	ClientId string `json:"ClientId"`
+	// ClientID is an ID for the client (i.e. url friendly, lowercase etc - sort of namespace identifier).
+	ClientID string `json:"ClientId"`
 	// PrimaryThemeColour is the primary branding colour to use for your merchant.
 	PrimaryThemeColour string `json:"PrimaryThemeColour"`
 	// PrimaryButtonColour is the primary branding colour to use for buttons for your merchant.
@@ -37,6 +38,7 @@ type Client struct {
 	CompanyReference string `json:"CompanyReference"`
 }
 
+// ClientUpdate is the payload used for updating a client.
 type ClientUpdate struct {
 	// AdminEmails is a list of email addresses to use when contacting you for admin/commercial issues/communications.
 	AdminEmails []string `json:"AdminEmails,omitempty"`
@@ -62,6 +64,8 @@ type ClientUpdate struct {
 	PrimaryButtonColour string `json:"PrimaryButtonColour,omitempty"`
 }
 
+// ClientLogo is the payload used for updating the Logo image of the client.
+// the value in file must be encoded in a base64 format.
 type ClientLogo struct {
 	File string `json:"File"`
 }
@@ -74,11 +78,12 @@ func NewClientLogo(data []byte) *ClientLogo {
 	}
 }
 
+// Address represent an address.
 type Address struct {
-	// AddressLine1 is the first line of the address.
-	AddressLine1 string `json:""`
-	// AddressLine2 is the second line of the address.
-	AddressLine2 string `json:"AddressLine2,omitempty"`
+	// Line1 is the first line of the address.
+	Line1 string `json:"AddressLine1"`
+	// Line2 is the second line of the address.
+	Line2 string `json:"AddressLine2,omitempty"`
 	// City is the city of the address.
 	City string `json:"City"`
 	// Region is the region of the address - this is optional except if the Country is US, CA or MX.
@@ -89,15 +94,21 @@ type Address struct {
 	Country string `json:"Countrys"`
 }
 
+// Business for the business type.
 type Business string
 
 const (
-	BusinessMarketplace  Business = "MARKETPLACE"
+	// BusinessMarketplace is for a bunisess in marketplace.
+	BusinessMarketplace Business = "MARKETPLACE"
+	// BusinessCrowdfunding is for a bunisess in crowdfunding.
 	BusinessCrowdfunding Business = "CROWDFUNDING"
-	BusinessFranchise    Business = "FRANCHISE"
-	BusinessOther        Business = "OTHER"
+	// BusinessFranchise is for a bunisess in franchise.
+	BusinessFranchise Business = "FRANCHISE"
+	// BusinessOther is for a bunisess in other.
+	BusinessOther Business = "OTHER"
 )
 
+// PlatformCategorization is used to categorize a platform.
 type PlatformCategorization struct {
 	// BusinessType is the business type of your Platform.
 	BusinessType Business // OPTIONAL
@@ -105,24 +116,42 @@ type PlatformCategorization struct {
 	Sector Sector // OPTIONAL
 }
 
+// Sector is the sector of the business.
 type Sector string
 
 const (
-	SectorRentals                        Sector = "RENTALS"
+	// SectorRentals is for a rentals sector.
+	SectorRentals Sector = "RENTALS"
+	// SectorStoreFashionAccessoriesObjects is for a stores fashion accessorties objects sector.
 	SectorStoreFashionAccessoriesObjects Sector = "STORES_FASHION_ACCESSORIES_OBJECTS"
-	SectorBeautyCosmeticsHealth          Sector = "BEAUTY_COSMETICS_HEALTH"
-	SectorFoodWineRestaurants            Sector = "FOOD_WINE_RESTAURANTS"
-	SectorHospitalityTravelCording       Sector = "HOSPITALITY_TRAVEL_CORIDING"
-	SectorArtMusicEntretainement         Sector = "ART_MUSIC_ENTERTAINMENT"
-	SectorFurnitureGarden                Sector = "FURNITURE_GARDEN"
-	SectorServicesJobbingEducation       Sector = "SERVICES_JOBBING_EDUCATION"
-	SectorSportRecreationActivities      Sector = "SPORT_RECREATION_ACTIVITIES"
-	SectorTicketing                      Sector = "TICKETING"
-	SectorLoan                           Sector = "LOAN"
-	SectorEquity                         Sector = "EQUITY"
-	SectorPropertyEquity                 Sector = "PROPERTY_EQUITY"
-	SectorRewardsCharity                 Sector = "REWARDS_CHARITY"
-	SectorPoolGroupPayment               Sector = "POOL_GROUP_PAYMENT"
-	SectorFranchise                      Sector = "FRANCHISE"
-	SectorOther                          Sector = "OTHER"
+	// SectorBeautyCosmeticsHealth is for a beauty cosmetics health sector.
+	SectorBeautyCosmeticsHealth Sector = "BEAUTY_COSMETICS_HEALTH"
+	// SectorFoodWineRestaurants is for a food wine restaurants sector.
+	SectorFoodWineRestaurants Sector = "FOOD_WINE_RESTAURANTS"
+	// SectorHospitalityTravelCording is for a hospitality travel coriding sector.
+	SectorHospitalityTravelCording Sector = "HOSPITALITY_TRAVEL_CORIDING"
+	// SectorArtMusicEntretainement is for an art music entrertainment sector.
+	SectorArtMusicEntretainement Sector = "ART_MUSIC_ENTERTAINMENT"
+	// SectorFurnitureGarden is for a furniture garden sector.
+	SectorFurnitureGarden Sector = "FURNITURE_GARDEN"
+	// SectorServicesJobbingEducation is for a service jobbing education sector.
+	SectorServicesJobbingEducation Sector = "SERVICES_JOBBING_EDUCATION"
+	// SectorSportRecreationActivities is for a sport recreation activities sector.
+	SectorSportRecreationActivities Sector = "SPORT_RECREATION_ACTIVITIES"
+	// SectorTicketing is for a ticketing sector.
+	SectorTicketing Sector = "TICKETING"
+	// SectorLoan is for a loan sector.
+	SectorLoan Sector = "LOAN"
+	// SectorEquity is for a eauity sector.
+	SectorEquity Sector = "EQUITY"
+	// SectorPropertyEquity is for a property equity sector.
+	SectorPropertyEquity Sector = "PROPERTY_EQUITY"
+	// SectorRewardsCharity is for a rewards charity sector.
+	SectorRewardsCharity Sector = "REWARDS_CHARITY"
+	// SectorPoolGroupPayment is for a pool group payment sector.
+	SectorPoolGroupPayment Sector = "POOL_GROUP_PAYMENT"
+	// SectorFranchise is for a franchise sector.
+	SectorFranchise Sector = "FRANCHISE"
+	// SectorOther is for a other sector.
+	SectorOther Sector = "OTHER"
 )

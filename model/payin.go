@@ -4,6 +4,7 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/model/country"
 )
 
+// Payin is used for the payin instrcution.
 type Payin struct {
 	// The type of payin.
 	Payment Payment `json:"PaymentType"`
@@ -11,22 +12,29 @@ type Payin struct {
 	Execution Execution `json:"ExecutionType"`
 }
 
-// PayInPayment is the payment type of the payin.
+// Payment is the payment type of the payin.
 type Payment string
 
 const (
-	PaymentCard          Payment = "CARD"
-	PaymentDirectDebit   Payment = "DIRECT_DEBIT"
+	// PaymentCard is for a payment with card.
+	PaymentCard Payment = "CARD"
+	// PaymentDirectDebit is for a payment with direct debit.
+	PaymentDirectDebit Payment = "DIRECT_DEBIT"
+	// PaymentPreauthorized is for a payment with preauthoorized.
 	PaymentPreauthorized Payment = "PREAUTHORIZED"
-	PaymentBankWire      Payment = "BANK_WIRE"
+	// PaymentBankWire is for a payment with bank wire.
+	PaymentBankWire Payment = "BANK_WIRE"
 )
 
-// PayInExecution is the execution type of the payin.
+// Execution is the execution type of the payin.
 type Execution string
 
 const (
-	ExecutionWeb                 Execution = "WEB"
-	ExecutionDirect              Execution = "DIRECT"
+	// ExecutionWeb is for an execution web.
+	ExecutionWeb Execution = "WEB"
+	// ExecutionDirect is for an execution direct.
+	ExecutionDirect Execution = "DIRECT"
+	// ExecutionExternalInstruction is for an execution external instruction.
 	ExecutionExternalInstruction Execution = "EXTERNAL_INSTRUCTION"
 )
 
@@ -53,33 +61,53 @@ type CardWeb struct {
 	RedirectURL string
 }
 
+// SecureMode is the type of mode.
 type SecureMode string
 
 const (
+	// SecureModeDefault is the mode of payin by DEFAULT.
 	SecureModeDefault SecureMode = "DEFAULT"
-	SecureModeForce   SecureMode = "FORCE"
+	// SecureModeForce is the mode of payin by FORCE.
+	SecureModeForce SecureMode = "FORCE"
 )
 
-// The language to use for the payment webpage.
+// CultureCode is the language to use for the payment webpage.
 type CultureCode string
 
 const (
+	// CultureCodeDE is the culture code for the country iso2 DE.
 	CultureCodeDE CultureCode = "DE"
+	// CultureCodeEN is the culture code for the country iso2 EN.
 	CultureCodeEN CultureCode = "EN"
+	// CultureCodeDA is the culture code for the country iso2 DA.
 	CultureCodeDA CultureCode = "DA"
+	// CultureCodeES is the culture code for the country iso2 ES.
 	CultureCodeES CultureCode = "ES"
+	// CultureCodeET is the culture code for the country iso2 ET.
 	CultureCodeET CultureCode = "ET"
+	// CultureCodeFI is the culture code for the country iso2 FI.
 	CultureCodeFI CultureCode = "FI"
+	// CultureCodeFR is the culture code for the country iso2 FR.
 	CultureCodeFR CultureCode = "FR"
+	// CultureCodeEL is the culture code for the country iso2 EL.
 	CultureCodeEL CultureCode = "EL"
+	// CultureCodeHU is the culture code for the country iso2 HU.
 	CultureCodeHU CultureCode = "HU"
+	// CultureCodeIT is the culture code for the country iso2 IT.
 	CultureCodeIT CultureCode = "IT"
+	// CultureCodeNL is the culture code for the country iso2 NL.
 	CultureCodeNL CultureCode = "NL"
+	// CultureCodeNO is the culture code for the country iso2 NO.
 	CultureCodeNO CultureCode = "NO"
+	// CultureCodePL is the culture code for the country iso2 PL.
 	CultureCodePL CultureCode = "PL"
+	// CultureCodePT is the culture code for the country iso2 PT.
 	CultureCodePT CultureCode = "PT"
+	// CultureCodeSK is the culture code for the country iso2 SK.
 	CultureCodeSK CultureCode = "SK"
+	// CultureCodeSV is the culture code for the country iso2 SV.
 	CultureCodeSV CultureCode = "SV"
+	// CultureCodeCS is the culture code for the country iso2 CS.
 	CultureCodeCS CultureCode = "CS"
 )
 
@@ -89,7 +117,7 @@ type CardWebCreate struct {
 	// A user's ID REQUIRED.
 	AuthorID string `json:"AuthorId"`
 	// The user ID who is credited (defaults to the owner of the wallet) OPTIONAL.
-	CreditedUserId string `json:"CreditedUserId,omitempty"`
+	CreditedUserID string `json:"CreditedUserId,omitempty"`
 	// Information about the funds that are being debited REQUIRED.
 	DebitedFunds Money `json:"DebitedFunds"`
 	// Information about the fees that were taken by the client REQUIRED.
@@ -100,7 +128,7 @@ type CardWebCreate struct {
 	// The type of card . The card type is optional, but the default parameter is "CB_VISA_MASTERCARD" REQUIRED.
 	CardType CardType `json:"CardType"`
 	// The ID of the wallet where money will be credited REQUIRED.
-	CreditedWalletId string `json:"CreditedWalletId"`
+	CreditedWalletID string `json:"CreditedWalletId"`
 	// The SecureMode corresponds to '3D secure' for CB Visa and MasterCard OPTIONAL.
 	// This field lets you activate it manually. The field lets you activate it automatically
 	// with "DEFAULT" (Secured Mode will be activated from €50 or when MANGOPAY detects there is a higher risk ),
@@ -147,7 +175,7 @@ type CardDirect struct {
 	// The value is 'true' if the SecureMode was used.
 	SecureModeNeeded bool `json:"SecureModeNeeded"`
 	// This is the URL where to redirect users to proceed to 3D secure validation.
-	SecureModeRedirectUrl string `json:"SecureModeRedirectUrl"`
+	SecureModeRedirectURL string `json:"SecureModeRedirectUrl"`
 }
 
 type CardDirectCreate struct {

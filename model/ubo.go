@@ -26,14 +26,20 @@ type UBO struct {
 	// ?? end ??
 }
 
+// UBODeclarationStatus is for UBOs declaration type.
 type UBODeclarationStatus string
 
 const (
-	UBODeclarationStatusCreated         UBODeclarationStatus = "CREATED"
+	// UBODeclarationStatusCreated is for an UBO status created.
+	UBODeclarationStatusCreated UBODeclarationStatus = "CREATED"
+	// UBODeclarationStatusValidationAsked is for an UBO status validation asked.
 	UBODeclarationStatusValidationAsked UBODeclarationStatus = "VALIDATION_ASKED"
-	UBODeclarationStatusIncomplete      UBODeclarationStatus = "INCOMPLETE"
-	UBODeclarationStatusValidated       UBODeclarationStatus = "VALIDATED"
-	UBODeclarationStatusRefused         UBODeclarationStatus = "REFUSED"
+	// UBODeclarationStatusIncomplete is for an UBO status incomplete.
+	UBODeclarationStatusIncomplete UBODeclarationStatus = "INCOMPLETE"
+	// UBODeclarationStatusValidated is for an UBO status validated.
+	UBODeclarationStatusValidated UBODeclarationStatus = "VALIDATED"
+	// UBODeclarationStatusRefused is for an UBO status refused.
+	UBODeclarationStatusRefused UBODeclarationStatus = "REFUSED"
 )
 
 // UBOReason is a reason type for UBO declaration
