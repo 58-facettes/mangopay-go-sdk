@@ -100,11 +100,17 @@ type KYCPage struct {
 // The following formats are accepted : .pdf, .jpeg, .jpg, .gif and .png.
 // The minimum size is 1Kb.
 func NewKYCPage(filepath string) (*KYCPage, error) {
-	data, err := ioutil.ReadFile(filepath)
-	if err != nil {
-		return nil, err
-	}
+	var data string
 	return &KYCPage{
-		File: base64.StdEncoding.EncodeToString(data),
-	}, nil
+		File: data,
+	}, encodeBase64File(&data, filepath)
+}
+
+func encodeBase64File(data *string, filepath string) error {
+	read, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		return err
+	}
+	*data = base64.StdEncoding.EncodeToString(read)
+	return nil
 }
