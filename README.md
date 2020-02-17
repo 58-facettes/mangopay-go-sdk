@@ -1,4 +1,4 @@
-# MANGOPAY Go SDK  [![Build Status](https://travis-ci.org/58-facettes/mangopay2-go-sdk.svg?branch=master)](https://travis-ci.org/58-facettes/mangopay2-go-sdk) [![License](https://poser.pugx.org/mangopay/go-sdk-v2/license)](https://packagist.org/packages/mangopay/go-sdk-v2)
+# MANGOPAY Go SDK  [![Build Status](https://travis-ci.org/58-facettes/mangopay-go-sdk.svg?branch=master)](https://travis-ci.org/58-facettes/mangopay2-go-sdk) [![License](https://poser.pugx.org/mangopay/go-sdk-v2/license)](https://packagist.org/packages/mangopay/go-sdk-v2)
 
 ## Please don't use this SDK yet this is steel under heavy developpement
 
