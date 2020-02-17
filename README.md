@@ -1,4 +1,5 @@
-# MANGOPAY Go SDK  [![Build Status](https://travis-ci.org/58-facettes/mangopay-go-sdk.svg?branch=master)](https://travis-ci.org/58-facettes/mangopay2-go-sdk) [![License](https://poser.pugx.org/mangopay/go-sdk-v2/license)](https://packagist.org/packages/mangopay/go-sdk-v2)
+# MANGOPAY Go SDK  [![Build Status](https://travis-ci.org/58-facettes/mangopay-go-sdk.svg?branch=master)](https://travis-ci.org/58-facettes/mangopay-go-sdk) [![License](https://poser.pugx.org/mangopay/go-sdk-v2/license)](https://packagist.org/packages/mangopay/go-sdk-v2)
+[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/phpunit/phpunit)
 
 ## Please don't use this SDK yet this is steel under heavy developpement
 
@@ -22,14 +23,14 @@ To use this SDK, you will need (as a minimum):
 
 You can use Mangopay SDK library as a dependency in your project with 
 
-`go get -u github.com/mangopay/mangopay2-go-sdk`
+`go get -u github.com/58-facettes/mangopay-go-sdk`
 
 (which is the preferred technique). Follow [these installation instructions]
 
 ## License
 
 MangopaySDK is distributed under MIT license,
-see the [LICENSE file](https://github.com/Mangopay/mangopay2-go-sdk/blob/master/LICENSE).
+see the [LICENSE file](https://github.com/58-facettes/mangopay-go-sdk/blob/master/LICENSE).
 
 ## Unit Tests
 
@@ -43,7 +44,7 @@ $ make test
 ## Contacts & Bugs
 
 Report bugs or suggest features using
-[issue tracker on GitHub](https://github.com/mangopay/mangopay2-go-sdk/issues).
+[issue tracker on GitHub](https://github.com/58-facettes/mangopay-go-sdk/issues).
 
 
 ## Account creation
@@ -211,7 +212,7 @@ This information is available from the MangoPayApi instance, like in the followi
 package main
 
 import (
-    "github.com/Mangopay/mangopay2-go-sdk"
+    "github.com/58-facettes/mangopay-go-sdk"
 )
 
 func main() {
