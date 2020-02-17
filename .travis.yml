@@ -1,35 +1,14 @@
-before_install:
-  # Install various build dependencies. We use `travis_retry` because `go get`
-  # will occasionally fail intermittently.
-
-  # The testify require framework is used for assertions in the test suite
-  - travis_retry go get -u github.com/stretchr/testify/require
-
-  # Install lint / code coverage / coveralls tooling
-  - travis_retry go get -u golang.org/x/net/http2
-  - travis_retry go get -u golang.org/x/tools/cmd/cover
-  - travis_retry go get -u github.com/modocache/gover
-  - travis_retry go get -u github.com/mattn/goveralls
-  - travis_retry go get -u golang.org/x/lint/golint
-
-cache:
-
-env:
-  global:
-
-go:
-  - "1.12.x"
-
 language: go
 
+go:
+  - 1.13.x
+  - tip
+
+before_install:
+  - go get -t -v ./...
+
 script:
-  - make
-  - make coverage
+  - go test -race -coverprofile=coverage.txt -covermode=atomic
 
-after_script:
-  # Merge all coverage reports located in subdirectories and put them under: gover.coverprofile
-  - gover
-  # Send code coverage report to coveralls.io
-  - goveralls -service=travis-ci -coverprofile=gover.coverprofile
-
-sudo: false
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
