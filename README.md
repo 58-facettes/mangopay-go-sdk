@@ -71,7 +71,7 @@ environment, set `mangopay.Mode` to `mangopay.Production`.
 package main
 
 import(
-    "github.com/mangopay/magopay2-go-sdk"
+    "github.com/58-facettes/magopay-go-sdk"
 )
 
 func main() {
@@ -97,7 +97,7 @@ func main() {
 package main
 
 import(
-    "github.com/mangopay/magopay2-go-sdk"
+    "github.com/58-facettes/magopay-go-sdk"
 )
 
 func main() {
@@ -150,7 +150,7 @@ import (
     "net/http"
 
     "github.com/gin-gonic/gin"
-    "github.com/mangopay/magopay2-go-sdk"
+    "github.com/58-facettes/magopay-go-sdk"
 )
 
 var api = mangopay.NewWithBasicAuth("your-client-id","your-client-password")
