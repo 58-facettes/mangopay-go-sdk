@@ -1,5 +1,9 @@
-# MANGOPAY Go SDK  [![Build Status](https://travis-ci.org/58-facettes/mangopay-go-sdk.svg?branch=master)](https://travis-ci.org/58-facettes/mangopay-go-sdk) [![License](https://poser.pugx.org/mangopay/go-sdk-v2/license)](https://packagist.org/packages/mangopay/go-sdk-v2)
-[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/phpunit/phpunit)
+# MANGOPAY Go SDK
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/58-facettes/mangopay-go-sdk)
+[![Build Status](https://travis-ci.org/58-facettes/mangopay-go-sdk.svg?branch=master)](https://travis-ci.org/58-facettes/mangopay-go-sdk)
+[![Coverage Status](https://coveralls.io/repos/github/58-facettes/mangopay-go-sdk/badge.svg?branch=master)](https://coveralls.io/github/58-facettes/mangopay-go-sdk?branch=master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go: version](https://img.shields.io/github/go-mod/go-version/58-facettes/mangopay-go-sdk)]
 
 ## Please don't use this SDK yet this is steel under heavy developpement
 
