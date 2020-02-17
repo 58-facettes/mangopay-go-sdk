@@ -2,7 +2,7 @@
 
 [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/58-facettes/mangopay-go-sdk)
 [![Build Status](https://travis-ci.org/58-facettes/mangopay-go-sdk.svg?branch=master)](https://travis-ci.org/58-facettes/mangopay-go-sdk)
-[![Coverage Status](https://coveralls.io/repos/github/58-facettes/mangopay-go-sdk/badge.svg?branch=master)](https://coveralls.io/github/58-facettes/mangopay-go-sdk?branch=master)
+[![codecov](https://codecov.io/gh/58-facettes/mangopay-go-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/58-facettes/mangopay-go-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Go: version](https://img.shields.io/github/go-mod/go-version/58-facettes/mangopay-go-sdk)
 
