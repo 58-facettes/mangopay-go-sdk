@@ -38,6 +38,8 @@ type API struct {
 	DisputeDocuments    *service.DisputeDocunents
 	Repudiations        *service.Repudiations
 	SettlementTransfers *service.SettlementTranfers
+	BankingAliases      *service.BankingAliases
+	SSOS                *service.SSOS
 }
 
 // Logger is the default internal logging tool that is used.
