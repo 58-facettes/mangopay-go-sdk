@@ -15,28 +15,29 @@ type API struct {
 	clientPassword string
 	logr           log.Logger
 	// List of all avalable services.
-	Clients           *service.Clients
-	ClientWallets     *service.ClientWallets
-	Users             *service.Users
-	UserEmoney        *service.UserEmoneys
-	Wallets           *service.Wallets
-	Cards             *service.Cards
-	PayIns            *service.PayIns
-	Transferts        *service.Transferts
-	BankAccounts      *service.BankAccounts
-	PayOuts           *service.PayOuts
-	KYCs              *service.KYCs
-	Stats             *service.Stats
-	UBOs              *service.UBOs
-	Mandates          *service.Mandates
-	Hooks             *service.Hooks
-	Events            *service.Events
-	Transactions      *service.Transactions
-	PreAuthorizations *service.PreAuthorizations
-	Refunds           *service.Refunds
-	Disputes          *service.Disputes
-	DisputeDocuments  *service.DisputeDocunents
-	Repudiations      *service.Repudiations
+	Clients             *service.Clients
+	ClientWallets       *service.ClientWallets
+	Users               *service.Users
+	UserEmoney          *service.UserEmoneys
+	Wallets             *service.Wallets
+	Cards               *service.Cards
+	PayIns              *service.PayIns
+	Transferts          *service.Transferts
+	BankAccounts        *service.BankAccounts
+	PayOuts             *service.PayOuts
+	KYCs                *service.KYCs
+	Stats               *service.Stats
+	UBOs                *service.UBOs
+	Mandates            *service.Mandates
+	Hooks               *service.Hooks
+	Events              *service.Events
+	Transactions        *service.Transactions
+	PreAuthorizations   *service.PreAuthorizations
+	Refunds             *service.Refunds
+	Disputes            *service.Disputes
+	DisputeDocuments    *service.DisputeDocunents
+	Repudiations        *service.Repudiations
+	SettlementTransfers *service.SettlementTranfers
 }
 
 // Logger is the default internal logging tool that is used.
