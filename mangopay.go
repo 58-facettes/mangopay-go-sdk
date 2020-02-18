@@ -8,6 +8,7 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/service"
 )
 
+// API holds all the services for calling Mongopay API.
 type API struct {
 	isBasicAuth    bool
 	clientID       string
@@ -34,6 +35,8 @@ type API struct {
 	PreAuthorizations *service.PreAuthorizations
 	Refunds           *service.Refunds
 	Disputes          *service.Disputes
+	DisputeDocuments  *service.DisputeDocunents
+	Repudiations      *service.Repudiations
 }
 
 // Logger is the default internal logging tool that is used.
