@@ -41,8 +41,8 @@ type API struct {
 	BankingAliases      *service.BankingAliases
 	SSOS                *service.SSOS
 	PermissionGroups    *service.PermissionGoups
-	// Reporting *service.Reporting
-	Idempotencies *service.Idempotcencies
+	Reports             *service.Reports
+	Idempotencies       *service.Idempotcencies
 }
 
 // Logger is the default internal logging tool that is used.
