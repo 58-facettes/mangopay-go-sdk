@@ -1,37 +1,40 @@
 package model
 
+// Dispute is used when a User requests a chargeback of transaction to their bank – in turn,
+// their bank withdraws the funds from us and we will then repudiate the required funds from your client credit wallet.
 type Dispute struct {
 	// The initial transaction ID
-	InitialTransactionId string
+	InitialTransactionID string `json:"InitialTransactionId"`
 	// The initial transaction type
-	InitialTransactionType TransactionType
+	InitialTransactionType TransactionType `json:"InitialTransactionType"`
 	// The result code
-	ResultCode string
+	ResultCode string `json:"ResultCode"`
 	// A verbal explanation of the ResultCode
-	ResultMessage string
+	ResultMessage string `json:"ResultMessage"`
 	// Info about the reason for the dispute
-	DisputeReason DisputeReason
+	DisputeReason DisputeReason `json:"DisputeReason"`
 	// The status of the dispute
-	Status DisputeStatus
+	Status DisputeStatus `json:"Status"`
 	// Used to communicate information about the dispute status to you
-	StatusMessage string
+	StatusMessage string `json:"StatusMessage"`
 	// The amount of funds that were disputed
-	DisputedFunds Money
+	DisputedFunds Money `json:"DisputedFunds"`
 	// The amount you wish to contest
-	ContestedFunds Money
+	ContestedFunds Money `json:"ContestedFunds"`
 	// The type of dispute
-	DisputeType DisputeType
+	DisputeType DisputeType `json:"DisputeType"`
 	// The deadline by which you must contest the dispute (if you wish to contest it)
-	ContestDeadlineDate int64
+	ContestDeadlineDate int64 `json:"ContestDeadlineDate"`
 	// The ID of the associated repudiation transaction
-	RepudiationId string
+	RepudiationID string `json:"RepudiationId"`
 }
 
+// DisputeReason is the reason of the Dispute.
 type DisputeReason struct {
 	// The type of reason for the dispute
-	DisputeReasonType DisputeReasonType
+	DisputeReasonType DisputeReasonType `json:"DisputeReasonType"`
 	// More information about the reason for the dispute
-	DisputeReasonMessage string
+	DisputeReasonMessage string `json:"DisputeReasonMessage"`
 }
 
 // DisputeReasonType is the reason type for the dispute.
