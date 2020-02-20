@@ -91,9 +91,14 @@ func NewWithOAuth(clientID, clientPassword string) *API {
 func newConnect(clientID, clientPassword string, isBasicAuth bool) *API {
 	api := new(API)
 	service.DefaultClient = Config.HTTPClient
-	service.UseIdempotency = Config.UseIdempotency
-	if Config.DB != nil {
+	// this way we oblige the usage of a db when the idempotency is used.
+	if Config.DB != nil && Config.UseIdempotency {
 		service.DB = Config.DB
+		service.UseIdempotency = Config.UseIdempotency
+	} else if service.DB == nil && Config.UseIdempotency {
+		Config.Logger.Fatal("mangopay: no storage tool found in the mangopay.Config.DB.\n" +
+			"If you use an idempotency key you should provide your db in mangopay.Config.DB.\n" +
+			"Please refer to the data.Manager contract interface.")
 	}
 	if Config.Logger != nil {
 		api.logr = Config.Logger
