@@ -14,9 +14,6 @@ MangopaySDK is a Go client library to work with [Mangopay REST API](http://docs.
 
 * Since v2.1 of this SDK, you must be using at least v2.01 of the API
 ([more information about the changes required](https://docs.mangopay.com/api-v2-01-overview/))
-* If you experience problems with authentification and/or the temporary token file following an SDK update
-(particuarly updating to v2.0 of the SDK), you may need to just delete your temporary file
-(that you specify with `api.TemporaryFolder`) - which allows it to be regenerated correctly the next time it's needed
 
 ## Requirements
 
@@ -26,11 +23,11 @@ To use this SDK, you will need (as a minimum):
 
 ## Installation
 
-You can use Mangopay SDK library as a dependency in your project with 
+You can use Mangopay SDK library as a dependency in your project with:
 
-`go get -u github.com/58-facettes/mangopay-go-sdk`
-
-(which is the preferred technique). Follow [these installation instructions]
+```ssh
+go get -u github.com/58-facettes/mangopay-go-sdk
+```
 
 ## License
 
@@ -43,7 +40,7 @@ This project is not yet fully test.
 To run test just go into the root directory and run the following command.
 
 ```sh
-$ make test
+make test
 ```
 
 ## Contacts & Bugs
@@ -176,7 +173,7 @@ func HandlerUser(ctx *gin.Context) {
 And run it into the terminal.
 
 ```sh
-$ go run main.go
+go run main.go
 ```
 
 ## Logging
