@@ -58,8 +58,8 @@ func (PreAuthorizations) CardList(cardID string) (res []model.PreAuthorization, 
 //
 // PaymentStatus PaymentStatus OPTIONAL
 // The status of the payment after the PreAuthorization. You can pass the PaymentStatus from "WAITING" to "CANCELED" should you need/want to
-func (PreAuthorizations) UserList(userID string, query ...model.Query) (res []model.PreAuthorization, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/preauthorizations/", query...), nil)
+func (PreAuthorizations) UserList(userID string, query *model.Query) (res []model.PreAuthorization, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/preauthorizations/", query), nil)
 	if err != nil {
 		return
 	}

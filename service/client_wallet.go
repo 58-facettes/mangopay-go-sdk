@@ -12,8 +12,8 @@ import (
 type ClientWallets struct{}
 
 // ListAll is listing all the ClientWallet with it's associated Currency and Fundtype.
-func (ClientWallets) ListAll(query ...model.Query) (res []model.ClientWallet, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/wallets/", query...), nil)
+func (ClientWallets) ListAll(query *model.Query) (res []model.ClientWallet, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/wallets/", query), nil)
 	if err != nil {
 		return
 	}

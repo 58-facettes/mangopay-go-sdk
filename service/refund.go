@@ -43,8 +43,8 @@ func (Refunds) View(refundID string) (res *model.Refund, err error) {
 }
 
 // PayoutList is listing all refunds from a payoutID.
-func (Refunds) PayoutList(payoutID string, query ...model.Query) (res []model.Refund, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("payouts/"+payoutID+"/refunds/", query...), nil)
+func (Refunds) PayoutList(payoutID string, query *model.Query) (res []model.Refund, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("payouts/"+payoutID+"/refunds/", query), nil)
 	if err != nil {
 		return
 	}

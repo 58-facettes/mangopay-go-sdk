@@ -148,32 +148,32 @@ You can integrate Mangopay features in a Service in your gin project.
 `main.go` :
 
 ```go
-
 package main
 
 import (
-    "net/http"
+	"log"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
-    "github.com/58-facettes/magopay-go-sdk"
+	"github.com/58-facettes/mangopay-go-sdk"
+	"github.com/gin-gonic/gin"
 )
 
-var api = mangopay.NewWithBasicAuth("your-client-id","your-client-password")
+var api = mangopay.NewWithBasicAuth("client-id", "client-password")
 
 func main() {
-    api.TempPath = "/some/path/"
-    router := gin.Default()
-    router.GET("/users/:userID", HandlerUser)
-    router.Run(":8080")
+	router := gin.Default()
+	router.GET("/users/:userID", HandlerUser)
+	router.Run(":8080")
 }
 
 func HandlerUser(ctx *gin.Context) {
-    john, err := api.Users.Get(ctx.Param("userID"))
-    if err != nil {
-        ctx.AbortWithError(400, err)
-        return
-    }
-    c.JSON(http.StatusOK, jhon)
+	jhon, err := api.Users.View(ctx.Param("userID"))
+	if err != nil {
+		log.Println("error is ", err.Error())
+		ctx.AbortWithError(400, err)
+		return
+	}
+	ctx.JSON(http.StatusOK, jhon)
 }
 ```
 

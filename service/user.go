@@ -46,8 +46,8 @@ func (Users) UpdateLegalUser(userID string, payload *model.LegalUserUpdate) (res
 	return res, json.Unmarshal(data, res)
 }
 
-// ViewUser retreve the User fron the given userID.
-func (Users) ViewUser(userID string) (res *model.User, err error) {
+// View retreve the User fron the given userID.
+func (Users) View(userID string) (res *model.User, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/", nil)
 	if err != nil {
 		return
@@ -55,9 +55,9 @@ func (Users) ViewUser(userID string) (res *model.User, err error) {
 	return res, json.Unmarshal(data, res)
 }
 
-// ListAllUsers retreve all Users from the cliendID.
-func (Users) ListAllUsers(query ...model.Query) (res []model.User, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/", query...), nil)
+// List retreve all Users from the cliendID.
+func (Users) List(query *model.Query) (res []model.User, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/", query), nil)
 	if err != nil {
 		return
 	}

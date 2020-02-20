@@ -77,8 +77,8 @@ func (Disputes) ReSubmit(disputeID string) (res *model.Dispute, err error) {
 //
 // Status DisputeStatus OPTIONAL
 // The status of this KYC/Dispute document
-func (Disputes) UserList(userID string, query ...model.Query) (res []model.Dispute, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/disputes/", query...), nil)
+func (Disputes) UserList(userID string, query *model.Query) (res []model.Dispute, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/disputes/", query), nil)
 	if err != nil {
 		return
 	}
@@ -93,8 +93,8 @@ func (Disputes) UserList(userID string, query ...model.Query) (res []model.Dispu
 //
 // Status DisputeStatus OPTIONAL
 // The status of this KYC/Dispute document
-func (Disputes) WalletList(walletID string, query ...model.Query) (res []model.Dispute, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("wallets/"+walletID+"/disputes/", query...), nil)
+func (Disputes) WalletList(walletID string, query *model.Query) (res []model.Dispute, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("wallets/"+walletID+"/disputes/", query), nil)
 	if err != nil {
 		return
 	}
@@ -109,8 +109,8 @@ func (Disputes) WalletList(walletID string, query ...model.Query) (res []model.D
 //
 // Status DisputeStatus OPTIONAL
 // The status of this KYC/Dispute document
-func (Disputes) List(query ...model.Query) (res []model.Dispute, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("disputes/", query...), nil)
+func (Disputes) List(query *model.Query) (res []model.Dispute, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("disputes/", query), nil)
 	if err != nil {
 		return
 	}
@@ -123,8 +123,8 @@ func (Disputes) List(query ...model.Query) (res []model.Dispute, err error) {
 // – this is entirely optional and will depend on your workflow whether you want to impact the original wallet or not.
 // The endpoint below provides you with the list of disputes that allow a settlement transfer
 // - meaning that you have credit for these disputes and that funds are still available in the original wallet.
-func (Disputes) PendingSettleList(query ...model.Query) (res []model.Dispute, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("disputes/pendingsettlement/", query...), nil)
+func (Disputes) PendingSettleList(query *model.Query) (res []model.Dispute, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("disputes/pendingsettlement/", query), nil)
 	if err != nil {
 		return
 	}

@@ -39,8 +39,8 @@ func (SSOS) View(ssoID string) (res *model.SSO, err error) {
 }
 
 // List is listing all SSO.
-func (SSOS) List(query ...model.Query) (res []model.SSO, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/ssos/", query...), nil)
+func (SSOS) List(query *model.Query) (res []model.SSO, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/ssos/", query), nil)
 	if err != nil {
 		return
 	}

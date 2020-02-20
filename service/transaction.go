@@ -70,8 +70,8 @@ func (Transactions) PreAuthorizationList(preAuthorizationID string) (res []model
 //
 // Status TransactionStatus OPTIONAL
 // The status of the transaction (you can filter your transactions list by multiple Status values, each one must be separated by a comma)
-func (Transactions) BankAccountList(bankAccountID string, query ...model.Query) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("bankaccounts/"+bankAccountID+"/transactions/", query...), nil)
+func (Transactions) BankAccountList(bankAccountID string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("bankaccounts/"+bankAccountID+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
@@ -88,8 +88,8 @@ func (Transactions) BankAccountList(bankAccountID string, query ...model.Query) 
 //
 // ResultCode string OPTIONAL
 // The result code of the transaction (you can filter your transactions list by multiple ResultCode values, each one must be separated by a comma)
-func (Transactions) CardList(cardID string, query ...model.Query) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("cards/"+cardID+"/transactions/", query...), nil)
+func (Transactions) CardList(cardID string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("cards/"+cardID+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
@@ -106,8 +106,8 @@ func (Transactions) CardList(cardID string, query ...model.Query) (res []model.T
 //
 // ResultCode string OPTIONAL
 // The result code of the transaction (you can filter your transactions list by multiple ResultCode values, each one must be separated by a comma)
-func (Transactions) MandateList(mandateID string, query ...model.Query) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("mandates/"+mandateID+"/transactions/", query...), nil)
+func (Transactions) MandateList(mandateID string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("mandates/"+mandateID+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}

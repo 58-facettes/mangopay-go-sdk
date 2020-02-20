@@ -59,20 +59,20 @@ type API struct {
 	SSOS                *service.SSOS
 	PermissionGroups    *service.PermissionGoups
 	Reports             *service.Reports
-	Idempotencies       *service.Idempotcencies
+	Idempotencies       *service.Idempotencies
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
 func NewWithBasicAuth(clientID, clientPassword string) *API {
-	return new(clientID, clientPassword, true)
+	return newConnect(clientID, clientPassword, true)
 }
 
 // NewWithOAuth is used for an oauth token connexion.
 func NewWithOAuth(clientID, clientPassword string) *API {
-	return new(clientID, clientPassword, false)
+	return newConnect(clientID, clientPassword, false)
 }
 
-func new(clientID, clientPassword string, isBasicAuth bool) *API {
+func newConnect(clientID, clientPassword string, isBasicAuth bool) *API {
 	api := API{
 		isBasicAuth:    isBasicAuth,
 		clientID:       clientID,
@@ -90,6 +90,34 @@ func new(clientID, clientPassword string, isBasicAuth bool) *API {
 	default:
 		service.BaseURL = "https://api.sandbox.mangopay.com/" + APIVersion + "/" + clientID + "/"
 	}
+	api.Clients = new(service.Clients)
+	api.ClientWallets = new(service.ClientWallets)
+	api.Users = new(service.Users)
+	api.UserEmoney = new(service.UserEmoneys)
+	api.Wallets = new(service.Wallets)
+	api.Cards = new(service.Cards)
+	api.PayIns = new(service.PayIns)
+	api.Transferts = new(service.Transferts)
+	api.BankAccounts = new(service.BankAccounts)
+	api.PayOuts = new(service.PayOuts)
+	api.KYCs = new(service.KYCs)
+	api.Stats = new(service.Stats)
+	api.UBOs = new(service.UBOs)
+	api.Mandates = new(service.Mandates)
+	api.Hooks = new(service.Hooks)
+	api.Events = new(service.Events)
+	api.Transactions = new(service.Transactions)
+	api.PreAuthorizations = new(service.PreAuthorizations)
+	api.Refunds = new(service.Refunds)
+	api.Disputes = new(service.Disputes)
+	api.DisputeDocuments = new(service.DisputeDocunents)
+	api.Repudiations = new(service.Repudiations)
+	api.SettlementTransfers = new(service.SettlementTranfers)
+	api.BankingAliases = new(service.BankingAliases)
+	api.SSOS = new(service.SSOS)
+	api.PermissionGroups = new(service.PermissionGoups)
+	api.Reports = new(service.Reports)
+	api.Idempotencies = new(service.Idempotencies)
 	return &api
 }
 

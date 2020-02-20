@@ -50,8 +50,8 @@ func (Wallets) View(walletID string) (res *model.Wallet, err error) {
 }
 
 // ListFromUser retrieve all the Wallets front a given userID.
-func (Wallets) ListFromUser(userID string, query ...model.Query) (res []model.Wallet, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/wallets/", query...), nil)
+func (Wallets) ListFromUser(userID string, query *model.Query) (res []model.Wallet, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/wallets/", query), nil)
 	if err != nil {
 		return
 	}

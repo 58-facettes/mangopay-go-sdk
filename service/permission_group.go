@@ -38,7 +38,7 @@ func (PermissionGoups) View(permissionGroupID string) (res *model.PermissionGrou
 }
 
 // List retreve all PermissionGroups.
-func (PermissionGoups) List(query ...model.Query) (res []model.PermissionGroup, err error) {
+func (PermissionGoups) List(query *model.Query) (res []model.PermissionGroup, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "clients/permissiongroups/", nil)
 	if err != nil {
 		return

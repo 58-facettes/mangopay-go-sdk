@@ -29,8 +29,8 @@ func (Clients) UploadLogo(payload *model.ClientLogo) (res *model.Client, err err
 }
 
 // View is retriving a the Client.
-func (Clients) View(query ...model.Query) (res *model.Client, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/", query...), nil)
+func (Clients) View(query *model.Query) (res *model.Client, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/", query), nil)
 	if err != nil {
 		return nil, err
 	}

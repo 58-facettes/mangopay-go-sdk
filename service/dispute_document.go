@@ -68,8 +68,8 @@ func (DisputeDocunents) View(disputeDocumentID string) (res *model.DisputeDocume
 //
 // Type DisputeDocumentType OPTIONAL
 // The type of the dispute document
-func (DisputeDocunents) List(query ...model.Query) (res []model.DisputeDocument, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("dispute-documents/", query...), nil)
+func (DisputeDocunents) List(query *model.Query) (res []model.DisputeDocument, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("dispute-documents/", query), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -84,8 +84,8 @@ func (DisputeDocunents) List(query ...model.Query) (res []model.DisputeDocument,
 //
 // Type DisputeDocumentType OPTIONAL
 // The type of the dispute document
-func (DisputeDocunents) ListByDispute(disputeID string, query ...model.Query) (res []model.DisputeDocument, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("dispute/"+disputeID+"/documents/", query...), nil)
+func (DisputeDocunents) ListByDispute(disputeID string, query *model.Query) (res []model.DisputeDocument, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("dispute/"+disputeID+"/documents/", query), nil)
 	if err != nil {
 		return nil, err
 	}

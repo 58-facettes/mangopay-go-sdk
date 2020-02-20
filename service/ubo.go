@@ -80,8 +80,8 @@ func (UBOs) View(userID, declarationID, uboID string) (res *model.UBO, err error
 // List is listing all the userID this can be combined with query.
 // The column to sort against with `Sort` key in `model.Query.Filer`
 // this can have ASC, DESC as a value.
-func (UBOs) List(userID string, query ...model.Query) (res *model.UBO, err error) {
-	uri := queryURI("/users/"+userID+"/kyc/ubodeclarations/", query...)
+func (UBOs) List(userID string, query *model.Query) (res *model.UBO, err error) {
+	uri := queryURI("/users/"+userID+"/kyc/ubodeclarations/", query)
 	_, data, err := newRequestAndExecute(http.MethodGet, uri, nil)
 	if err != nil {
 		return

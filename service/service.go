@@ -27,23 +27,34 @@ var (
 var DefaultClient = &http.Client{}
 
 func newRequestAndExecute(method, uri string, payload interface{}) (int, []byte, error) {
-	body, err := json.Marshal(payload)
-	if err != nil {
-		return http.StatusInternalServerError, nil, err
+	// create the request.
+	var r *http.Request
+	var err error
+	if payload != nil {
+		body, err := json.Marshal(payload)
+		if err != nil {
+			return http.StatusInternalServerError, nil, err
+		}
+		r, err = http.NewRequest(method, BaseURL+uri, bytes.NewBuffer(body))
+		if err != nil {
+			return http.StatusInternalServerError, nil, err
+		}
+	} else {
+		r, err = http.NewRequest(method, BaseURL+uri, nil)
+		if err != nil {
+			return http.StatusInternalServerError, nil, err
+		}
 	}
-	r, err := http.NewRequest(method, BaseURL+uri, bytes.NewBuffer(body))
-	if err != nil {
-		return http.StatusInternalServerError, nil, err
-	}
+	logr.Debug("base url call is ", BaseURL+uri)
 
 	// add basicAuth or oAuth token to the header.
 	err = setAccessHeader(r)
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}
-
 	r.Header.Set("Content-Type", "application/json")
 
+	// execute the request.
 	client := DefaultClient
 	resp, err := client.Do(r)
 	if err != nil {
@@ -51,10 +62,12 @@ func newRequestAndExecute(method, uri string, payload interface{}) (int, []byte,
 	}
 	defer resp.Body.Close()
 
+	// read the response.
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}
+	logr.Debug("response", string(data))
 
 	if resp.StatusCode != http.StatusOK {
 		return resp.StatusCode, nil, parseErrorResponse(data)
@@ -71,9 +84,9 @@ func parseErrorResponse(data []byte) error {
 	return errResp
 }
 
-func queryURI(uri string, query ...model.Query) string {
-	if query != nil && len(query) > 0 {
-		return query[0].URI(uri)
+func queryURI(uri string, query *model.Query) string {
+	if query != nil {
+		return query.URI(uri)
 	}
 	return uri
 }

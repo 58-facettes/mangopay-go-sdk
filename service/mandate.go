@@ -29,7 +29,7 @@ func (Mandates) Cancel(mandateID string) (res *model.Mandate, err error) {
 }
 
 // List is listing all mandates.
-func (Mandates) List(query ...model.Query) (res []model.Mandate, err error) {
+func (Mandates) List(query *model.Query) (res []model.Mandate, err error) {
 	_, data, err := newRequestAndExecute(http.MethodGet, "mandates/", nil)
 	if err != nil {
 		return

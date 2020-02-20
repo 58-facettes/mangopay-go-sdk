@@ -82,8 +82,8 @@ func (KYCs) ListByUser(userID string) (res []model.KYCDocument, err error) {
 // ?? the documentation show a body request but with the GET method this is not possible to push a body ??
 // so this may be a service with a POST request of a query one.
 // ?? end ??
-func (KYCs) ListAll(query ...model.Query) (res []model.KYCDocument, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("kyc/documents/", query...), nil)
+func (KYCs) ListAll(query *model.Query) (res []model.KYCDocument, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("kyc/documents/", query), nil)
 	if err != nil {
 		return
 	}
