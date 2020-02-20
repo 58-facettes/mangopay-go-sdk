@@ -61,13 +61,8 @@ so think about doing it in advance of when you actually want to go live).
 Using the credential info from the signup process above, you should then set `client-id`
 to your Mangopay ClientId and `client-password` to your Mangopay APIKey.
 
-You also need to set a folder path in `api.TemporaryFolder` that SDK needs 
-to store temporary files. This path should be outside your www folder.
-It could be `/tmp/` or `/var/tmp/` or any other location that Go can write to. 
-**You must use different folders for your sandbox and production environments.**
-
 `BaseUrl` is set to sandbox environment by default. To enable production
-environment, set `mangopay.Mode` to `mangopay.Production`.
+environment, set `mangopay.Config.Mode` to `mangopay.Production`.
 
 ```go
 package main
