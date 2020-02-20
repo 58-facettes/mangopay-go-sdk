@@ -221,3 +221,20 @@ func main() {
     log.Println(rl)
 }
 ```
+
+## Idempotency key
+
+You can use an idempotency key with the API, you just have to comply with the interface `data.Manager` in order to save the generated key.
+
+```go
+type MyStorage struct{}
+func (s *MyStorage)SaveIdempotencyKey(key, url string) error {
+    // implement your function
+    ...
+}
+...
+// then before connecting to the API
+mangopay.Config.UseIdempotency: true
+mangopay.Config.DB = myDB
+api := mangopay.NewWithBasicAuth("your-client-id","your-client-password")
+```
