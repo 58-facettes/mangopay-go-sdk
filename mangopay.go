@@ -6,7 +6,6 @@ import (
 
 	"github.com/58-facettes/mangopay-go-sdk/data"
 	"github.com/58-facettes/mangopay-go-sdk/log"
-	"github.com/58-facettes/mangopay-go-sdk/model"
 	"github.com/58-facettes/mangopay-go-sdk/service"
 )
 
@@ -19,6 +18,21 @@ const (
 	ModeProduction = "production"
 )
 
+type config struct {
+	// env mode.
+	Mode string
+	// logger used.
+	Logger log.Logger
+	// DB used for idempotency.
+	DB data.Manager
+	// Use idempotency.
+	UseIdempotency bool
+	// UseBasicAuth for knowing if it use the basicAuth.
+	UseBasicAuth bool
+	// HTTPClient for http calls you can bring your own by default this is the http.Client{}.
+	HTTPClient *http.Client
+}
+
 // Config allow the way you desire to use the API.
 // by default this is using an internal logger with a basicAuth in tesing Mode.
 var Config = &config{
@@ -26,6 +40,7 @@ var Config = &config{
 	UseBasicAuth:   true,
 	Mode:           ModeTest,
 	UseIdempotency: false,
+	DB:             nil, // we don't use idempotency to we don't need to store the keys.
 	HTTPClient:     http.DefaultClient,
 }
 
@@ -63,21 +78,6 @@ type API struct {
 	Idempotencies       *service.Idempotencies
 }
 
-type config struct {
-	// env mode.
-	Mode string
-	// logger used.
-	Logger log.Logger
-	// DB used for idempotency.
-	DB data.Manager
-	// Use idempotency.
-	UseIdempotency bool
-	// UseBasicAuth for knowing if it use the basicAuth.
-	UseBasicAuth bool
-	// HTTPClient for http calls you can bring your own by default this is the http.Client{}.
-	HTTPClient *http.Client
-}
-
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
 func NewWithBasicAuth(clientID, clientPassword string) *API {
 	return newConnect(clientID, clientPassword, true)
@@ -90,6 +90,8 @@ func NewWithOAuth(clientID, clientPassword string) *API {
 
 func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
 	service.DefaultClient = Config.HTTPClient
+	service.UseIdempotency = Config.UseIdempotency
+	service.DB = Config.DB
 	Config.UseBasicAuth = isBasicAuth
 	api.logr = Config.Logger
 	service.SetLogger(Config.Logger)
@@ -132,13 +134,4 @@ func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
 	api.Reports = new(service.Reports)
 	api.Idempotencies = new(service.Idempotencies)
 	return
-}
-
-// RateLimits retreve a rate limit value from the given rate range.
-func (api *API) RateLimits(rate model.Rate) string {
-	rl, err := api.Stats.GetRateLimit()
-	if err != nil {
-		api.logr.Warnf("mangopay: ratelimit %v", err.Error())
-	}
-	return rl.GetData(rate)
 }

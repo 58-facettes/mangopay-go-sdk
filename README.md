@@ -217,7 +217,8 @@ import (
 )
 
 func main() {
-    api := mangopay.NewWithBasicAuth("your-client-id","your-client-password")
-    log.Println(api.RateLimits(model.RateLimit15Minutes))
+	api := mangopay.NewWithBasicAuth("your-client-id","your-client-password")
+	rl, _ := api.Stats.GetRateLimit()
+    log.Println(rl)
 }
 ```

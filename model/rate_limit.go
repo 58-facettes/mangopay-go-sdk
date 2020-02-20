@@ -54,3 +54,12 @@ func (rl *RateLimit) GetData(r Rate) string {
 		return fmt.Sprintf(rateFormatData, rl.Limit1, rl.LimitRemaining1, rl.LimitReset1)
 	}
 }
+
+func (rl *RateLimit) String() string {
+	return fmt.Sprintf("ratelimit-1: %v, rateLimit-2: %v, rateLimit-3: %v, rateLimit-4: %v, "+
+		"limitRemaining-1: %v, limitRemaining-2: %v, limitRemaining-3: %v, limitRemaining-4: %v, "+
+		"limitReset-1: %v, LimitReset-2: %v, LimitReset-3: %v, LimitReset-4: %v",
+		rl.Limit1, rl.Limit2, rl.Limit3, rl.Limit4,
+		rl.LimitRemaining1, rl.LimitRemaining2, rl.LimitRemaining3, rl.LimitRemaining4,
+		rl.LimitReset1, rl.LimitReset2, rl.LimitReset3, rl.LimitReset4)
+}
