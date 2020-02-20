@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"sync"
+	"time"
 
 	"github.com/58-facettes/mangopay-go-sdk/log"
 	"github.com/58-facettes/mangopay-go-sdk/model"
@@ -17,6 +19,8 @@ var (
 	BasicAuth string
 	// logr is the logger used in order to logs things into the app.
 	logr log.Logger
+	// UseBasicAuth checks if the request use oAuth or BasicAuth.
+	UseBasicAuth bool
 )
 
 // DefaultClient is the default Client and is used by Get, Head, and Post.
@@ -32,7 +36,12 @@ func newRequestAndExecute(method, uri string, payload interface{}) (int, []byte,
 		return http.StatusInternalServerError, nil, err
 	}
 
-	r.Header.Set("Authorization", BasicAuth)
+	// add basicAuth or oAuth token to the header.
+	err = setAccessHeader(r)
+	if err != nil {
+		return http.StatusInternalServerError, nil, err
+	}
+
 	r.Header.Set("Content-Type", "application/json")
 
 	client := DefaultClient
@@ -73,3 +82,64 @@ func queryURI(uri string, query ...model.Query) string {
 func SetLogger(l log.Logger) {
 	logr = l
 }
+
+var mx sync.Mutex
+
+func setAccessHeader(r *http.Request) error {
+	if UseBasicAuth {
+		r.Header.Set("Authorization", BasicAuth)
+		return nil
+	} else {
+		if oauthAccessToken.ExpiresAt < time.Now().Unix() {
+			r.Header.Set("Authorization", "Bearer "+oauthAccessToken.AccessToken)
+			return nil
+		}
+		tok, err := newTokenRequest()
+		if err != nil {
+			return err
+		}
+		tok.ExpiresAt = tok.ExpiresIn + time.Now().Unix()
+		mx.Lock()
+		oauthAccessToken = tok
+		mx.Unlock()
+		r.Header.Set("Authorization", "Bearer "+oauthAccessToken.AccessToken)
+	}
+	return nil
+}
+
+func newTokenRequest() (*accessTokenResponse, error) {
+	r, err := http.NewRequest(http.MethodPost, BaseURL+"oauth/token/", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	r.Header.Set("Authorization", BasicAuth)
+	r.Header.Set("Content-Type", "application/json")
+
+	client := DefaultClient
+	resp, err := client.Do(r)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	var tokResponse accessTokenResponse
+	err = json.Unmarshal(data, &tokResponse)
+	if err != nil {
+		return nil, err
+	}
+	return &tokResponse, nil
+}
+
+type accessTokenResponse struct {
+	AccessToken string `json:"access_token"`
+	TokenType   string `json:"token_type"`
+	ExpiresIn   int64  `json:"exires_in"`
+	ExpiresAt   int64  `json:"_"`
+}
+
+var oauthAccessToken *accessTokenResponse

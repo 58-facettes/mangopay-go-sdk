@@ -8,6 +8,23 @@ import (
 	"github.com/58-facettes/mangopay-go-sdk/service"
 )
 
+const (
+	// APIVersion is the current API version in the URI calls.
+	APIVersion = "v2.01"
+	// ModeTest is for using the API sandbox.
+	ModeTest = "test"
+	// ModeProduction is for the API production.
+	ModeProduction = "production"
+)
+
+var (
+	// Mode is the mode of the SDK calls by defaults this is set to test mode.
+	Mode = ModeTest
+	// Logger is the default internal logging tool that is used.
+	// This can be replaced by another logging tool of your choice like Zap or Logrus.
+	Logger log.Logger = log.DefaultLogger
+)
+
 // API holds all the services for calling Mongopay API.
 type API struct {
 	isBasicAuth    bool
@@ -45,63 +62,38 @@ type API struct {
 	Idempotencies       *service.Idempotcencies
 }
 
-// Logger is the default internal logging tool that is used.
-// This can be replaced by another logging tool of your choice like Zap or Logrus.
-var Logger log.Logger = log.DefaultLogger
-
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
-func NewWithBasicAuth(cliendID, clientPassword string) *API {
+func NewWithBasicAuth(clientID, clientPassword string) *API {
+	return new(clientID, clientPassword, true)
+}
+
+// NewWithOAuth is used for an oauth token connexion.
+func NewWithOAuth(clientID, clientPassword string) *API {
+	return new(clientID, clientPassword, false)
+}
+
+func new(clientID, clientPassword string, isBasicAuth bool) *API {
 	api := API{
-		isBasicAuth:    true,
-		clientID:       cliendID,
+		isBasicAuth:    isBasicAuth,
+		clientID:       clientID,
 		clientPassword: clientPassword,
 	}
-	api.init()
+	api.logr = Logger
+	service.SetLogger(Logger)
+	// init basicAuth.
+	service.UseBasicAuth = isBasicAuth
+	service.BasicAuth = "Basic " + base64.StdEncoding.EncodeToString([]byte(clientID+":"+clientPassword))
+	// init base URL.
+	switch Mode {
+	case ModeProduction:
+		service.BaseURL = "https://api.mangopay.com/" + APIVersion + "/" + clientID + "/"
+	default:
+		service.BaseURL = "https://api.sandbox.mangopay.com/" + APIVersion + "/" + clientID + "/"
+	}
 	return &api
 }
 
-func (api *API) init() {
-	api.logr = Logger
-	service.SetLogger(Logger)
-	if api.isBasicAuth {
-		initBasicAuth(api.clientID, api.clientPassword)
-	}
-	initBaseURL(api.clientID)
-}
-
-var basicAuth string
-
-// initBasicAuth set the basicAuth variable that will be used with "Authorization" in the header.
-func initBasicAuth(user, password string) {
-	basicAuth = "Basic " + base64.StdEncoding.EncodeToString([]byte(user+":"+password))
-}
-
-const (
-	// APIVersion is the current API version that is used in the URI.
-	APIVersion = "v2.01"
-)
-
-const (
-	// ModeTest is for using the API sandbox for testing purposes.
-	ModeTest = "test"
-	// ModeProduction is of the API production usage.
-	ModeProduction = "production"
-)
-
-// Mode is the mode of the SDK calls by defaults this is set to test mode.
-var Mode = ModeTest
-
-var baseURL string
-
-func initBaseURL(ClientID string) {
-	switch Mode {
-	case ModeProduction:
-		baseURL = "https://api.mangopay.com/" + APIVersion + "/" + ClientID + "/"
-	default:
-		baseURL = "https://api.sandbox.mangopay.com/" + APIVersion + "/" + ClientID + "/"
-	}
-}
-
+// RateLimits retreve a rate limit value from the given rate range.
 func (api *API) RateLimits(rate model.Rate) string {
 	rl, err := api.Stats.GetRateLimit()
 	if err != nil {
@@ -109,6 +101,3 @@ func (api *API) RateLimits(rate model.Rate) string {
 	}
 	return rl.GetData(rate)
 }
-
-// TemPath is the temporary path that can be used for files.
-var TemPath string
