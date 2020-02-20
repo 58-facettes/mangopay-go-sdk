@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Go: version](https://img.shields.io/github/go-mod/go-version/58-facettes/mangopay-go-sdk)
 
-## Please don't use this SDK yet this is steel under heavy developpement
+## Please don't use this SDK yet this is still under heavy developpement.
 
 MangopaySDK is a Go client library to work with [Mangopay REST API](http://docs.mangopay.com/api-references/).
 
