@@ -27,13 +27,17 @@ type PermissionGroup struct {
 	Scopes Scopes `json:"Scopes,omitempty"`
 }
 
+// GroupType of the permission group.
 type GroupType string
 
 const (
+	// GroupDefault is the default GroupType.
 	GroupDefault GroupType = "DEFAULT"
-	GroupCustom  GroupType = "CUSTOM"
+	// GroupCustom is the custom GroupType.
+	GroupCustom GroupType = "CUSTOM"
 )
 
+// Scopes show all the scopes of permissions possible on the API.
 type Scopes struct {
 	// API endpoints linked to client details
 	ClientDetails Permissions `json:"ClientDetails,omitempty"`
@@ -105,6 +109,7 @@ type Permissions struct {
 	Create bool `json:"Create,omitempty"`
 }
 
+// PermissionGroupCreate is used to create some PermissionGroup.
 type PermissionGroupCreate struct {
 	// The name of the permission group
 	Name string `json:"Name"`
@@ -114,6 +119,7 @@ type PermissionGroupCreate struct {
 	Scopes Scopes `json:"Scopes,omitempty"`
 }
 
+// PermissionGroupUpdate is used to update som PermissionGroup.
 type PermissionGroupUpdate struct {
 	// The name of the permission group
 	Name string `json:"Name,omitempty"`

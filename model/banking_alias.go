@@ -50,6 +50,7 @@ type BankingAliasing struct {
 	BIC string `json:"BIC"`
 }
 
+// BankingAliasCreate is creating a BankingAlias.
 type BankingAliasCreate struct {
 	// The user ID who is credited (defaults to the owner of the wallet) OPTIONAL.
 	CreditedUserID string `json:"CreditedUserId"`
@@ -64,6 +65,8 @@ type BankingAliasCreate struct {
 type BankingAliasCountry string
 
 const (
+	// BankingAliasCountryLU stands for Luxembourg.
 	BankingAliasCountryLU BankingAliasCountry = "LU"
+	// BankingAliasCountryFR stands for France.
 	BankingAliasCountryFR BankingAliasCountry = "FR"
 )

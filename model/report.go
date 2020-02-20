@@ -43,6 +43,7 @@ type Report struct {
 type DownloadFormat string
 
 const (
+	// DownloadFormatCSV is used for CSV download format.
 	DownloadFormatCSV DownloadFormat = "CSV"
 )
 
@@ -50,9 +51,11 @@ const (
 type ReportType string
 
 const (
+	// ReportTransaction is used for report transaction.
 	ReportTransaction ReportType = "TRANSACTIONS"
 )
 
+// ReportFilter are all fiter than can be used in a Report.
 type ReportFilter struct {
 	// To return only resources that have CreationDate BEFORE this date
 	BeforeDate int64 `json:"BeforeDate,omitempty"`
@@ -86,6 +89,7 @@ type ReportFilter struct {
 	WalletID string `json:"WalletId,omitempty"`
 }
 
+// ReportTransactionCreate is used to create a Transaction report.
 type ReportTransactionCreate struct {
 	// A URL that we will ping when the report is ready to download (works in a similar way to the hooks)
 	CallbackURL string `json:"CallbackURL,omitempty"`
@@ -107,6 +111,7 @@ type ReportTransactionCreate struct {
 	Columns []string `json:"Columns,omitempty"`
 }
 
+// ReportWalletCreate is used to create a wallet report.
 type ReportWalletCreate struct {
 	// A URL that we will ping when the report is ready to download (works in a similar way to the hooks)
 	CallbackURL string `json:"CallbackURL,omitempty"`

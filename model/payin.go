@@ -38,6 +38,7 @@ const (
 	ExecutionExternalInstruction Execution = "EXTERNAL_INSTRUCTION"
 )
 
+// CardWeb is the default payload for the response.
 type CardWeb struct {
 	// The URL to redirect to after payment (whether successful or not).
 	ReturnURL string
@@ -111,6 +112,7 @@ const (
 	CultureCodeCS CultureCode = "CS"
 )
 
+// CardWebCreate is used to create a card web.
 type CardWebCreate struct {
 	// Custom data that you can add to this item OPTIONAL.
 	Tag string `json:"Tag,omitempty"`
@@ -223,15 +225,20 @@ type SecurityInfo struct {
 	AVSResult AVSResult `json:"AVSResult"`
 }
 
-// Result of Address Verification System check.
+// AVSResult is the result of Address Verification System check.
 type AVSResult string
 
 const (
-	AVSResultNoCheck             AVSResult = "NO_CHECK"
-	AVSResultNoMatch             AVSResult = "NO_MATCH"
-	AVSResultAddressMatchOnly    AVSResult = "ADDRESS_MATCH_ONLY"
+	// AVSResultNoCheck stands for AVSResult NO_CHECK.
+	AVSResultNoCheck AVSResult = "NO_CHECK"
+	// AVSResultNoMatch stands for AVSResult NO_MATCH.
+	AVSResultNoMatch AVSResult = "NO_MATCH"
+	// AVSResultAddressMatchOnly stands for AVSResult ADDRESS_MATCH_ONLY.
+	AVSResultAddressMatchOnly AVSResult = "ADDRESS_MATCH_ONLY"
+	// AVSResultPostalCodeMatchOnly stands for AVSResult POSTAL_CODE_MATCH_ONLY.
 	AVSResultPostalCodeMatchOnly AVSResult = "POSTAL_CODE_MATCH_ONLY"
-	AVSResultFullMatch           AVSResult = "FULL_MATCH"
+	// AVSResultFullMatch stands for AVSResult FULL_MATCH.
+	AVSResultFullMatch AVSResult = "FULL_MATCH"
 )
 
 type CardPreAuthorized struct {
@@ -289,14 +296,19 @@ type BankAccountV2 struct {
 	Type BankAccountType `json:"Type"`
 }
 
-// The type of BankAccount
+// BankAccountType is the type of BankAccount.
 type BankAccountType string
 
 const (
-	BankAccountTypeIBAN  BankAccountType = "IBAN"
-	BankAccountTypeGB    BankAccountType = "GB"
-	BankAccountTypeUS    BankAccountType = "US"
-	BankAccountTypeCA    BankAccountType = "CA"
+	// BankAccountTypeIBAN stands for IBAN.
+	BankAccountTypeIBAN BankAccountType = "IBAN"
+	// BankAccountTypeGB stands for GB.
+	BankAccountTypeGB BankAccountType = "GB"
+	// BankAccountTypeUS stands for US.
+	BankAccountTypeUS BankAccountType = "US"
+	// BankAccountTypeCA stands for CA.
+	BankAccountTypeCA BankAccountType = "CA"
+	// BankAccountTypeOther stands for OTHER.
 	BankAccountTypeOther BankAccountType = "OTHER"
 )
 
@@ -313,7 +325,7 @@ type BankwireDirectCreate struct {
 	DeclaredFees Money `json:"DeclaredFees"`
 }
 
-// A bankwire by "external instruction" is a slightly particular payin whereby (BETA*).
+// BankwireExternalInstruction is a bankwire by "external instruction" is a slightly particular payin whereby (BETA*).
 // it is created when we receive funds for a banking alias
 // 	 - this means there is no way of creating a payin of this kind via the API
 // 	 (in sandbox, please contact our support team for them to create some examples for you).
@@ -327,40 +339,40 @@ type BankwireExternalInstruction struct {
 }
 
 type BankAccountDebited struct {
-	// The name of the owner of the bank account
+	// The name of the owner of the bank account.
 	OwnerName string `json:"OwnerName"`
-	// The type of bank account
+	// The type of bank account.
 	Type string `json:"Type"`
-	// The IBAN of the bank account
+	// The IBAN of the bank account.
 	IBAN string `json:"IBAN"`
-	// The BIC of the bank account
+	// The BIC of the bank account.
 	BIC string `json:"BIC"`
 }
 
-// The Direct-Debit Web PayIn
+// DirectDebitWeb is the Direct-Debit Web PayIn.
 type DirectDebitWeb struct {
-	// The type of payin
+	// The type of payin.
 	PaymentType Payment `json:"PaymentType"` // ?? the fiedl shoud be PayInPayment instead of PaymentType ??
-	// The type of execution for the payin
+	// The type of execution for the payin.
 	ExecutionType Execution `json:"ExecutionType"`
-	// The URL to redirect to after payment (whether successful or not)
+	// The URL to redirect to after payment (whether successful or not).
 	ReturnURL string `json:"ReturnURL"`
-	// The type of web direct debit
+	// The type of web direct debit.
 	DirectDebit DirectDebit `json:"DirectDebit"`
 	// The SecureMode corresponds to '3D secure' for CB Visa and MasterCard.
 	// This field lets you activate it manually. The field lets you activate it automatically
 	// with "DEFAULT" (Secured Mode will be activated from €50 or when MANGOPAY detects there is a higher risk ),
 	// "FORCE" (if you wish to specifically force the secured mode).
 	SecureMode SecureMode `json:"SecureMode"`
-	// The language to use for the payment page - needs to be the ISO code of the language
+	// The language to use for the payment page - needs to be the ISO code of the language.
 	Culture CultureCode `json:"Culture"`
-	// The URL to use for the payment page template
+	// The URL to use for the payment page template.
 	TemplateURL string `json:"TemplateURL"`
-	// The URL to redirect to user to for them to proceed with the payment
+	// The URL to redirect to user to for them to proceed with the payment.
 	RedirectURL string `json:"RedirectURL"`
 }
 
-// The type of web direct debit
+// DirectDebit is the type of web direct debit.
 type DirectDebit string
 
 const (
@@ -373,26 +385,33 @@ const (
 // This endpoint can be used only for this purpose. For more information check The Settement Transfer object on the doc.
 type BankwireCreate struct {
 	// The ID of the wallet where money will be credited REQUIRED.
-	CreditedWalletId ClientWalletAlias `json:"CreditedWalletId"`
+	CreditedWalletID ClientWalletAlias `json:"CreditedWalletId"`
 	// The declared debited funds REQUIRED.
 	DeclaredDebitedFunds Money `json:"DeclaredDebitedFunds"`
 }
 
-// An alias for a client wallet - made up from the FundsType and the Currency
+// ClientWalletAlias is an alias for a client wallet - made up from the FundsType and the Currency
 // - "FEES_EUR" would therefore give the client's FEES wallet for EUR
 type ClientWalletAlias string
 
 const (
-	ClientWalletAliasFeeEUR    ClientWalletAlias = "FEES_EUR"
+	// ClientWalletAliasFeeEUR stands for FEES_EUR.
+	ClientWalletAliasFeeEUR ClientWalletAlias = "FEES_EUR"
+	// ClientWalletAliasCreditEUR stands for CREDIT_EUR.
 	ClientWalletAliasCreditEUR ClientWalletAlias = "CREDIT_EUR"
-	ClientWalletAliasFeeUSD    ClientWalletAlias = "FEES_USD"
+	// ClientWalletAliasFeeUSD stands for FEES_USD.
+	ClientWalletAliasFeeUSD ClientWalletAlias = "FEES_USD"
+	// ClientWalletAliasCreditUSD stands for CREDIT_USD.
 	ClientWalletAliasCreditUSD ClientWalletAlias = "CREDIT_USD"
-	ClientWalletAliasFeeGBP    ClientWalletAlias = "FEES_GBP"
+	// ClientWalletAliasFeeGBP stands for FEES_GBP.
+	ClientWalletAliasFeeGBP ClientWalletAlias = "FEES_GBP"
+	// ClientWalletAliasCreditGBP stands for CREDIT_GBP.
 	ClientWalletAliasCreditGBP ClientWalletAlias = "CREDIT_GBP"
-	ClientWalletAliasOthers    ClientWalletAlias = "..." // ? is it for some other currencies ?
+	// ClientWalletAliasOthers stands for "...".
+	ClientWalletAliasOthers ClientWalletAlias = "..." // ? is it for some other currencies ?
 )
 
-// The Pay-in web extended view is a view to get more details about the card used to process a payin web.
+// WebExtended is the Pay-in web extended view is a view to get more details about the card used to process a payin web.
 type WebExtended struct {
 	// The item's ID
 	ID string `json:"Id"`
@@ -412,6 +431,7 @@ type WebExtended struct {
 	Fingerprint string `json:"Fingerprint"`
 }
 
+// DirectDebitDirect is the response for Direct Debit Direct.
 type DirectDebitDirect struct {
 	ID           string `json:"Id"`
 	CreationDate int64  `json:"CreationDate"`
@@ -427,27 +447,28 @@ type DirectDebitDirect struct {
 	StatementDescriptor string `json:"StatementDescriptor"`
 }
 
+// DirectDebitDirectCreate is creating an new DirectDebitDirect.
 type DirectDebitDirectCreate struct {
 	// A user's ID REQUIRED.
-	AuthorId string `json:"AuthorId"`
+	AuthorID string `json:"AuthorId"`
 	// The user ID who is credited (defaults to the owner of the wallet) OPTIONAL.
-	CreditedUserId string `json:"CreditedUserId,omitempty"`
+	CreditedUserID string `json:"CreditedUserId,omitempty"`
 	// The ID of the wallet where money will be credited REQUIRED.
-	CreditedWalletId string `json:"CreditedWalletId"`
+	CreditedWalletID string `json:"CreditedWalletId"`
 	// Information about the funds that are being debited REQUIRED.
 	DebitedFunds Money `json:"DebitedFunds"`
 	// Information about the fees that were taken by the client REQUIRED
 	// for this transaction (and were hence transferred to the Client's platform wallet) .
 	Fees Money `json:"Fees"`
 	// The ID of a Mandate REQUIRED.
-	MandateId string `json:"MandateId"`
+	MandateID string `json:"MandateId"`
 	// A custom description to appear on the user's bank statement OPTIONAL.
 	// It can be up to 100 characters long, and can only include alphanumeric characters or spaces.
 	// See here for important info and note that this functionality is only available for SEPA payments.
 	StatementDescriptor string `json:"StatementDescriptor,omitempty"`
 }
 
-// PayInBankwireToClientCreditWalletCreate make it is possible to add funds to your Credit/Repudiation Wallets via a PayIn Bankwire
+// BankwireToClientCreditWalletCreate make it is possible to add funds to your Credit/Repudiation Wallets via a PayIn Bankwire
 // in order to settle the funds after a dispute.
 // This endpoint can be used only for this purpose. For more information check The Settement Transfer object on the doc
 type BankwireToClientCreditWalletCreate struct {

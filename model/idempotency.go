@@ -1,5 +1,6 @@
 package model
 
+// IempotencyResponse is the payload get from the api call.
 type IempotencyResponse struct {
 	// The status code of the API response
 	StatusCode string

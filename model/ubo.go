@@ -46,16 +46,25 @@ const (
 type UBOReason string
 
 const (
-	UBOReasonMissing                      UBOReason = "MISSING_UBO"
-	UBOReasonWrongInformation             UBOReason = "WRONG_UBO_INFORMATION"
-	UBOReasonIdentityNeeded               UBOReason = "UBO_IDENTITY_NEEDED"
+	// UBOReasonMissing stands for MISSING_UBO.
+	UBOReasonMissing UBOReason = "MISSING_UBO"
+	// UBOReasonWrongInformation stands for WRONG_UBO_INFORMATION.
+	UBOReasonWrongInformation UBOReason = "WRONG_UBO_INFORMATION"
+	// UBOReasonIdentityNeeded stands for UBO_IDENTITY_NEEDED.
+	UBOReasonIdentityNeeded UBOReason = "UBO_IDENTITY_NEEDED"
+	// UBOReasonShareHolderDeclarationNeeded stands forSHAREHOLDERS_DECLARATION_NEEDED.
 	UBOReasonShareHolderDeclarationNeeded UBOReason = "SHAREHOLDERS_DECLARATION_NEEDED"
-	UBOReasonOrganizationChartNeeded      UBOReason = "ORGANIZATION_CHART_NEEDED"
-	UBOReasonOrganizationDocumentNeeded   UBOReason = "DOCUMENTS_NEEDED"
-	UBOReasonDeclarationNotMatch          UBOReason = "DECLARATION_DO_NOT_MATCH_UBO_INFORMATION"
-	UBOReasonSpecificCase                 UBOReason = "SPECIFIC_CASE"
+	// UBOReasonOrganizationChartNeeded stands for ORGANIZATION_CHART_NEEDED.
+	UBOReasonOrganizationChartNeeded UBOReason = "ORGANIZATION_CHART_NEEDED"
+	// UBOReasonOrganizationDocumentNeeded stands for DOCUMENTS_NEEDED.
+	UBOReasonOrganizationDocumentNeeded UBOReason = "DOCUMENTS_NEEDED"
+	// UBOReasonDeclarationNotMatch stands for DECLARATION_DO_NOT_MATCH_UBO_INFORMATION.
+	UBOReasonDeclarationNotMatch UBOReason = "DECLARATION_DO_NOT_MATCH_UBO_INFORMATION"
+	// UBOReasonSpecificCase stands for SPECIFIC_CASE.
+	UBOReasonSpecificCase UBOReason = "SPECIFIC_CASE"
 )
 
+// UBOCreate is for creating a new UBO.
 type UBOCreate struct {
 	// The name of the UBO REQUIRED.
 	FirstName string `json:"FirstName"`
@@ -72,6 +81,7 @@ type UBOCreate struct {
 	Birthplace Birthplace `json:"Birthplace"`
 }
 
+// Birthplace is use to describe the place of birth.
 type Birthplace struct {
 	// The city of the address REQUIRED.
 	City string `json:"City"`
@@ -79,6 +89,7 @@ type Birthplace struct {
 	Country country.ISO2 `json:"Country"`
 }
 
+// UBOUpdate is used to update an existing UBO.
 type UBOUpdate struct {
 	// The name of the UBO OPTIONAL.
 	FirstName string `json:"FirstName,omitempty"`
