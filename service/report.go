@@ -39,9 +39,9 @@ func (Reports) View(reportID string) (res *model.Report, err error) {
 
 // List retreve all reports.
 func (Reports) List(query *model.Query) (res []model.Report, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "reports/", nil)
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("reports/", query), nil)
 	if err != nil {
 		return
 	}
-	return res, json.Unmarshal(data, res)
+	return res, json.Unmarshal(data, &res)
 }

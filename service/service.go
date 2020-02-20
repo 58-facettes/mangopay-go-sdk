@@ -102,21 +102,20 @@ func setAccessHeader(r *http.Request) error {
 	if UseBasicAuth {
 		r.Header.Set("Authorization", BasicAuth)
 		return nil
-	} else {
-		if oauthAccessToken.ExpiresAt < time.Now().Unix() {
-			r.Header.Set("Authorization", "Bearer "+oauthAccessToken.AccessToken)
-			return nil
-		}
-		tok, err := newTokenRequest()
-		if err != nil {
-			return err
-		}
-		tok.ExpiresAt = tok.ExpiresIn + time.Now().Unix()
-		mx.Lock()
-		oauthAccessToken = tok
-		mx.Unlock()
-		r.Header.Set("Authorization", "Bearer "+oauthAccessToken.AccessToken)
 	}
+	if oauthAccessToken.ExpiresAt < time.Now().Unix() {
+		r.Header.Set("Authorization", "Bearer "+oauthAccessToken.AccessToken)
+		return nil
+	}
+	tok, err := newTokenRequest()
+	if err != nil {
+		return err
+	}
+	tok.ExpiresAt = tok.ExpiresIn + time.Now().Unix()
+	mx.Lock()
+	oauthAccessToken = tok
+	mx.Unlock()
+	r.Header.Set("Authorization", "Bearer "+oauthAccessToken.AccessToken)
 	return nil
 }
 

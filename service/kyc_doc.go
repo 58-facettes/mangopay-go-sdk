@@ -57,8 +57,8 @@ func (KYCs) View(kycDocumentID string) (res *model.KYCDocument, err error) {
 }
 
 // ListByUser is retriving all the KYC Document from a userID.
-func (KYCs) ListByUser(userID string) (res []model.KYCDocument, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/kyc/documents/", nil)
+func (KYCs) ListByUser(userID string, query *model.Query) (res []model.KYCDocument, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/kyc/documents/", query), nil)
 	if err != nil {
 		return
 	}

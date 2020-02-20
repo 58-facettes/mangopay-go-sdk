@@ -16,12 +16,10 @@ type Events struct{}
 // ?? as a get method we can't use a body ??
 // ?? is it a query param ??
 // ?? end ??
-func (Events) List(event ...model.EventType) (res []model.Event, err error) {
-	uri := "events/"
-	if event != nil {
-		if len(event) > 0 {
-			uri += "?event_type=" + string(event[0])
-		}
+func (Events) List(event model.EventType, query *model.Query) (res []model.Event, err error) {
+	uri := queryURI("events/", query)
+	if len(event) != 0 {
+		uri += "?event_type=" + string(event)
 	}
 	_, data, err := newRequestAndExecute(http.MethodGet, uri, nil)
 	if err != nil {

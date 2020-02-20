@@ -38,8 +38,8 @@ func (Mandates) List(query *model.Query) (res []model.Mandate, err error) {
 }
 
 // UserList is listing all mandates from a given userID.
-func (Mandates) UserList(userID string) (res []model.Mandate, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/mandates/", nil)
+func (Mandates) UserList(userID string, query *model.Query) (res []model.Mandate, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/mandates/", query), nil)
 	if err != nil {
 		return
 	}
@@ -47,8 +47,8 @@ func (Mandates) UserList(userID string) (res []model.Mandate, err error) {
 }
 
 // BankAccountList list all mandates from a given userID and BankAccountID.
-func (Mandates) BankAccountList(userID, bankAccountID string) (res []model.Mandate, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/bankaccounts/"+bankAccountID+"/mandates/", nil)
+func (Mandates) BankAccountList(userID, bankAccountID string, query *model.Query) (res []model.Mandate, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/bankaccounts/"+bankAccountID+"/mandates/", query), nil)
 	if err != nil {
 		return
 	}

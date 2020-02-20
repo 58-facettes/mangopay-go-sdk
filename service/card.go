@@ -57,8 +57,8 @@ func (Cards) View(cardID string) (res *model.Card, err error) {
 }
 
 // ListByUser allow to view the Card list of a fiven user from the given userID.
-func (Cards) ListByUser(userID string) (res []model.Card, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/cards/", nil)
+func (Cards) ListByUser(userID string, query *model.Query) (res []model.Card, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/cards/", query), nil)
 	if err != nil {
 		return
 	}
@@ -66,8 +66,8 @@ func (Cards) ListByUser(userID string) (res []model.Card, err error) {
 }
 
 // ListByFingerprint allow to display a list of Cards from the given fingerprint.
-func (Cards) ListByFingerprint(fingerprint string) (res []model.Card, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "cards/fingerprints/"+fingerprint+"/", nil)
+func (Cards) ListByFingerprint(fingerprint string, query *model.Query) (res []model.Card, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("cards/fingerprints/"+fingerprint+"/", query), nil)
 	if err != nil {
 		return
 	}
@@ -75,8 +75,8 @@ func (Cards) ListByFingerprint(fingerprint string) (res []model.Card, err error)
 }
 
 // ListTransactionByFingerprint allow to display a list of Transactions from the given fingerprint.
-func (Cards) ListTransactionByFingerprint(fingerprint string) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "cards/fingerprints/"+fingerprint+"/transactions/", nil)
+func (Cards) ListTransactionByFingerprint(fingerprint string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("cards/fingerprints/"+fingerprint+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
@@ -97,8 +97,8 @@ func (Cards) Desactivate(cardID string) (res *model.Card, err error) {
 }
 
 // ListUserByFingerprint allow to display a list of Users from the given fingerprint.
-func (Cards) ListUserByFingerprint(fingerprint string) (res []model.User, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "cards/fingerprints/"+fingerprint+"/users/", nil)
+func (Cards) ListUserByFingerprint(fingerprint string, query *model.Query) (res []model.User, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("cards/fingerprints/"+fingerprint+"/users/", query), nil)
 	if err != nil {
 		return
 	}

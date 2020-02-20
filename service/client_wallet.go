@@ -30,8 +30,8 @@ func (ClientWallets) View(fundType model.Funds, currency currency.ISO3) (res *mo
 }
 
 // ListByFundsType is retriving all the ClientWallet from the given FundType.
-func (ClientWallets) ListByFundsType(fundType model.Funds) (res []model.ClientWallet, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "clients/wallets/"+string(fundType)+"/", nil)
+func (ClientWallets) ListByFundsType(fundType model.Funds, query *model.Query) (res []model.ClientWallet, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/wallets/"+string(fundType)+"/", query), nil)
 	if err != nil {
 		return
 	}

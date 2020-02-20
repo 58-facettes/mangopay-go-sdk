@@ -59,8 +59,8 @@ func (SSOS) ExtendInvitation(ssoID string) (res *model.SSO, err error) {
 
 // PermissinGroupList allow to list all SSO from it's permission group ID.
 // ?? PermissionGroups or permissiongroup in the uri ??
-func (SSOS) PermissinGroupList(permissionGroupID string) (res []model.SSO, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "clients/permissiongroups/"+permissionGroupID+"/SSOs/", nil)
+func (SSOS) PermissinGroupList(permissionGroupID string, query *model.Query) (res []model.SSO, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("clients/permissiongroups/"+permissionGroupID+"/SSOs/", query), nil)
 	if err != nil {
 		return
 	}

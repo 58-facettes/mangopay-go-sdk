@@ -47,8 +47,8 @@ func (Hooks) Update(hookID string, event model.EventType, url string) (res *mode
 
 // List retrive all existing Hooks.
 // ?? can we add query params ??
-func (Hooks) List() (res []model.Hook, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "hooks/", nil)
+func (Hooks) List(query *model.Query) (res []model.Hook, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("hooks/", query), nil)
 	if err != nil {
 		return nil, err
 	}

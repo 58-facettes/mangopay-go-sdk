@@ -13,8 +13,8 @@ import (
 type Transactions struct{}
 
 // UserList is listing all transactions from a given user ID.
-func (Transactions) UserList(userID string) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/transactions/", nil)
+func (Transactions) UserList(userID string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
@@ -22,8 +22,8 @@ func (Transactions) UserList(userID string) (res []model.Transaction, err error)
 }
 
 // WalletList is listing all transactions from a given Wallet ID.
-func (Transactions) WalletList(walletID string) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "wallets/"+walletID+"/transactions/", nil)
+func (Transactions) WalletList(walletID string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("wallets/"+walletID+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
@@ -31,8 +31,8 @@ func (Transactions) WalletList(walletID string) (res []model.Transaction, err er
 }
 
 // DisputesList is listing all transactions from a given Dispute ID.
-func (Transactions) DisputesList(disputeID string) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "disputes/"+disputeID+"/transactions/", nil)
+func (Transactions) DisputesList(disputeID string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("disputes/"+disputeID+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
@@ -40,8 +40,9 @@ func (Transactions) DisputesList(disputeID string) (res []model.Transaction, err
 }
 
 // ClientWalletList is listing all transactions from  client Wallets.
-func (Transactions) ClientWalletList(fundType model.Funds, currency currency.ISO3) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "clients/wallets/"+string(fundType)+"/"+string(currency)+"/transactions/", nil)
+func (Transactions) ClientWalletList(fundType model.Funds, currency currency.ISO3, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet,
+		queryURI("clients/wallets/"+string(fundType)+"/"+string(currency)+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
@@ -52,8 +53,8 @@ func (Transactions) ClientWalletList(fundType model.Funds, currency currency.ISO
 // Indeed, if a PreAuthorized PayIn fails, you can re-use the same Preauthorization to create a new PayIn
 // while the PreAuthorization has not expired. As soon as a PreAuthorized Payin has succeeded,
 // you cannot use the PreAuthorization anymore - even if the amount was partial.
-func (Transactions) PreAuthorizationList(preAuthorizationID string) (res []model.Transaction, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "preauthorizations/"+preAuthorizationID+"/transactions/", nil)
+func (Transactions) PreAuthorizationList(preAuthorizationID string, query *model.Query) (res []model.Transaction, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("preauthorizations/"+preAuthorizationID+"/transactions/", query), nil)
 	if err != nil {
 		return
 	}
