@@ -92,10 +92,10 @@ func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
 	service.DefaultClient = Config.HTTPClient
 	service.UseIdempotency = Config.UseIdempotency
 	service.DB = Config.DB
-	Config.UseBasicAuth = isBasicAuth
 	api.logr = Config.Logger
 	service.SetLogger(Config.Logger)
 	// init basicAuth.
+	Config.UseBasicAuth = isBasicAuth
 	service.UseBasicAuth = Config.UseBasicAuth
 	service.BasicAuth = "Basic " + base64.StdEncoding.EncodeToString([]byte(clientID+":"+clientPassword))
 	// init base URL.

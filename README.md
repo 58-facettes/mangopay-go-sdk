@@ -97,43 +97,43 @@ func main() {
 package main
 
 import (
-	"log"
+    "log"
 
-	"github.com/58-facettes/mangopay-go-sdk"
-	"github.com/58-facettes/mangopay-go-sdk/model"
+    "github.com/58-facettes/mangopay-go-sdk"
+    "github.com/58-facettes/mangopay-go-sdk/model"
 )
 
 func main() {
-	// mangopay.Config.Mode = mangopay.Production // uncomment this to use the production environment.
-	api := mangopay.NewWithBasicAuth("client-id", "client-pass")
+    // mangopay.Config.Mode = mangopay.Production // uncomment this to use the production environment.
+    api := mangopay.NewWithBasicAuth("client-id", "client-pass")
 
-	john, err := api.Users.View("someID")
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Print(john)
+    john, err := api.Users.View("someID")
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Print(john)
 
-	// change and update some of his data.
-	_, err = api.Users.UpdateNaturalUser("someID", &model.NaturalUserUpdate{
-		FirstName: " - CHANGED",
-	})
-	log.Print(err)
+    // change and update some of his data.
+    _, err = api.Users.UpdateNaturalUser("someID", &model.NaturalUserUpdate{
+        FirstName: " - CHANGED",
+    })
+    log.Print(err)
 
-	// get all users (with pagination)
-	pagination := model.NewPagination(0, 8)
-	users, err := api.Users.List(pagination)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Print(users)
+    // get all users (with pagination)
+    pagination := model.NewPagination(0, 8)
+    users, err := api.Users.List(pagination)
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Print(users)
 
-	// get his bank accounts
-	pagination = model.NewPagination(2, 10)
-	bankAccount, err := api.BankAccounts.ViewFromUser(john.ID, pagination)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Print(bankAccount)
+    // get his bank accounts
+    pagination = model.NewPagination(2, 10)
+    bankAccount, err := api.BankAccounts.ViewFromUser(john.ID, pagination)
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Print(bankAccount)
 }
 ```
 
@@ -147,29 +147,29 @@ You can integrate Mangopay features in a Service in your gin project.
 package main
 
 import (
-	"log"
-	"net/http"
+    "log"
+    "net/http"
 
-	"github.com/58-facettes/mangopay-go-sdk"
-	"github.com/gin-gonic/gin"
+    "github.com/58-facettes/mangopay-go-sdk"
+    "github.com/gin-gonic/gin"
 )
 
 var api = mangopay.NewWithBasicAuth("client-id", "client-password")
 
 func main() {
-	router := gin.Default()
-	router.GET("/users/:userID", HandlerUser)
-	router.Run(":8080")
+    router := gin.Default()
+    router.GET("/users/:userID", HandlerUser)
+    router.Run(":8080")
 }
 
 func HandlerUser(ctx *gin.Context) {
-	jhon, err := api.Users.View(ctx.Param("userID"))
-	if err != nil {
-		log.Println("error is ", err.Error())
-		ctx.AbortWithError(400, err)
-		return
-	}
-	ctx.JSON(http.StatusOK, jhon)
+    jhon, err := api.Users.View(ctx.Param("userID"))
+    if err != nil {
+        log.Println("error is ", err.Error())
+        ctx.AbortWithError(400, err)
+        return
+    }
+    ctx.JSON(http.StatusOK, jhon)
 }
 ```
 
@@ -203,12 +203,14 @@ api.Conig.Logger = &MyLogger{};
 According to API docs (https://docs.mangopay.com/guide/rate-limiting), MangoPay is providing a way of 
 verifying how many API calls were made, how many are left and when the counter will be reset. 
 So there are 4 groups of rate limits available:
+
 1. Last 15 minutes:
 2. Last 30 minutes
 3. Last 60 minutes
 4. Last 24 hours
 
 This information is available from the MangoPayApi instance, like in the following example:
+
 ```go
 package main
 
@@ -217,8 +219,8 @@ import (
 )
 
 func main() {
-	api := mangopay.NewWithBasicAuth("your-client-id","your-client-password")
-	rl, _ := api.Stats.GetRateLimit()
+    api := mangopay.NewWithBasicAuth("your-client-id","your-client-password")
+    rl, _ := api.Stats.GetRateLimit()
     log.Println(rl)
 }
 ```
