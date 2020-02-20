@@ -3,6 +3,7 @@ package mangopay
 import (
 	"encoding/base64"
 
+	"github.com/58-facettes/mangopay-go-sdk/data"
 	"github.com/58-facettes/mangopay-go-sdk/log"
 	"github.com/58-facettes/mangopay-go-sdk/model"
 	"github.com/58-facettes/mangopay-go-sdk/service"
@@ -17,20 +18,18 @@ const (
 	ModeProduction = "production"
 )
 
-var (
-	// Mode is the mode of the SDK calls by defaults this is set to test mode.
-	Mode = ModeTest
-	// Logger is the default internal logging tool that is used.
-	// This can be replaced by another logging tool of your choice like Zap or Logrus.
-	Logger log.Logger = log.DefaultLogger
-)
+// Config allow the way you desire to use the API.
+// by default this is using an internal logger with a basicAuth in tesing Mode.
+var Config = &config{
+	Logger:         log.DefaultLogger,
+	UseBasicAuth:   true,
+	Mode:           ModeTest,
+	UseIdempotency: false,
+}
 
 // API holds all the services for calling Mongopay API.
 type API struct {
-	isBasicAuth    bool
-	clientID       string
-	clientPassword string
-	logr           log.Logger
+	logr log.Logger
 	// List of all avalable services.
 	Clients             *service.Clients
 	ClientWallets       *service.ClientWallets
@@ -62,6 +61,19 @@ type API struct {
 	Idempotencies       *service.Idempotencies
 }
 
+type config struct {
+	// env mode.
+	Mode string
+	// logger used.
+	Logger log.Logger
+	// DB used for idempotency.
+	DB data.Manager
+	// Use idempotency.
+	UseIdempotency bool
+	// UseBasicAuth for knowing if it use the basicAuth.
+	UseBasicAuth bool
+}
+
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
 func NewWithBasicAuth(clientID, clientPassword string) *API {
 	return newConnect(clientID, clientPassword, true)
@@ -72,19 +84,15 @@ func NewWithOAuth(clientID, clientPassword string) *API {
 	return newConnect(clientID, clientPassword, false)
 }
 
-func newConnect(clientID, clientPassword string, isBasicAuth bool) *API {
-	api := API{
-		isBasicAuth:    isBasicAuth,
-		clientID:       clientID,
-		clientPassword: clientPassword,
-	}
-	api.logr = Logger
-	service.SetLogger(Logger)
+func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
+	Config.UseBasicAuth = isBasicAuth
+	api.logr = Config.Logger
+	service.SetLogger(Config.Logger)
 	// init basicAuth.
-	service.UseBasicAuth = isBasicAuth
+	service.UseBasicAuth = Config.UseBasicAuth
 	service.BasicAuth = "Basic " + base64.StdEncoding.EncodeToString([]byte(clientID+":"+clientPassword))
 	// init base URL.
-	switch Mode {
+	switch Config.Mode {
 	case ModeProduction:
 		service.BaseURL = "https://api.mangopay.com/" + APIVersion + "/" + clientID + "/"
 	default:
@@ -118,7 +126,7 @@ func newConnect(clientID, clientPassword string, isBasicAuth bool) *API {
 	api.PermissionGroups = new(service.PermissionGoups)
 	api.Reports = new(service.Reports)
 	api.Idempotencies = new(service.Idempotencies)
-	return &api
+	return
 }
 
 // RateLimits retreve a rate limit value from the given rate range.

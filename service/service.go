@@ -8,8 +8,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/58-facettes/mangopay-go-sdk/data"
 	"github.com/58-facettes/mangopay-go-sdk/log"
 	"github.com/58-facettes/mangopay-go-sdk/model"
+	"github.com/google/uuid"
 )
 
 var (
@@ -21,12 +23,17 @@ var (
 	logr log.Logger
 	// UseBasicAuth checks if the request use oAuth or BasicAuth.
 	UseBasicAuth bool
+	// UseIdempotency checks if we use or not Idempotency key.
+	UseIdempotency bool
+	// DB is used to store the idempotency key.
+	DB data.Manager
 )
 
 // DefaultClient is the default Client and is used by Get, Head, and Post.
 var DefaultClient = &http.Client{}
 
 func newRequestAndExecute(method, uri string, payload interface{}) (int, []byte, error) {
+	url := BaseURL + uri
 	// create the request.
 	var r *http.Request
 	var err error
@@ -35,24 +42,29 @@ func newRequestAndExecute(method, uri string, payload interface{}) (int, []byte,
 		if err != nil {
 			return http.StatusInternalServerError, nil, err
 		}
-		r, err = http.NewRequest(method, BaseURL+uri, bytes.NewBuffer(body))
+		r, err = http.NewRequest(method, url, bytes.NewBuffer(body))
 		if err != nil {
 			return http.StatusInternalServerError, nil, err
 		}
 	} else {
-		r, err = http.NewRequest(method, BaseURL+uri, nil)
+		r, err = http.NewRequest(method, url, nil)
 		if err != nil {
 			return http.StatusInternalServerError, nil, err
 		}
 	}
-	logr.Debug("base url call is ", BaseURL+uri)
-
 	// add basicAuth or oAuth token to the header.
 	err = setAccessHeader(r)
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}
 	r.Header.Set("Content-Type", "application/json")
+
+	// add idempotency key.
+	if UseIdempotency {
+		key := uuid.New().String()
+		saveKey(key, url)
+		r.Header.Set("Idempotency-Key", key)
+	}
 
 	// execute the request.
 	client := DefaultClient
@@ -67,7 +79,6 @@ func newRequestAndExecute(method, uri string, payload interface{}) (int, []byte,
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}
-	logr.Debug("response", string(data))
 
 	if resp.StatusCode != http.StatusOK {
 		return resp.StatusCode, nil, parseErrorResponse(data)
@@ -155,3 +166,21 @@ type accessTokenResponse struct {
 }
 
 var oauthAccessToken *accessTokenResponse
+
+func saveKey(key, url string) {
+	go func() {
+		t := time.NewTimer(5 * time.Second)
+		go func() {
+			for {
+				select {
+				case <-t.C:
+					return
+				}
+			}
+		}()
+		err := DB.SaveIdempotencyKey(key, url)
+		if err != nil {
+			logr.Errorf("mangopay: try to save the idempotency key got error:", err)
+		}
+	}()
+}
