@@ -2,6 +2,7 @@ package mangopay
 
 import (
 	"encoding/base64"
+	"net/http"
 
 	"github.com/58-facettes/mangopay-go-sdk/data"
 	"github.com/58-facettes/mangopay-go-sdk/log"
@@ -25,6 +26,7 @@ var Config = &config{
 	UseBasicAuth:   true,
 	Mode:           ModeTest,
 	UseIdempotency: false,
+	HTTPClient:     http.DefaultClient,
 }
 
 // API holds all the services for calling Mongopay API.
@@ -72,6 +74,8 @@ type config struct {
 	UseIdempotency bool
 	// UseBasicAuth for knowing if it use the basicAuth.
 	UseBasicAuth bool
+	// HTTPClient for http calls you can bring your own by default this is the http.Client{}.
+	HTTPClient *http.Client
 }
 
 // NewWithBasicAuth sends a new Mangonpay client with Basic Auth.
@@ -85,6 +89,7 @@ func NewWithOAuth(clientID, clientPassword string) *API {
 }
 
 func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
+	service.DefaultClient = Config.HTTPClient
 	Config.UseBasicAuth = isBasicAuth
 	api.logr = Config.Logger
 	service.SetLogger(Config.Logger)

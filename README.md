@@ -80,18 +80,13 @@ import(
 )
 
 func main() {
-    // mangopay.Mode = mangopay.Production // uncomment this to use the production environment
+    // mangopay.Config.Mode = mangopay.Production // uncomment this to use the production environment
+    // mangopay.Config.HTTPClient.Timeout = 3 * time.Second // The cURL response timeout in seconds (its 30 by default)
     api := mangopay.NewWithBasicAuth("your-client-id","your-client-password")
-    api.TempPath = "/some/path/"
-    // api.ResponseTimeout = 20 // The cURL response timeout in seconds (its 30 by default)
-    // api.ConnectionTimeout = 60;//The cURL connection timeout in seconds (its 80 by default)
-    // api.CertificatesFilePath = "" //Absolute path to file holding one or more certificates
-    // to verify the peer with (if empty, there won't be any verification of the peer's certificate).
-    users, err = api.Users.GetAll()
+    users, err = api.Users.List(nil)
     if err != nil {
         log.Fatal(err)
     }
-
     log.Print(users)
 }
 ```
@@ -109,7 +104,7 @@ import (
 )
 
 func main() {
-	// mangopay.Mode = mangopay.Production // uncomment this to use the production environment.
+	// mangopay.Config.Mode = mangopay.Production // uncomment this to use the production environment.
 	api := mangopay.NewWithBasicAuth("client-id", "client-pass")
 
 	john, err := api.Users.View("someID")
@@ -200,7 +195,7 @@ func (ml *MyLogger)Fatal(args ...interface{})
 func (ml *MyLogger)Fatalf(template string, args ...interface{})
 func (ml *MyLogger)Warnf(template string, args ...interface{})
 
-api.Logger = &MyLogger{};
+api.Conig.Logger = &MyLogger{};
 ```
 
 ## Verifying rate limits status
