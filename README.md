@@ -101,43 +101,44 @@ func main() {
 ```go
 package main
 
-import(
-    "github.com/58-facettes/magopay-go-sdk"
+import (
+	"log"
+
+	"github.com/58-facettes/mangopay-go-sdk"
+	"github.com/58-facettes/mangopay-go-sdk/model"
 )
 
 func main() {
-    // mangopay.Mode = mangopay.Production // uncomment this to use the production environment.
-    api := mangopay.NewWithBasicAuth("your-client-id","your-client-password")
-    api.TempPath = "/some/path/"
+	// mangopay.Mode = mangopay.Production // uncomment this to use the production environment.
+	api := mangopay.NewWithBasicAuth("client-id", "client-pass")
 
-    john, err := api.Users.Get("someID")
-    if err != nil {
-        log.Fatal(err)
-    }
-    log.Print(john)
+	john, err := api.Users.View("someID")
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Print(john)
 
-    // change and update some of his data.
-    _, err = api.Users.Update("someID", &model.UserUpdate{
-        LastName: " - CHANGED",
-    })
-    log.Print(err)
+	// change and update some of his data.
+	_, err = api.Users.UpdateNaturalUser("someID", &model.NaturalUserUpdate{
+		FirstName: " - CHANGED",
+	})
+	log.Print(err)
 
-    // get all users (with pagination)
-    pagination := model.NewPagination(1, 8)
-    users, err := api.Users.GetAll(pagination)
-    if err != nil {
-        log.Fatal(err)
-    }
-    log.Print(users)
+	// get all users (with pagination)
+	pagination := model.NewPagination(0, 8)
+	users, err := api.Users.List(pagination)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Print(users)
 
-    // get his bank accounts
-    pagination = model.NewPagination(2, 10)
-    users, err := api.Users.GetBankAccounts(john.ID, pagination)
-    if err != nil {
-        log.Fatal(err)
-    }
-    log.Print(users)
-
+	// get his bank accounts
+	pagination = model.NewPagination(2, 10)
+	bankAccount, err := api.BankAccounts.ViewFromUser(john.ID, pagination)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Print(bankAccount)
 }
 ```
 

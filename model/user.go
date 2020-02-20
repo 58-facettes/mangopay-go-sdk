@@ -92,7 +92,32 @@ type NaturalUserCreate struct {
 }
 
 type NaturalUserUpdate struct {
-	NaturalUserCreate
+	// FirstName is the name of the user.
+	FirstName string `json:"FirstName,omitempty"`
+	// LastName is the last name of the user.
+	LastName string `json:"LastName,omitempty"`
+	// Address is the address.
+	Address Address `json:"Address,omitempty"`
+	// Birthday is the date of birth of the user
+	// be careful to set the right timezone (should be UTC)
+	// to avoid 00h becoming 23h (and hence interpreted as the day before).
+	Birthday int64 `json:"Birthday,omitempty"`
+	// Nationality is the user’s nationality. ISO 3166-1 alpha-2 format is expected.
+	Nationality string `json:"Nationality,omitempty"`
+	// CountryOfResidence The user’s country of residence. ISO 3166-1 alpha-2 format is expected.
+	CountryOfResidence string `json:"CountryOfResidence,omitempty"`
+	// Occupation is the User’s occupation, ie. Work.
+	Occupation string `json:"Occupation,omitempty"`
+	// Could be only one of these values:
+	//     1 - for incomes <18K€),
+	//     2 - for incomes between 18 and 30K€,
+	//     3 - for incomes between 30 and 50K€,
+	//     4 - for incomes between 50 and 80K€,
+	//     5 - for incomes between 80 and 120K€,
+	//     6 - for incomes >120K€.
+	IncomeRange int `json:"IncomeRange,omitempty"`
+	// Email The person's email address (not more than 12 consecutive numbers) - must be a valid email
+	Email string `json:"Email,omitempty"`
 }
 
 type LegalPerson string

@@ -20,8 +20,8 @@ func (BankAccounts) View(bankAccountID string) (res *model.BankAccount, err erro
 }
 
 // ViewFromUser display all the BankAccounts informtion from the given userID.
-func (BankAccounts) ViewFromUser(userID string) (res []model.BankAccount, err error) {
-	_, data, err := newRequestAndExecute(http.MethodGet, "users/"+userID+"/bankaccounts/", nil)
+func (BankAccounts) ViewFromUser(userID string, query *model.Query) (res []model.BankAccount, err error) {
+	_, data, err := newRequestAndExecute(http.MethodGet, queryURI("users/"+userID+"/bankaccounts/", query), nil)
 	if err != nil {
 		return
 	}
