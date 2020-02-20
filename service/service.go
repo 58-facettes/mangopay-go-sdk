@@ -131,7 +131,7 @@ func setAccessHeader(r *http.Request) error {
 }
 
 func newTokenRequest() (*accessTokenResponse, error) {
-	r, err := http.NewRequest(http.MethodPost, BaseURL+"oauth/token/", nil)
+	r, err := http.NewRequest(http.MethodPost, BaseURL+"oauth/token/", bytes.NewBuffer([]byte("{\"empty\":\"\"}")))
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +165,9 @@ type accessTokenResponse struct {
 	ExpiresAt   int64  `json:"_"`
 }
 
-var oauthAccessToken *accessTokenResponse
+var oauthAccessToken *accessTokenResponse = &accessTokenResponse{
+	ExpiresAt: time.Now().Unix(),
+}
 
 func saveKey(key, url string) {
 	go func() {

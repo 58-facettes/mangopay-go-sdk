@@ -12,10 +12,10 @@ import (
 const (
 	// APIVersion is the current API version in the URI calls.
 	APIVersion = "v2.01"
-	// ModeTest is for using the API sandbox.
-	ModeTest = "test"
-	// ModeProduction is for the API production.
-	ModeProduction = "production"
+	// Test is for using the API sandbox.
+	Test = "test"
+	// Production is for the API production.
+	Production = "production"
 )
 
 type config struct {
@@ -38,7 +38,7 @@ type config struct {
 var Config = &config{
 	Logger:         log.DefaultLogger,
 	UseBasicAuth:   true,
-	Mode:           ModeTest,
+	Mode:           Test,
 	UseIdempotency: false,
 	DB:             nil, // we don't use idempotency to we don't need to store the keys.
 	HTTPClient:     http.DefaultClient,
@@ -88,11 +88,16 @@ func NewWithOAuth(clientID, clientPassword string) *API {
 	return newConnect(clientID, clientPassword, false)
 }
 
-func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
+func newConnect(clientID, clientPassword string, isBasicAuth bool) *API {
+	api := new(API)
 	service.DefaultClient = Config.HTTPClient
 	service.UseIdempotency = Config.UseIdempotency
-	service.DB = Config.DB
-	api.logr = Config.Logger
+	if Config.DB != nil {
+		service.DB = Config.DB
+	}
+	if Config.Logger != nil {
+		api.logr = Config.Logger
+	}
 	service.SetLogger(Config.Logger)
 	// init basicAuth.
 	Config.UseBasicAuth = isBasicAuth
@@ -100,7 +105,7 @@ func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
 	service.BasicAuth = "Basic " + base64.StdEncoding.EncodeToString([]byte(clientID+":"+clientPassword))
 	// init base URL.
 	switch Config.Mode {
-	case ModeProduction:
+	case Production:
 		service.BaseURL = "https://api.mangopay.com/" + APIVersion + "/" + clientID + "/"
 	default:
 		service.BaseURL = "https://api.sandbox.mangopay.com/" + APIVersion + "/" + clientID + "/"
@@ -133,5 +138,5 @@ func newConnect(clientID, clientPassword string, isBasicAuth bool) (api *API) {
 	api.PermissionGroups = new(service.PermissionGoups)
 	api.Reports = new(service.Reports)
 	api.Idempotencies = new(service.Idempotencies)
-	return
+	return api
 }
